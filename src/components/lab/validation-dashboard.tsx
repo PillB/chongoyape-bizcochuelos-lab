@@ -9,6 +9,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/
 import { ClipboardCheck, AlertOctagon, CheckCircle2, AlertTriangle, RotateCcw } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import type { ValidationRound, FailureTest } from './types'
+import { FailureRiskMatrix } from './failure-risk-matrix'
 
 const lensLabels: Record<string, string> = {
   structural: 'Structural plausibility',
@@ -132,6 +133,12 @@ export function ValidationDashboard({
             icon={<AlertOctagon className="h-5 w-5 text-primary" />}
           />
 
+          {/* Risk matrix overview */}
+          <div className="mb-6">
+            <FailureRiskMatrix failures={failures} />
+          </div>
+
+          {/* Individual failure cards */}
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
             {failures.map((f) => (
               <Card key={f.id} className={cn('bg-card/60', f.severity === 'critical' && 'border-rose-200 dark:border-rose-900')}>

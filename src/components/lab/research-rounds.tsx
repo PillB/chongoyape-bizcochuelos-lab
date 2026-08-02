@@ -7,6 +7,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/
 import { SectionHeader } from './section-header'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { BookOpen, ChevronRight, Search, Scale, FlaskRound, Layers, CheckCircle2 } from 'lucide-react'
+import { cn } from '@/lib/utils'
 import type { ResearchRound } from './types'
 
 const kindIcon: Record<string, React.ReactNode> = {
@@ -16,6 +17,15 @@ const kindIcon: Record<string, React.ReactNode> = {
   counter: <ChevronRight className="h-4 w-4" />,
   ingredient: <FlaskRound className="h-4 w-4" />,
   synthesis: <Layers className="h-4 w-4" />,
+}
+
+const kindAccent: Record<string, string> = {
+  memory: 'bg-violet-400',
+  primary: 'bg-primary',
+  corroboration: 'bg-emerald-400',
+  counter: 'bg-rose-400',
+  ingredient: 'bg-amber-400',
+  synthesis: 'bg-teal-400',
 }
 
 export function ResearchRounds({ rounds }: { rounds: ResearchRound[] }) {
@@ -36,17 +46,20 @@ export function ResearchRounds({ rounds }: { rounds: ResearchRound[] }) {
                 <AccordionItem
                   key={r.id}
                   value={`round-${r.id}`}
-                  className="border border-border rounded-lg overflow-hidden bg-card/60"
+                  className="border border-border rounded-lg overflow-hidden bg-card/60 hover:shadow-sm transition-shadow relative"
                 >
-                  <AccordionTrigger className="px-4 py-3.5 hover:bg-accent/40 hover:no-underline group">
+                  {/* Left accent bar — color by kind */}
+                  <div className={cn('absolute left-0 top-0 bottom-0 w-1', kindAccent[r.kind] ?? 'bg-primary/40')} />
+                  <AccordionTrigger className="px-4 py-3.5 pl-5 hover:bg-accent/40 hover:no-underline group">
                     <div className="flex items-center gap-3 text-left flex-1 min-w-0">
-                      <div className="flex-shrink-0 w-8 h-8 rounded-md bg-primary/10 border border-primary/20 flex items-center justify-center text-primary">
-                        {kindIcon[r.kind] ?? <Search className="h-4 w-4" />}
+                      {/* Round number badge */}
+                      <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center text-primary font-mono font-bold text-sm tabular-nums">
+                        R{r.round}
                       </div>
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center gap-2 flex-wrap">
-                          <span className="font-mono text-xs text-muted-foreground">
-                            R{r.round} · {r.kind}
+                          <span className="font-mono text-[10px] uppercase tracking-wider text-muted-foreground">
+                            {r.kind}
                           </span>
                           {r.continueResearch ? (
                             <Badge variant="outline" className="text-[10px] h-5 bg-sky-50 text-sky-700 border-sky-200 dark:bg-sky-950/40 dark:text-sky-300 dark:border-sky-800">
@@ -62,7 +75,7 @@ export function ResearchRounds({ rounds }: { rounds: ResearchRound[] }) {
                       </div>
                     </div>
                   </AccordionTrigger>
-                  <AccordionContent className="px-4 pb-4 pt-1">
+                  <AccordionContent className="px-4 pb-4 pt-1 pl-5">
                     <motion.div
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}

@@ -435,3 +435,60 @@ Unresolved / next-phase priorities:
 4. Could add URL hash state for the substitution explorer selection (shareable links).
 5. Mobile viewport testing still limited.
 6. The page is now very long (~18,845px) — could consider a " condensed view" toggle.
+
+---
+Task ID: 7 (cron webDevReview round 7)
+Agent: main (Z.ai Code)
+Task: QA assessment, failure-test risk matrix, research rounds visual enhancement.
+
+Work Log:
+- Reviewed worklog.md (Tasks 0-6) to understand project state.
+- QA assessment: dev server stable (HTTP 200, ~43ms), lint clean (0 errors), DOM audit confirmed all 12 sections + main-content, sandbox, stats band, formula breakdown, substitution explorer, section rail, theme toggle, 6 donut sectors, 1 radar polygon, no runtime errors, page height ~18,845px. No bugs found — project is stable and mature.
+- VLM QA on 6 section screenshots (research, evidence, validation, failures, complexity) identified: need for a failure-test risk matrix visualization, and research rounds needed better visual flow with accent bars.
+
+New features added:
+1. **Failure-Test Risk Matrix** (failure-risk-matrix.tsx):
+   - New visual component added at the top of the Failure-Test Specification section (section 09).
+   - Summary bar: 6 stat cards showing severity counts (Critical/Major/Minor with mini progress bars) and status counts (Predicted/Tested/Mitigated).
+   - Categorized grid: failure modes grouped by category (Structure, Crumb, Crust, Flavor, Shelf life) with colored headers and count badges.
+   - Each failure card has: left severity bar (rose/amber/yellow), failure mode name, status icon (○/●/✓), severity label, status label, threshold value.
+   - Interactive filter: buttons to filter by severity (all/critical/major/minor).
+   - Staggered reveal animations (framer-motion).
+   - Legend explaining severity colors and status icons.
+   - Verified: filter works — clicking "critical" shows only 4 critical failure modes. VLM confirmed "Critical: 4, Major: 6, Minor: 4, Predicted: 14".
+
+2. **Enhanced Research Rounds** (research-rounds.tsx):
+   - Added left accent bars to each accordion item, color-coded by research kind (memory=violet, primary=amber, corroboration=emerald, counter=rose, ingredient=amber, synthesis=teal).
+   - Replaced small icon boxes with larger round-number badges (R0, R1, etc.) in rounded squares with primary color.
+   - Improved typography: kind label now uppercase tracking-wider.
+   - Added hover shadow effect on accordion items.
+   - Adjusted padding to accommodate the accent bar (pl-5).
+   - VLM confirmed: "left accent bars in different colors, round-number badges in squares, significantly more polished."
+
+Architecture changes:
+- validation-dashboard.tsx: imported and rendered FailureRiskMatrix at the top of the failures section, before the individual failure cards.
+- research-rounds.tsx: added kindAccent config, cn import, left accent bars, round-number badges.
+- New component: failure-risk-matrix.tsx.
+
+Verification:
+- ESLint: 0 errors, 0 warnings.
+- Dev server: HTTP 200 on / and /api/lab.
+- DOM audit: all 12 sections + main-content present, risk matrix found, sandbox found, stats band found, formula breakdown found, substitution explorer found, section rail found, theme toggle found, 6 donut sectors, 1 radar polygon, no runtime errors, page height ~19,806px (grew from 18,845px due to risk matrix).
+- Risk matrix filter: clicked "critical" filter, matrix correctly showed only 4 critical failure modes. VLM confirmed "Critical: 4, Major: 6, Minor: 4, Predicted: 14, Tested: 0, Mitigated: 0".
+- Research rounds: VLM confirmed "left accent bars in different colors, round-number badges (R2) in squares with rounded corners, significantly more polished and structured."
+- Full-page VLM QA: 8/10 polish. "Incredibly dense, highly structured, visually consistent, resembling a professional scientific or engineering dossier."
+
+Stage Summary:
+- Phase 0 lab enhanced with 2 features: failure-test risk matrix and enhanced research rounds.
+- The Failure-Test Risk Matrix transforms the flat list of 14 failure modes into a scannable visual heatmap grouped by category, with interactive severity filtering and summary stats.
+- The research rounds now have visual differentiation via colored accent bars (one per research kind) and prominent round-number badges.
+- All features verified working via DOM audit and VLM visual QA.
+- Full-page polish rated 8/10 (VLM noted "extreme information density" as the main concern — inherent to the comprehensive lab format).
+
+Unresolved / next-phase priorities:
+1. Kitchen tests still cannot be executed (predicted checks remain predicted).
+2. The page is now ~19,806px — very long. Could add a "condensed/summary view" toggle.
+3. Mobile viewport testing still limited.
+4. Could add URL hash state for risk matrix filter and substitution explorer selection.
+5. The risk matrix could be expanded with a "mitigation plan" for each critical failure.
+6. Could add a print-friendly summary card with key findings for bakers.
