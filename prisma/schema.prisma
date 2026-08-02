@@ -1,0 +1,143 @@
+// Prisma schema for the Chongoyape Bizcochuelos Reverse-Engineering Lab.
+// All entities store the structured evidence, ledgers, and recipe programme
+// required by the Red-Green-Refactor validation protocol.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// A single claim with an explicit confidence rating and evidence basis.
+model Claim {
+  id           String   @id @default(cuid())
+  category     String   // historical | regulatory | visual | ingredient | technique | business | recipe
+  statement    String
+  confidence   String   // confirmed | strongly-supported | plausible | weak | contradicted | unresolved
+  evidenceBasis String
+  counterTest  String?
+  status       String   @default("open") // open | revised | downgraded | removed
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+// Ingredient Decision Ledger entry.
+model Ingredient {
+  id              String   @id @default(cuid())
+  name            String
+  grams           Float
+  percent         Float
+  bakerPercent    Float
+  function        String
+  evidence        String
+  confidence      String   // high | medium | low
+  limaAvailability String   // common | specialist | uncertain
+  supermarketOption String
+  substitution    String
+  ratioAdjustment String
+  expectedEffect  String
+  newRisk         String
+  omissionResult  String
+  tier            String   // core | substitution | diagnostic | speculative | rejected
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+
+// Technique Decision Ledger entry.
+model Technique {
+  id               String   @id @default(cuid())
+  name             String
+  function         String
+  targetEvidence   String
+  simplerAlternative String
+  failureMode      String
+  measurement      String
+  tier             String   // core | optional | reject
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+}
+
+// Substitution matrix row.
+model Substitution {
+  id            String   @id @default(cuid())
+  original      String
+  substitute    String
+  propertyReplaced String
+  propertyLost  String
+  quantityAdjustment String
+  techniqueAdjustment String
+  confidence    String
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+// A recipe variant at one of the four hierarchy levels.
+model RecipeVariant {
+  id           String   @id @default(cuid())
+  name         String
+  level        Int      // 1=core, 2=substitution, 3=diagnostic, 4=speculative
+  summary      String
+  question     String?
+  mainVariable String?
+  expectedEffect String?
+  control      String?
+  successCriterion String?
+  abandonmentCriterion String?
+  ingredientsJson String // JSON array of {name, grams, percent, note}
+  stepsJson    String   // JSON array of step strings
+  yieldNote    String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+// A validation round result.
+model ValidationRound {
+  id        String   @id @default(cuid())
+  round     Int
+  lens      String   // structural | historical | target-comparison | lima-practicality | adversarial | parsimony
+  checksJson String  // JSON array of {check, result, status}
+  defects   String?
+  status    String   // pass | revise | reopen
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// Complexity-removal log entry.
+model ComplexityLog {
+  id        String   @id @default(cuid())
+  original  String
+  problem   String
+  action    String
+  result    String
+  createdAt DateTime @default(now())
+}
+
+// Pre-research round record.
+model ResearchRound {
+  id            String   @id @default(cuid())
+  phase         String
+  round         Int
+  kind          String   // memory | primary | corroboration | counter | ingredient | synthesis
+  findings      String
+  strengthened  String
+  weakened      String
+  contradictions String
+  decisionsChanged String
+  unresolved    String
+  continueResearch Boolean @default(false)
+  createdAt     DateTime @default(now())
+}
+
+// A failure-test specification entry.
+model FailureTest {
+  id          String   @id @default(cuid())
+  failureMode String
+  threshold   String
+  detection   String
+  severity    String   // critical | major | minor
+  status      String   // predicted | tested | mitigated
+  createdAt   DateTime @default(now())
+}
