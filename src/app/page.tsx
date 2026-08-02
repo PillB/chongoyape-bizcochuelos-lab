@@ -13,6 +13,7 @@ import { SubstitutionMatrix } from '@/components/lab/substitution-matrix'
 import { RecipeLab } from '@/components/lab/recipe-lab'
 import { RecipeScaler } from '@/components/lab/recipe-scaler'
 import { RecipeComparison } from '@/components/lab/recipe-comparison'
+import { IngredientBreakdown } from '@/components/lab/ingredient-breakdown'
 import { ValidationDashboard } from '@/components/lab/validation-dashboard'
 import { ValidationRadar } from '@/components/lab/validation-radar'
 import { ComplexityLog } from '@/components/lab/complexity-log'
@@ -22,6 +23,7 @@ import { ReadingProgress } from '@/components/lab/reading-progress'
 import { BackToTop } from '@/components/lab/back-to-top'
 import { SectionReveal } from '@/components/lab/section-reveal'
 import { ProtocolFlow } from '@/components/lab/protocol-flow'
+import { LabStatsBand } from '@/components/lab/lab-stats-band'
 import { GlossaryCard } from '@/components/lab/glossary'
 import { Skeleton } from '@/components/ui/skeleton'
 import { FlaskConical } from 'lucide-react'
@@ -110,6 +112,17 @@ export default function Page() {
       <main id="main-content" className="flex-1">
         <Hero data={data} />
 
+        <LabStatsBand
+          stats={{
+            claims: data.claims.length,
+            ingredients: data.ingredients.length,
+            techniques: data.techniques.length,
+            recipes: data.recipes.length,
+            validations: data.validations.length,
+            complexityRemoved: data.complexity.length,
+          }}
+        />
+
         <ProtocolFlow />
 
         <SectionReveal>
@@ -150,7 +163,7 @@ export default function Page() {
           <SubstitutionMatrix substitutions={data.substitutions} />
         </SectionReveal>
 
-        {/* Recipe lab with scaler + comparison + glossary */}
+        {/* Recipe lab with scaler + comparison + breakdown + glossary */}
         <SectionReveal>
           <section id="recipe-lab" className="scroll-mt-20 py-16 sm:py-20 border-b border-border/60">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -158,8 +171,11 @@ export default function Page() {
               <div className="mt-6">
                 <RecipeComparison recipes={data.recipes} />
               </div>
-              <div className="mt-6 grid lg:grid-cols-[1fr_360px] gap-4 items-start">
+              <div className="mt-6 grid lg:grid-cols-2 gap-4 items-start">
                 <RecipeScaler />
+                <IngredientBreakdown recipes={data.recipes} />
+              </div>
+              <div className="mt-6">
                 <GlossaryCard />
               </div>
             </div>

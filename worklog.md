@@ -250,3 +250,74 @@ Unresolved / next-phase priorities:
 4. A "share comparison" feature (URL state for selected variants) could be added.
 5. Print CSS could be expanded for the comparison table.
 6. Mobile viewport testing still limited.
+
+---
+Task ID: 4 (cron webDevReview round 4)
+Agent: main (Z.ai Code)
+Task: QA assessment, new data visualizations, animated stats band, and inline glossary tooltips.
+
+Work Log:
+- Reviewed worklog.md (Tasks 0-3) to understand project state.
+- QA assessment: dev server stable (HTTP 200, ~38ms), lint clean (0 errors), DOM audit confirmed all 12 sections + main-content, theme toggle, comparison card, protocol flow, 6 donut sectors, 1 radar polygon, no runtime errors, page height ~16,930px. No bugs found — project is stable and mature.
+- VLM QA on 4 section screenshots (hero, research, evidence, verdict) identified improvement opportunities: need for data visualizations, animated counters, and inline glossary term highlighting.
+
+New features added:
+1. **Formula Breakdown Chart** (ingredient-breakdown.tsx):
+   - New card in the Recipe Lab section, placed side-by-side with the Recipe Scaler.
+   - Stacked horizontal bar chart showing ingredient composition by weight percentage.
+   - Ingredients auto-categorized by type (eggs, sugar, flour, starch, fat, salt, flavoring, leavener) with warm bakery color palette.
+   - Animated segment expansion (framer-motion, staggered by 0.06s).
+   - Hover tooltips on each segment showing category, grams, and percentage.
+   - Category legend with detail cards showing ingredient names, grams, and percentages.
+   - Variant selector dropdown — switch between any recipe variant to see its composition.
+   - Scale markers (0%, 25%, 50%, 75%, 100%) below the bar.
+   - Info note explaining the difference between weight % and baker's %.
+   - Verified: Core recipe shows 44% eggs, 28% sugar, 28% flour, 0.3% salt.
+
+2. **Animated Lab Stats Band** (lab-stats-band.tsx):
+   - New section between hero and protocol flow.
+   - 6 animated counters with count-up animation (ease-out cubic, 1.2s duration) triggered on scroll-into-view.
+   - Stats: 15 Claims audited, 12 Ingredients, 16 Techniques, 9 Recipe variants, 6 Validation rounds, 9 Complexity removed.
+   - Each stat has a distinct color (primary, amber, teal, violet, rose, emerald).
+   - Sublabels provide context (e.g., "4 tiers", "6 adversarial lenses").
+   - Responsive grid: 2 cols mobile → 3 cols tablet → 6 cols desktop.
+   - Gradient background with backdrop blur for visual depth.
+   - Verified: VLM confirmed all 6 counters visible with correct numbers.
+
+3. **Inline Glossary Tooltips** (GlossaryText component in glossary.tsx):
+   - New GlossaryText component that renders text with any glossary terms automatically wrapped in interactive tooltips.
+   - Case-insensitive, whole-word matching using a regex built from the 15 glossary terms.
+   - Longer terms matched first to avoid partial overlaps.
+   - Integrated into the Ingredient Ledger: Function, Evidence, Substitution, Expected effect, New risk, and Omission result fields now highlight terms like "chuño", "maicena", "Maillard", "algarrobina", "foam-only", etc.
+   - Clicking/hovering a highlighted term shows a tooltip with the full definition.
+   - Verified via DOM: "maicena" appears as a dotted-underlined amber link in the chuño ingredient's substitution field.
+
+Architecture changes:
+- page.tsx: added LabStatsBand between Hero and ProtocolFlow; added IngredientBreakdown alongside RecipeScaler in the recipe lab section; GlossaryCard now full-width below.
+- ingredient-ledger.tsx: Detail component extended with optional `glossary` prop; imports GlossaryText.
+- glossary.tsx: added GlossaryText exported component.
+
+Verification:
+- ESLint: 0 errors, 0 warnings.
+- Dev server: HTTP 200 on / and /api/lab.
+- DOM audit: all 12 sections + main-content present, stats band found, formula breakdown found, theme toggle found, 6 donut sectors, 1 radar polygon, no runtime errors, page height ~17,600px (grew from 16,930px due to new content).
+- Stats band: VLM confirmed "6 animated counters (Claims, Ingredients, Techniques, Variants, Rounds, Complexity) located near the top of the page" with correct numbers (15, 12, 16, 9, 6, 9).
+- Formula breakdown: VLM confirmed "stacked horizontal bar chart titled 'Composition by weight'" with segments "44% eggs, 28% sugar, 28% flour, 0.3% salt" and a detailed legend.
+- Glossary tooltips: DOM confirmed "maicena" rendered as a dotted-underlined amber button (glossary tooltip link) in the chuño ingredient's expanded detail.
+- Full-page VLM QA: 9/10 polish. "Exceptionally detailed, professional, and data-rich, resembling a high-end technical report. No major issues."
+
+Stage Summary:
+- Phase 0 lab enhanced with 3 new features: formula breakdown chart, animated stats band, and inline glossary tooltips.
+- The Formula Breakdown chart gives bakers an immediate visual understanding of the recipe's composition — eggs dominate at 44%, confirming the lean foam-only profile.
+- The animated stats band provides a scannable summary of the lab's scope right at the top of the page.
+- Inline glossary tooltips make technical terms self-documenting — no need to scroll to the glossary card to understand "chuño", "maicena", or "Maillard".
+- All features verified working via DOM audit and VLM visual QA.
+- Full-page polish rated 9/10.
+
+Unresolved / next-phase priorities:
+1. Kitchen tests still cannot be executed (predicted checks remain predicted).
+2. The comparison table could show method-step differences (not just ingredients).
+3. A "share comparison" feature (URL state) could be added.
+4. Print CSS could be expanded for the breakdown chart and comparison table.
+5. Mobile viewport testing still limited.
+6. Could add a "baker's percentage mode" toggle to the formula breakdown (switch between weight % and baker's %).

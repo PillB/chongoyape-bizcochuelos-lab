@@ -203,3 +203,29 @@ export function GlossaryCard() {
     </Card>
   )
 }
+
+// Renders text with any glossary terms automatically wrapped in tooltips.
+// Case-insensitive matching, whole-word only.
+export function GlossaryText({ children, className }: { children: string; className?: string }) {
+  // Build a regex from all glossary terms (sorted by length desc to match longer terms first)
+  const terms = Object.keys(glossary).sort((a, b) => b.length - a.length)
+  if (terms.length === 0) return <span className={className}>{children}</span>
+
+  const pattern = new RegExp(
+    `\\b(${terms.map((t) => t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('|')})\\b`,
+    'gi',
+  )
+
+  const parts = children.split(pattern)
+  return (
+    <span className={className}>
+      {parts.map((part, idx) => {
+        const key = part.toLowerCase()
+        if (glossary[key]) {
+          return <GlossaryTooltip key={idx} term={key}>{part}</GlossaryTooltip>
+        }
+        return <span key={idx}>{part}</span>
+      })}
+    </span>
+  )
+}

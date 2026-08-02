@@ -9,6 +9,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/
 import { Beaker, Store, ArrowLeftRight } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import type { Ingredient } from './types'
+import { GlossaryText } from './glossary'
 
 const tiers = ['all', 'core', 'substitution', 'diagnostic', 'speculative', 'rejected']
 
@@ -99,15 +100,15 @@ export function IngredientLedger({ ingredients }: { ingredients: Ingredient[] })
                     </AccordionTrigger>
                     <AccordionContent className="px-4 pb-4 pt-1">
                       <div className="grid sm:grid-cols-2 gap-3 text-xs">
-                        <Detail label="Function" value={i.function} />
-                        <Detail label="Evidence" value={i.evidence} />
+                        <Detail label="Function" value={i.function} glossary />
+                        <Detail label="Evidence" value={i.evidence} glossary />
                         <Detail label="Confidence" valueNode={<ConfidenceBadge value={i.confidence} />} />
                         <Detail label="Lima availability" value={`${i.limaAvailability} — ${i.supermarketOption}`} />
-                        <Detail label="Substitution" value={i.substitution} />
+                        <Detail label="Substitution" value={i.substitution} glossary />
                         <Detail label="Ratio adjustment" value={i.ratioAdjustment} />
-                        <Detail label="Expected effect" value={i.expectedEffect} tone="emerald" />
-                        <Detail label="New risk" value={i.newRisk} tone="rose" />
-                        <Detail label="Omission result" value={i.omissionResult} tone="amber" />
+                        <Detail label="Expected effect" value={i.expectedEffect} tone="emerald" glossary />
+                        <Detail label="New risk" value={i.newRisk} tone="rose" glossary />
+                        <Detail label="Omission result" value={i.omissionResult} tone="amber" glossary />
                         <Detail label="Baker's %" value={`${i.bakerPercent}%`} />
                       </div>
                     </AccordionContent>
@@ -148,11 +149,13 @@ function Detail({
   value,
   valueNode,
   tone = 'slate',
+  glossary = false,
 }: {
   label: string
   value?: string
   valueNode?: React.ReactNode
   tone?: 'slate' | 'emerald' | 'rose' | 'amber'
+  glossary?: boolean
 }) {
   const toneClass = {
     slate: 'bg-muted/40 border-border',
@@ -165,7 +168,11 @@ function Detail({
       <div className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground mb-1">
         {label}
       </div>
-      {valueNode ?? <div className="text-[12px] leading-relaxed">{value}</div>}
+      {valueNode ?? (
+        <div className="text-[12px] leading-relaxed">
+          {glossary && value ? <GlossaryText>{value}</GlossaryText> : value}
+        </div>
+      )}
     </div>
   )
 }
