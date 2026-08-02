@@ -550,3 +550,69 @@ Unresolved / next-phase priorities:
 4. Mobile viewport testing still limited.
 5. Could add URL hash state for sharing specific views.
 6. Could add a "summary mode" that shows only section summaries (collapses all by default).
+
+---
+Task ID: 9 (cron webDevReview round 9)
+Agent: main (Z.ai Code)
+Task: QA assessment, baker's printable quick reference card, enhanced complexity log.
+
+Work Log:
+- Reviewed worklog.md (Tasks 0-8) to understand project state.
+- QA assessment: dev server stable (HTTP 200, ~44ms), lint clean (0 errors), DOM audit confirmed all 12 sections + main-content, collapse all control, risk matrix, sandbox, substitution explorer, section rail, theme toggle, no runtime errors, page height ~20,182px. No bugs found — project is stable and mature.
+- VLM QA on 5 section screenshots (hero, ingredients, recipe, validation, complexity) identified: need for a printable baker's reference card, and complexity log needed better visual treatment with header bar and stats.
+
+New features added:
+1. **Baker's Quick Reference Card** (bakers-quick-reference.tsx):
+   - A printable, self-contained reference card that distills the core recipe for a home baker.
+   - Placed in a new section between the Complexity Log and the Verdict.
+   - **Ingredients table**: compact 4-row table (eggs 240g, sugar 150g, flour 150g, salt 1.5g) with notes and total batter row (541.5g ≈ 6 cakes).
+   - **Method timeline**: 6 numbered steps (Preheat, Warm & whip, Sift & fold, Fill & tap, Bake, Cool) with time estimates and detailed instructions, connected by a vertical timeline line.
+   - **Observable checkpoints**: 2×2 grid (Ribbon stage, Fold complete, Doneness, Cool) with specific measurable criteria.
+   - **Common pitfalls**: 4 items with rose-colored arrows (underwhipping, overfolding, opening oven early, greased sides).
+   - **Print button**: triggers window.print() with a special body class (print-bakers-card) that uses CSS to show only the baker's card when printing.
+   - Footer with temperature, method, and version info.
+   - Amber gradient background with primary/30 border for visual prominence.
+   - VLM confirmed: "printable card with ingredients table, method timeline, checkpoints, pitfalls, and Print button."
+
+2. **Enhanced Complexity Log** (complexity-log.tsx):
+   - Complete rewrite with improved visual hierarchy.
+   - **3 stat cards** at the top with icons (TrendingDown, Layers, ListChecks), colored backgrounds (primary/amber/emerald), and large numbers.
+   - **Header bar** on the table card with a rose-tinted gradient, icon, "Removed elements" title, subtitle, and entry count.
+   - **Enhanced table headers**: 2px border, uppercase tracking-wider, icons in headers (X for Original, ArrowRight for Action, Check for Result).
+   - **Alternating row backgrounds** (idx % 2) for scannability.
+   - **Improved text styling**: text-[13px] leading-relaxed for better readability, font-medium on results.
+   - Custom scrollbar (scroll-warm class).
+   - VLM confirmed: "3 stat cards with icons, header bar with 'Removed elements' title, column headers with icons, significantly more polished."
+
+Styling improvements:
+- Added print CSS for baker's card mode (body.print-bakers-card) that hides everything except the card wrapper.
+- Added SectionDivider (dots variant) before the baker's card section.
+
+Architecture changes:
+- page.tsx: imported BakersQuickReference, added new section with bakers-card-wrapper class between Complexity Log and Verdict.
+- complexity-log.tsx: complete rewrite with StatCard sub-component, header bar, enhanced table.
+- globals.css: added print-bakers-card print mode CSS.
+- New component: bakers-quick-reference.tsx.
+
+Verification:
+- ESLint: 0 errors, 0 warnings.
+- Dev server: HTTP 200 on / and /api/lab (restarted once after a context deadline timeout).
+- DOM audit: all 12 sections + main-content present, baker's card found (Print card button), risk matrix found, sandbox found, collapse all found, no runtime errors, page height ~21,502px (grew from 20,182px due to baker's card).
+- Baker's card: VLM confirmed "ingredients table, method timeline with numbered circles, checkpoints, pitfalls, Print button visible."
+- Complexity log: VLM confirmed "3 stat cards with icons, header bar with 'Removed elements' title, column headers with icons, significantly more polished."
+- Full-page VLM QA: 9/10 polish. "Exceptionally dense, highly structured, visually consistent, sophisticated color-coded system. No critical functional errors."
+
+Stage Summary:
+- Phase 0 lab enhanced with 2 features: baker's printable quick reference card and enhanced complexity log.
+- The Baker's Quick Reference is the most practical, user-facing feature — a home baker can print it and have everything they need: ingredients, method, checkpoints, and pitfalls on one card.
+- The complexity log is now visually consistent with the technique ledger and ingredient ledger, with stat cards, header bar, and enhanced table styling.
+- All features verified working via DOM audit and VLM visual QA.
+- Full-page polish rated 9/10.
+
+Unresolved / next-phase priorities:
+1. Kitchen tests still cannot be executed (predicted checks remain predicted).
+2. The page is now ~21,502px — very long. The collapse infrastructure exists but no sections are wrapped yet.
+3. Mobile viewport testing still limited.
+4. Could add URL hash state for sharing specific views.
+5. The baker's card print CSS could be tested with an actual print dialog.
+6. Could add a "share" button that generates a URL with recipe variant selection.

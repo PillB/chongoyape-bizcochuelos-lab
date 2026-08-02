@@ -215,6 +215,22 @@
   }
 }
 
+/* Baker's card print mode — when body has print-bakers-card class,
+   only the baker's card and its ancestors are visible */
+@media print {
+  body.print-bakers-card > *:not(header),
+  body.print-bakers-card main > *:not(.bakers-card-wrapper) {
+    display: none !important;
+  }
+  body.print-bakers-card .bakers-card-wrapper {
+    display: block !important;
+    position: static !important;
+  }
+  body.print-bakers-card .no-print {
+    display: none !important;
+  }
+}
+
 .print-only {
   display: none;
 }

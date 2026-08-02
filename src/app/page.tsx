@@ -29,6 +29,7 @@ import { SectionDivider } from '@/components/lab/section-divider'
 import { ProtocolFlow } from '@/components/lab/protocol-flow'
 import { LabStatsBand } from '@/components/lab/lab-stats-band'
 import { GlossaryCard } from '@/components/lab/glossary'
+import { BakersQuickReference } from '@/components/lab/bakers-quick-reference'
 import { Skeleton } from '@/components/ui/skeleton'
 import { FlaskConical } from 'lucide-react'
 import type { LabData } from '@/components/lab/types'
@@ -222,6 +223,17 @@ export default function Page() {
 
         <SectionReveal>
           <ComplexityLog entries={data.complexity} />
+        </SectionReveal>
+
+        <SectionDivider variant="dots" />
+
+        {/* Baker's printable quick reference */}
+        <SectionReveal>
+          <section className="py-12 border-b border-border/60">
+            <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 bakers-card-wrapper">
+              <BakersQuickReference />
+            </div>
+          </section>
         </SectionReveal>
 
         <SectionDivider variant="ornament" />
