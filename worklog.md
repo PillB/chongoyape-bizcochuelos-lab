@@ -321,3 +321,60 @@ Unresolved / next-phase priorities:
 4. Print CSS could be expanded for the breakdown chart and comparison table.
 5. Mobile viewport testing still limited.
 6. Could add a "baker's percentage mode" toggle to the formula breakdown (switch between weight % and baker's %).
+
+---
+Task ID: 5 (cron webDevReview round 5)
+Agent: main (Z.ai Code)
+Task: QA assessment, interactive recipe sandbox, technique ledger visual enhancement.
+
+Work Log:
+- Reviewed worklog.md (Tasks 0-4) to understand project state.
+- QA assessment: dev server stable (HTTP 200, ~46ms), lint clean (0 errors), DOM audit confirmed all 12 sections + main-content, stats band, formula breakdown, theme toggle, comparison card, 6 donut sectors, 1 radar polygon, no runtime errors, page height ~17,600px. No bugs found — project is stable and mature.
+- VLM QA on 4 section screenshots identified the single most impactful new feature: an interactive "what-if" recipe sandbox where users can toggle substitutions and see predicted outcomes.
+
+New features added:
+1. **What-If Recipe Sandbox** (recipe-sandbox.tsx):
+   - Interactive tool that lets users toggle 8 recipe modifications (chuño, baking powder, oil, vanilla, separated-egg, smoke, algarrobina, baking stone) and see real-time predicted outcomes.
+   - Left panel: toggle switches with descriptions, active count, reset button.
+   - Right panel: modified formula table showing gram changes (delta from base), total batter with change indicator.
+   - Predicted effects grid: colored cards (green for positive, red for negative, gray for neutral) with trend arrows (TrendingUp/TrendingDown/Minus), magnitude, and detail. Effects cover crumb tenderness, shelf life, oven spring, foam volume, moisture, aroma, color, etc.
+   - Fidelity assessment panel: calculates a 0-100 fidelity score based on which modifications are active. Each modification has a risk level (high/medium/low) with explanatory text. Tier label changes (core/diagnostic/substitution/speculative) based on score.
+   - Animated entrance/exit for effects and empty state.
+   - Verified: toggling chuño adds a starch row and shows crumb tenderness +15% effect. Toggling oil increases total from 541.5g to 556.5g, shows Day-2 moisture +25% effect, and drops fidelity to 87/100.
+
+2. **Enhanced Technique Ledger** (technique-ledger.tsx):
+   - Complete visual redesign with colored header bars for each tier column (primary/amber/rose).
+   - Count badges in headers with tier-colored backgrounds.
+   - Left accent bars on each technique card matching the tier color.
+   - Field icons (Zap for Function, Target for Target, Lightbulb for Simpler alt, AlertTriangle for Failure, Ruler for Measurement) with tier-colored icon coloring.
+   - Uppercase tracking-wide field labels for better scannability.
+   - Hover shadow effect on cards.
+   - Custom scrollbar (scroll-warm class).
+   - VLM confirmed: "significantly more polished than a plain list, clean card-based layout with rounded corners, subtle shadows, organized typography."
+
+Architecture changes:
+- page.tsx: added RecipeSandbox between IngredientBreakdown and GlossaryCard in the recipe lab section.
+- technique-ledger.tsx: complete rewrite with tierConfig object, FieldRow sub-component, field icons.
+
+Verification:
+- ESLint: 0 errors, 0 warnings.
+- Dev server: HTTP 200 on / and /api/lab.
+- DOM audit: all 12 sections + main-content present, sandbox found, stats band found, formula breakdown found, theme toggle found, 6 donut sectors, 1 radar polygon, no runtime errors, page height ~18,181px (grew from 17,600px due to sandbox).
+- Sandbox interactivity: toggled chuño → starch row appeared, crumb tenderness +15% effect shown. Toggled oil → total increased 541.5→556.5g, Day-2 moisture +25% effect shown, fidelity dropped to 87/100. All effects and fidelity assessment render correctly.
+- Technique ledger: VLM confirmed "3 columns with colored header bars, left accent bars on cards, field icons, significantly more polished."
+- Full-page VLM QA: 9/10 polish. "Exceptionally dense, logically structured, visually sophisticated with data-driven dashboard aesthetic. No major functional issues."
+
+Stage Summary:
+- Phase 0 lab enhanced with 2 major features: interactive recipe sandbox and enhanced technique ledger.
+- The What-If Sandbox is the most interactive feature in the lab — users can experiment with 8 modifications and immediately see predicted effects, formula changes, and fidelity impact. It's a genuine reasoning tool that makes the parsimony principle tangible.
+- The technique ledger is now visually consistent with the ingredient ledger's polish level, with clear tier differentiation via colors and icons.
+- All features verified working via DOM audit and VLM visual QA.
+- Full-page polish rated 9/10.
+
+Unresolved / next-phase priorities:
+1. Kitchen tests still cannot be executed (predicted checks remain predicted).
+2. The sandbox could be expanded with more modifications (e.g., different starch types, mold sizes).
+3. A "save scenario" feature could let users bookmark a combination of toggles.
+4. The sandbox effects are predicted from food science — a disclaimer is present but could be more prominent.
+5. Mobile viewport testing still limited.
+6. Could add a "compare scenarios" feature to diff two toggle combinations.

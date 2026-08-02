@@ -14,6 +14,7 @@ import { RecipeLab } from '@/components/lab/recipe-lab'
 import { RecipeScaler } from '@/components/lab/recipe-scaler'
 import { RecipeComparison } from '@/components/lab/recipe-comparison'
 import { IngredientBreakdown } from '@/components/lab/ingredient-breakdown'
+import { RecipeSandbox } from '@/components/lab/recipe-sandbox'
 import { ValidationDashboard } from '@/components/lab/validation-dashboard'
 import { ValidationRadar } from '@/components/lab/validation-radar'
 import { ComplexityLog } from '@/components/lab/complexity-log'
@@ -174,6 +175,9 @@ export default function Page() {
               <div className="mt-6 grid lg:grid-cols-2 gap-4 items-start">
                 <RecipeScaler />
                 <IngredientBreakdown recipes={data.recipes} />
+              </div>
+              <div className="mt-6">
+                <RecipeSandbox />
               </div>
               <div className="mt-6">
                 <GlossaryCard />
