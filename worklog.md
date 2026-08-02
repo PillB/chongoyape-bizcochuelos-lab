@@ -180,3 +180,73 @@ Unresolved / next-phase priorities:
 4. The GlossaryTooltip inline component exists but is not yet used in body text — could annotate ingredient/technique descriptions.
 5. Dark mode toggle could be added (theme variables are already defined in globals.css).
 6. Mobile viewport testing still limited.
+
+---
+Task ID: 3 (cron webDevReview round 3)
+Agent: main (Z.ai Code)
+Task: QA assessment, dark mode implementation, recipe variant comparison feature, command palette expansion, and styling polish.
+
+Work Log:
+- Reviewed worklog.md (Tasks 0, 1, 2) to understand project state.
+- QA assessment: dev server stable (HTTP 200, ~41ms), lint clean (0 errors), DOM audit confirmed all 12 sections + main-content, 6 donut sectors, 1 radar polygon, slider/progress/glossary/command-palette all functional, no runtime errors, page height ~16,714px. No bugs found — project is stable.
+- Identified next-phase priorities from worklog: dark mode toggle, recipe comparison feature, command palette expansion.
+
+New features added:
+1. **Dark Mode Toggle** (theme-toggle.tsx + theme-provider.tsx): 
+   - Added next-themes ThemeProvider to layout.tsx with `attribute="class"`, `defaultTheme="light"`, `disableTransitionOnChange`.
+   - Built ThemeToggle component with animated Sun/Moon icons (framer-motion rotate+scale transition), `resolvedTheme` for hydration-safe rendering, `suppressHydrationWarning` on button.
+   - Added `color-scheme: light/dark` to globals.css for native form controls.
+   - Added smooth 150ms background-color/border-color transition on all elements (but 0ms on hover/focus for instant feedback).
+   - Toggle button placed in nav bar next to Command Palette.
+   - Verified: dark mode produces deep charcoal background with amber accents, light mode returns to warm parchment. VLM rated dark mode 9/10 polish.
+
+2. **Recipe Variant Comparison** (recipe-comparison.tsx):
+   - New component below the Recipe Lab detail view.
+   - "Compare" toggle button activates comparison mode.
+   - Checkbox selector with all 9 recipe variants, max 3 selectable, disabled state when 3 already selected.
+   - Side-by-side comparison table: rows = all unique ingredients, columns = selected variants, cells = grams values.
+   - Automatic difference highlighting: rows that differ get amber background, highest value in a differing row is bold primary color.
+   - "Key differences" summary panel: lists ingredients that differ (with delta in grams) and ingredients present in some but not all variants.
+   - Sticky left column for ingredient names (horizontal scroll on mobile).
+   - Alternating row backgrounds, total batter row.
+   - Legend explaining the highlighting.
+   - Animated entrance/exit for compare mode.
+
+3. **Expanded Command Palette**:
+   - CommandPalette now accepts `recipes` and `ingredients` props.
+   - Added "Recipes" group (all 9 variants searchable by name, summary, variable, question) — selecting dispatches a custom `select-recipe` event that RecipeLab listens for and auto-selects the variant.
+   - Added "Ingredients" group (all 12 ingredients searchable by name, function, evidence, substitution) — selecting scrolls to the ingredients section.
+   - NavBar updated to forward `recipes` and `ingredients` props to CommandPalette.
+   - RecipeLab updated with `useEffect` listener for `select-recipe` custom events.
+   - Verified: searching "chuño" finds both the Ingredients section AND "Diagnostic A — Chuño vs Cornstarch" recipe.
+
+Architecture changes:
+- layout.tsx: wrapped app in ThemeProvider.
+- nav-bar.tsx: accepts NavBarProps (recipes, ingredients), forwards to CommandPalette.
+- page.tsx: passes data.recipes and data.ingredients to NavBar.
+- recipe-lab.tsx: added useEffect listener for select-recipe custom events.
+- globals.css: added color-scheme, smooth theme transitions.
+
+Verification:
+- ESLint: 0 errors, 0 warnings.
+- Dev server: HTTP 200 on / and /api/lab.
+- DOM audit: all 12 sections + main-content present, theme toggle found, comparison card found, protocol flow found, 6 donut sectors, 1 radar polygon, no runtime errors, page height ~16,930px.
+- Dark mode toggle: clicked toggle, html class changed from "light" to "dark", background changed from light parchment to deep charcoal. VLM confirmed "dark theme is highly consistent, deep charcoal background with light gray/white text and distinct amber/gold accents" — 9/10 polish.
+- Light mode toggle: clicked back, confirmed "light mode with consistent off-white background and dark text".
+- Command palette search: typed "chuño", found both "04 · Ingredients" section and "Diagnostic A — Chuño vs Cornstarch" recipe variant. Custom event dispatch works.
+- Recipe comparison: clicked Compare button, checkboxes appeared with (0/3) counter, selected 2 variants (Core + Lima Substitution), comparison table rendered with side-by-side grams, differences highlighted (flour 150g vs 135g, cornstarch — vs 15g), "Key differences" panel appeared with delta values.
+
+Stage Summary:
+- Phase 0 lab enhanced with 3 major new features: dark mode, recipe comparison, expanded command palette.
+- Dark mode provides a complete alternative theme with smooth transitions — the warm amber palette works beautifully on dark charcoal.
+- Recipe comparison is a genuinely useful analytical tool — users can now see exactly which ingredients differ across variants and by how much.
+- Command palette now searches the entire lab content (sections + recipes + ingredients) — a true power-user navigation tool.
+- All features verified working via agent-browser interactivity tests and VLM visual QA.
+
+Unresolved / next-phase priorities:
+1. Kitchen tests still cannot be executed (predicted checks remain predicted).
+2. GlossaryTooltip inline component exists but is not yet used in body text — could annotate ingredient/technique descriptions.
+3. The comparison table could be expanded to show method-step differences (not just ingredients).
+4. A "share comparison" feature (URL state for selected variants) could be added.
+5. Print CSS could be expanded for the comparison table.
+6. Mobile viewport testing still limited.

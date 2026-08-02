@@ -120,9 +120,26 @@
   * {
     @apply border-border outline-ring/50;
   }
+  :root {
+    color-scheme: light;
+  }
+  .dark {
+    color-scheme: dark;
+  }
   body {
     @apply bg-background text-foreground;
     font-feature-settings: "ss01", "cv01";
+  }
+  /* Smooth theme transition */
+  body,
+  body * {
+    transition-property: background-color, border-color;
+    transition-duration: 150ms;
+  }
+  /* But not for elements that animate on interaction */
+  body *:hover,
+  body *:focus {
+    transition-duration: 0ms;
   }
 }
 

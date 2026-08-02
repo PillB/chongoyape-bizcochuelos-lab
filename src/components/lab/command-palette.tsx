@@ -25,10 +25,10 @@ import {
   Search,
   Calculator,
   Type,
-  Moon,
-  Sun,
   ArrowUp,
+  Cake,
 } from 'lucide-react'
+import type { RecipeVariant, Ingredient } from './types'
 
 interface CommandAction {
   id: string
@@ -40,7 +40,12 @@ interface CommandAction {
   keywords?: string
 }
 
-export function CommandPalette() {
+interface CommandPaletteProps {
+  recipes?: RecipeVariant[]
+  ingredients?: Ingredient[]
+}
+
+export function CommandPalette({ recipes, ingredients }: CommandPaletteProps) {
   const [open, setOpen] = useState(false)
 
   useEffect(() => {
@@ -67,7 +72,16 @@ export function CommandPalette() {
     setOpen(false)
   }
 
-  const actions: CommandAction[] = [
+  // Dispatch a custom event to select a recipe variant
+  const selectRecipe = (id: string) => {
+    scrollTo('recipe-lab')
+    // Dispatch event after scroll starts
+    setTimeout(() => {
+      window.dispatchEvent(new CustomEvent('select-recipe', { detail: id }))
+    }, 100)
+  }
+
+  const sectionActions: CommandAction[] = [
     { id: 'top', label: 'Scroll to top', icon: <ArrowUp className="h-4 w-4" />, group: 'Navigation', action: scrollTop },
     { id: 'memory', label: '01 · Memory Audit', hint: 'Pre-research rounds', icon: <BookOpen className="h-4 w-4" />, group: 'Sections', action: () => scrollTo('memory'), keywords: 'research protocol memory audit' },
     { id: 'evidence', label: '02 · Evidence Console', hint: 'VLM forensic analysis', icon: <Eye className="h-4 w-4" />, group: 'Sections', action: () => scrollTo('evidence'), keywords: 'vlm image visual contradictions sources' },
@@ -82,12 +96,36 @@ export function CommandPalette() {
     { id: 'verdict', label: '11 · Final Verdict', hint: 'Challenge & parsimony', icon: <ShieldCheck className="h-4 w-4" />, group: 'Sections', action: () => scrollTo('verdict'), keywords: 'verdict final convergence challenge parsimony' },
   ]
 
+  const recipeActions: CommandAction[] = (recipes ?? []).map((r) => ({
+    id: r.id,
+    label: r.name,
+    hint: `L${r.level} · ${r.yieldNote.split('.')[0]}`,
+    icon: <Cake className="h-4 w-4" />,
+    group: 'Recipes',
+    action: () => selectRecipe(r.id),
+    keywords: r.summary + ' ' + (r.mainVariable ?? '') + ' ' + (r.question ?? ''),
+  }))
+
+  const ingredientActions: CommandAction[] = (ingredients ?? []).map((i) => ({
+    id: i.id,
+    label: i.name,
+    hint: `${i.grams > 0 ? `${i.grams}g · ` : ''}${i.tier}`,
+    icon: <Beaker className="h-4 w-4" />,
+    group: 'Ingredients',
+    action: () => scrollTo('ingredients'),
+    keywords: i.function + ' ' + i.evidence + ' ' + i.substitution,
+  }))
+
+  const allActions = [...sectionActions, ...recipeActions, ...ingredientActions]
+
   // Group actions
   const grouped: Record<string, CommandAction[]> = {}
-  actions.forEach((a) => {
+  allActions.forEach((a) => {
     if (!grouped[a.group]) grouped[a.group] = []
     grouped[a.group].push(a)
   })
+
+  const groupOrder = ['Navigation', 'Sections', 'Recipes', 'Ingredients']
 
   return (
     <>
@@ -104,29 +142,31 @@ export function CommandPalette() {
       </button>
 
       <CommandDialog open={open} onOpenChange={setOpen}>
-        <CommandInput placeholder="Search sections, features, or jump to…" />
-        <CommandList className="max-h-[400px]">
+        <CommandInput placeholder="Search sections, recipes, ingredients…" />
+        <CommandList className="max-h-[420px]">
           <CommandEmpty>No results found.</CommandEmpty>
-          {Object.entries(grouped).map(([group, items]) => (
-            <CommandGroup key={group} heading={group}>
-              {items.map((a) => (
-                <CommandItem
-                  key={a.id}
-                  value={`${a.label} ${a.hint ?? ''} ${a.keywords ?? ''}`}
-                  onSelect={() => a.action()}
-                  className="cursor-pointer"
-                >
-                  <span className="text-primary mr-2">{a.icon}</span>
-                  <span className="flex-1">
-                    <span className="font-medium">{a.label}</span>
-                    {a.hint && (
-                      <span className="ml-2 text-xs text-muted-foreground">· {a.hint}</span>
-                    )}
-                  </span>
-                </CommandItem>
-              ))}
-            </CommandGroup>
-          ))}
+          {groupOrder
+            .filter((g) => grouped[g]?.length > 0)
+            .map((group) => (
+              <CommandGroup key={group} heading={group}>
+                {grouped[group].map((a) => (
+                  <CommandItem
+                    key={a.id}
+                    value={`${a.label} ${a.hint ?? ''} ${a.keywords ?? ''}`}
+                    onSelect={() => a.action()}
+                    className="cursor-pointer"
+                  >
+                    <span className="text-primary mr-2">{a.icon}</span>
+                    <span className="flex-1 min-w-0">
+                      <span className="font-medium truncate block">{a.label}</span>
+                      {a.hint && (
+                        <span className="ml-0 text-xs text-muted-foreground truncate block">{a.hint}</span>
+                      )}
+                    </span>
+                  </CommandItem>
+                ))}
+              </CommandGroup>
+            ))}
           <CommandSeparator />
           <CommandGroup heading="Tips">
             <div className="px-2 py-3 text-xs text-muted-foreground space-y-1">

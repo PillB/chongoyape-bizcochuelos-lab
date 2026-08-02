@@ -12,6 +12,7 @@ import { TechniqueLedger } from '@/components/lab/technique-ledger'
 import { SubstitutionMatrix } from '@/components/lab/substitution-matrix'
 import { RecipeLab } from '@/components/lab/recipe-lab'
 import { RecipeScaler } from '@/components/lab/recipe-scaler'
+import { RecipeComparison } from '@/components/lab/recipe-comparison'
 import { ValidationDashboard } from '@/components/lab/validation-dashboard'
 import { ValidationRadar } from '@/components/lab/validation-radar'
 import { ComplexityLog } from '@/components/lab/complexity-log'
@@ -104,7 +105,7 @@ export default function Page() {
         Skip to content
       </a>
       <ReadingProgress />
-      <NavBar />
+      <NavBar recipes={data.recipes} ingredients={data.ingredients} />
       <BackToTop />
       <main id="main-content" className="flex-1">
         <Hero data={data} />
@@ -149,11 +150,14 @@ export default function Page() {
           <SubstitutionMatrix substitutions={data.substitutions} />
         </SectionReveal>
 
-        {/* Recipe lab with scaler + glossary */}
+        {/* Recipe lab with scaler + comparison + glossary */}
         <SectionReveal>
           <section id="recipe-lab" className="scroll-mt-20 py-16 sm:py-20 border-b border-border/60">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
               <RecipeLab recipes={data.recipes} />
+              <div className="mt-6">
+                <RecipeComparison recipes={data.recipes} />
+              </div>
               <div className="mt-6 grid lg:grid-cols-[1fr_360px] gap-4 items-start">
                 <RecipeScaler />
                 <GlossaryCard />

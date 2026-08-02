@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Card, CardContent } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
@@ -53,6 +53,18 @@ export function RecipeLab({ recipes }: { recipes: RecipeVariant[] }) {
   const sorted = [...recipes].sort((a, b) => a.level - b.level)
   const [selectedId, setSelectedId] = useState(sorted[0]?.id ?? '')
   const selected = sorted.find((r) => r.id === selectedId) ?? sorted[0]
+
+  // Listen for recipe selection events from the Command Palette
+  useEffect(() => {
+    const handler = (e: Event) => {
+      const id = (e as CustomEvent<string>).detail
+      if (sorted.some((r) => r.id === id)) {
+        setSelectedId(id)
+      }
+    }
+    window.addEventListener('select-recipe', handler as EventListener)
+    return () => window.removeEventListener('select-recipe', handler as EventListener)
+  }, [sorted])
 
   const grouped: Record<number, RecipeVariant[]> = { 1: [], 2: [], 3: [], 4: [] }
   sorted.forEach((r) => {

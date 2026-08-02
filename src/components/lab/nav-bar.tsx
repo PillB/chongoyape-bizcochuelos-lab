@@ -4,6 +4,13 @@ import { useEffect, useState } from 'react'
 import { cn } from '@/lib/utils'
 import { FlaskConical, Menu, X } from 'lucide-react'
 import { CommandPalette } from './command-palette'
+import { ThemeToggle } from './theme-toggle'
+import type { RecipeVariant, Ingredient } from './types'
+
+interface NavBarProps {
+  recipes?: RecipeVariant[]
+  ingredients?: Ingredient[]
+}
 
 const sections = [
   { id: 'memory', label: '01 · Memory Audit' },
@@ -19,7 +26,7 @@ const sections = [
   { id: 'verdict', label: '11 · Verdict' },
 ]
 
-export function NavBar() {
+export function NavBar({ recipes, ingredients }: NavBarProps) {
   const [scrolled, setScrolled] = useState(false)
   const [open, setOpen] = useState(false)
   const [active, setActive] = useState<string>('memory')
@@ -94,8 +101,11 @@ export function NavBar() {
             ))}
           </nav>
 
-          {/* Command palette trigger */}
-          <CommandPalette />
+          {/* Command palette trigger + theme toggle */}
+          <div className="flex items-center gap-1.5">
+            <CommandPalette recipes={recipes} ingredients={ingredients} />
+            <ThemeToggle />
+          </div>
 
           {/* Mobile toggle */}
           <button
