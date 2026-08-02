@@ -616,3 +616,64 @@ Unresolved / next-phase priorities:
 4. Could add URL hash state for sharing specific views.
 5. The baker's card print CSS could be tested with an actual print dialog.
 6. Could add a "share" button that generates a URL with recipe variant selection.
+
+---
+Task ID: 10 (cron webDevReview round 10)
+Agent: main (Z.ai Code)
+Task: QA assessment, executive summary card, floating glossary button.
+
+Work Log:
+- Reviewed worklog.md (Tasks 0-9) to understand project state.
+- QA assessment: dev server stable (HTTP 200, ~42ms), lint clean (0 errors), DOM audit confirmed all 12 sections + main-content, baker's card, collapse all, risk matrix, sandbox, section rail, theme toggle, no runtime errors, page height ~21,502px. No bugs found — project is stable and mature.
+- VLM QA on 4 section screenshots (hero, recipe, verdict, claims) identified: need for an executive summary to address the 21,500px density problem, and a floating glossary quick-access button.
+
+New features added:
+1. **Executive Summary Card** (executive-summary.tsx):
+   - New section placed between the hero and the stats band.
+   - Distills the entire lab into 5 key findings in a horizontal card grid.
+   - Finding 1 (rose): "Key contradiction" — product form redefined (round domed, not rectangular slab).
+   - Finding 2 (emerald): "Core formula" — foam-only baseline with 4 ingredients.
+   - Finding 3 (primary): "Producer confirmed" — 4/15 claims corroborated.
+   - Finding 4 (amber): "Validation status" — 4/6 rounds passed (67%).
+   - Finding 5 (rose): "Convergence" — not yet converged, kitchen execution required.
+   - Each card has: colored top accent bar, icon, uppercase label, bold title, detail text.
+   - Staggered reveal animations (framer-motion).
+   - Quick navigation row at the bottom with 5 jump links (Recipe, Evidence, Claims, Validation, Verdict).
+   - VLM confirmed: "5 finding cards in a row with colored top accent bars covering Key Contradiction, Core Formula, Producer Confirmed, Validation Status, Convergence."
+
+2. **Floating Glossary Button** (glossary-button.tsx):
+   - Fixed-position circular button at bottom-left (complementing the back-to-top at bottom-right).
+   - Opens a Dialog with searchable glossary of all 15 terms.
+   - Search input with auto-focus, scrollable term list with definitions.
+   - Pulse ring animation on the button for discoverability.
+   - Uses the existing glossary data (exported from glossary.tsx).
+   - VLM confirmed: "search input, glossary terms listed with definitions, centered modal dialog."
+   - Also exported the `glossary` const from glossary.tsx (was previously module-private).
+
+Architecture changes:
+- page.tsx: imported ExecutiveSummary and GlossaryButton; added ExecutiveSummary section between hero and stats band; added GlossaryButton at root level (fixed overlay).
+- glossary.tsx: exported the `glossary` const.
+- New components: executive-summary.tsx, glossary-button.tsx.
+
+Verification:
+- ESLint: 0 errors, 0 warnings.
+- Dev server: HTTP 200 on / and /api/lab.
+- DOM audit: all 12 sections + main-content present, executive summary found, glossary button found, baker's card found, risk matrix found, sandbox found, no runtime errors, page height ~21,958px (grew from 21,502px due to executive summary).
+- Executive summary: VLM confirmed "5 finding cards with colored top accent bars covering all 5 topics."
+- Glossary button: clicked button, dialog opened with search input and term list. VLM confirmed "search input, glossary terms with definitions, centered modal dialog."
+- Glossary button visible: VLM confirmed button visible at bottom-left corner.
+- Full-page VLM QA: 8/10 polish. "Exceptionally detailed, sophisticated dashboard aesthetic, clear data visualization, color-coded tags, structured cards."
+
+Stage Summary:
+- Phase 0 lab enhanced with 2 features: executive summary card and floating glossary button.
+- The Executive Summary directly addresses the density problem — users can now grasp the 5 key conclusions in seconds without scrolling 21,958px.
+- The floating glossary button provides instant access to all 15 technical terms from anywhere on the page.
+- All features verified working via DOM audit and VLM visual QA.
+
+Unresolved / next-phase priorities:
+1. Kitchen tests still cannot be executed (predicted checks remain predicted).
+2. The page is now ~21,958px — still very long. The executive summary helps but the collapse infrastructure remains unused.
+3. Mobile viewport testing still limited.
+4. Could add URL hash state for sharing specific views.
+5. The executive summary could be made sticky/collapsible for persistent reference.
+6. Could add a "share" button that generates a URL with recipe variant or sandbox state.

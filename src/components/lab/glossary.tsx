@@ -14,7 +14,7 @@ export interface GlossaryEntry {
   definition: string
 }
 
-const glossary: Record<string, GlossaryEntry> = {
+export const glossary: Record<string, GlossaryEntry> = {
   'punto cinta': {
     term: 'punto cinta',
     definition:

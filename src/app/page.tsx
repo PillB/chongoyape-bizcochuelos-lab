@@ -29,7 +29,9 @@ import { SectionDivider } from '@/components/lab/section-divider'
 import { ProtocolFlow } from '@/components/lab/protocol-flow'
 import { LabStatsBand } from '@/components/lab/lab-stats-band'
 import { GlossaryCard } from '@/components/lab/glossary'
+import { GlossaryButton } from '@/components/lab/glossary-button'
 import { BakersQuickReference } from '@/components/lab/bakers-quick-reference'
+import { ExecutiveSummary } from '@/components/lab/executive-summary'
 import { Skeleton } from '@/components/ui/skeleton'
 import { FlaskConical } from 'lucide-react'
 import type { LabData } from '@/components/lab/types'
@@ -115,8 +117,16 @@ export default function Page() {
       <NavBar recipes={data.recipes} ingredients={data.ingredients} />
       <BackToTop />
       <SectionRail />
+      <GlossaryButton />
       <main id="main-content" className="flex-1">
         <Hero data={data} />
+
+        {/* Executive summary — the entire lab in 5 findings */}
+        <section className="py-8 border-b border-border/60 bg-muted/20">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <ExecutiveSummary data={data} />
+          </div>
+        </section>
 
         <LabStatsBand
           stats={{
