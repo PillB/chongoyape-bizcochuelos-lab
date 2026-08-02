@@ -40,9 +40,10 @@ export async function GET() {
   }))
 
   // Summary statistics for the dashboard header
+  // Keys match the confidence enum values (kebab-case) for direct lookup
   const claimStats = {
     confirmed: claims.filter((c) => c.confidence === 'confirmed').length,
-    stronglySupported: claims.filter((c) => c.confidence === 'strongly-supported').length,
+    'strongly-supported': claims.filter((c) => c.confidence === 'strongly-supported').length,
     plausible: claims.filter((c) => c.confidence === 'plausible').length,
     weak: claims.filter((c) => c.confidence === 'weak').length,
     unresolved: claims.filter((c) => c.confidence === 'unresolved').length,

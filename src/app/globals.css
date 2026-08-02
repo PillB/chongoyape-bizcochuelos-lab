@@ -164,4 +164,40 @@
       linear-gradient(to bottom, oklch(0.62 0.14 65 / 0.05) 1px, transparent 1px);
     background-size: 32px 32px;
   }
+
+  /* Decorative dotted divider */
+  .divider-dots {
+    background-image: radial-gradient(circle, oklch(0.62 0.14 65 / 0.3) 1px, transparent 1.5px);
+    background-size: 8px 8px;
+    background-repeat: repeat-x;
+    background-position: center;
+    height: 8px;
+  }
+}
+
+/* Print styles — only the recipe lab prints cleanly */
+@media print {
+  body {
+    background: white !important;
+    color: black !important;
+  }
+  header,
+  nav,
+  footer,
+  .no-print {
+    display: none !important;
+  }
+  .print-only {
+    display: block !important;
+  }
+  main {
+    padding: 0 !important;
+  }
+  .print-break {
+    page-break-inside: avoid;
+  }
+}
+
+.print-only {
+  display: none;
 }

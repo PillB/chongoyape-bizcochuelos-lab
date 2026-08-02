@@ -6,14 +6,21 @@ import { Hero } from '@/components/lab/hero'
 import { ResearchRounds } from '@/components/lab/research-rounds'
 import { EvidenceConsole } from '@/components/lab/evidence-console'
 import { ClaimsLedger } from '@/components/lab/claims-ledger'
+import { ClaimsChart } from '@/components/lab/claims-chart'
 import { IngredientLedger } from '@/components/lab/ingredient-ledger'
 import { TechniqueLedger } from '@/components/lab/technique-ledger'
 import { SubstitutionMatrix } from '@/components/lab/substitution-matrix'
 import { RecipeLab } from '@/components/lab/recipe-lab'
+import { RecipeScaler } from '@/components/lab/recipe-scaler'
 import { ValidationDashboard } from '@/components/lab/validation-dashboard'
+import { ValidationRadar } from '@/components/lab/validation-radar'
 import { ComplexityLog } from '@/components/lab/complexity-log'
 import { Verdict } from '@/components/lab/verdict'
 import { Footer } from '@/components/lab/footer'
+import { ReadingProgress } from '@/components/lab/reading-progress'
+import { BackToTop } from '@/components/lab/back-to-top'
+import { SectionReveal } from '@/components/lab/section-reveal'
+import { GlossaryCard } from '@/components/lab/glossary'
 import { Skeleton } from '@/components/ui/skeleton'
 import { FlaskConical } from 'lucide-react'
 import type { LabData } from '@/components/lab/types'
@@ -43,6 +50,7 @@ export default function Page() {
   if (error) {
     return (
       <div className="min-h-screen flex flex-col">
+        <ReadingProgress />
         <NavBar />
         <main className="flex-1 flex items-center justify-center p-8">
           <div className="text-center max-w-md">
@@ -60,6 +68,7 @@ export default function Page() {
   if (!data) {
     return (
       <div className="min-h-screen flex flex-col">
+        <ReadingProgress />
         <NavBar />
         <main className="flex-1">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
@@ -87,21 +96,115 @@ export default function Page() {
 
   return (
     <div className="min-h-screen flex flex-col">
+      <ReadingProgress />
       <NavBar />
+      <BackToTop />
       <main className="flex-1">
         <Hero data={data} />
-        <ResearchRounds rounds={data.research} />
-        <EvidenceConsole />
-        <ClaimsLedger claims={data.claims} />
-        <IngredientLedger ingredients={data.ingredients} />
-        <TechniqueLedger techniques={data.techniques} />
-        <SubstitutionMatrix substitutions={data.substitutions} />
-        <RecipeLab recipes={data.recipes} />
-        <ValidationDashboard validations={data.validations} failures={data.failures} />
-        <ComplexityLog entries={data.complexity} />
-        <Verdict data={data} />
+
+        <SectionReveal>
+          <ResearchRounds rounds={data.research} />
+        </SectionReveal>
+
+        <SectionReveal>
+          <EvidenceConsole />
+        </SectionReveal>
+
+        {/* Claims ledger with chart sidebar */}
+        <SectionReveal>
+          <ClaimsLedger
+            claims={data.claims}
+            sidebar={
+              <>
+                <ClaimsChart data={data} />
+                <div className="rounded-lg border border-border bg-card/60 p-4 text-xs leading-relaxed text-muted-foreground">
+                  <div className="font-semibold text-foreground mb-1.5">How to read this chart</div>
+                  The donut shows the confidence distribution of all {data.stats.claims.total} claims.
+                  &ldquo;Corroborated&rdquo; = confirmed + strongly supported. A claim is downgraded
+                  whenever the evidence cannot support its original precision.
+                </div>
+              </>
+            }
+          />
+        </SectionReveal>
+
+        <SectionReveal>
+          <IngredientLedger ingredients={data.ingredients} />
+        </SectionReveal>
+
+        <SectionReveal>
+          <TechniqueLedger techniques={data.techniques} />
+        </SectionReveal>
+
+        <SectionReveal>
+          <SubstitutionMatrix substitutions={data.substitutions} />
+        </SectionReveal>
+
+        {/* Recipe lab with scaler + glossary */}
+        <SectionReveal>
+          <section id="recipe-lab" className="scroll-mt-20 py-16 sm:py-20 border-b border-border/60">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+              <RecipeLab recipes={data.recipes} />
+              <div className="mt-6 grid lg:grid-cols-[1fr_360px] gap-4 items-start">
+                <RecipeScaler />
+                <GlossaryCard />
+              </div>
+            </div>
+          </section>
+        </SectionReveal>
+
+        {/* Validation dashboard with radar + convergence */}
+        <SectionReveal>
+          <ValidationDashboard
+            validations={data.validations}
+            failures={data.failures}
+            overview={
+              <>
+                <ValidationRadar validations={data.validations} />
+                <ConvergenceCard data={data} />
+              </>
+            }
+          />
+        </SectionReveal>
+
+        <SectionReveal>
+          <ComplexityLog entries={data.complexity} />
+        </SectionReveal>
+
+        <SectionReveal>
+          <Verdict data={data} />
+        </SectionReveal>
       </main>
       <Footer />
+    </div>
+  )
+}
+
+function ConvergenceCard({ data }: { data: LabData }) {
+  const { convergence } = data.stats
+  const pct = Math.round(
+    (convergence.quietRounds / Math.max(convergence.requiredQuiet, 1)) * 50 +
+      (convergence.converged ? 50 : 0),
+  )
+  return (
+    <div className="rounded-xl border-2 border-amber-300 dark:border-amber-800 bg-card/60 p-5">
+      <div className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-2">
+        Convergence tracker
+      </div>
+      <div className="flex items-baseline gap-1 mb-3">
+        <span className="text-3xl font-bold font-mono">{convergence.quietRounds}</span>
+        <span className="text-sm text-muted-foreground">/ {convergence.requiredQuiet} quiet rounds</span>
+      </div>
+      <div className="h-2.5 rounded-full bg-muted overflow-hidden mb-3">
+        <div
+          className="h-full rounded-full bg-gradient-to-r from-amber-400 to-primary transition-all duration-500"
+          style={{ width: `${pct}%` }}
+        />
+      </div>
+      <p className="text-xs text-muted-foreground leading-relaxed">{convergence.reason}</p>
+      <div className="mt-3 pt-3 border-t border-border text-[11px] text-muted-foreground">
+        Two consecutive quiet rounds are required to converge.
+      </div>
     </div>
   )
 }

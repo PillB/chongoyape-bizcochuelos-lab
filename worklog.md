@@ -78,3 +78,58 @@ Unresolved / next-phase priorities:
 2. Mobile-viewport verification was limited (agent-browser --viewport did not resize the active session); responsive classes are standard Tailwind (hidden lg:flex / lg:hidden) and should work, but a real mobile-device check is recommended.
 3. A second product image / video frame would resolve the 4-vs-16 piece count discrepancy.
 4. The convergence loop needs one more quiet round after kitchen fault-testing to formally converge.
+
+---
+Task ID: 1 (cron webDevReview round 1)
+Agent: main (Z.ai Code)
+Task: QA assessment, bug fixes, styling improvements, and new feature development for the Chongoyape Bizcochuelos Reverse-Engineering Lab.
+
+Work Log:
+- Reviewed worklog.md to understand Phase 0 completion status.
+- QA assessment via agent-browser: dev server stable (HTTP 200, ~30ms), lint clean (0 errors), all 12 sections rendering.
+- VLM QA on 4 section screenshots identified opportunities (not bugs): hero hyphenation, data density, chart visualizations.
+- Fixed critical bug: API returned `stronglySupported` (camelCase) but chart accessed `strongly-supported` (kebab-case), causing the donut chart to miss 3 strongly-supported claims and show "8% corroborated" instead of "27%". Fixed API key to kebab-case; updated hero.tsx references. Now correctly shows 4/15 (27%).
+
+New features added:
+1. **Reading Progress Bar** (reading-progress.tsx): thin fixed bar at top showing scroll progress + a section label chip that updates via IntersectionObserver scroll-spy.
+2. **Back-to-Top Button** (back-to-top.tsx): floating amber button that appears after 600px scroll, with smooth scroll-to-top.
+3. **Interactive Recipe Scaler** (recipe-scaler.tsx): slider (1-24 cakes) that linearly scales the core recipe's ingredient grams in real-time, with visual ratio bars, baker's percentages, total batter count, and egg count estimate. Includes Print button with print CSS.
+4. **Claims Confidence Donut Chart** (claims-chart.tsx): recharts donut showing the distribution of all 15 claims by confidence level, with center label showing % corroborated, color-coded legend with counts and percentages.
+5. **Validation Radar Chart** (validation-radar.tsx): recharts radar visualizing the 6 validation lenses (structural, historical, target-match, Lima-practicality, adversarial, parsimony) with weighted scores and tooltip showing pass/total counts.
+6. **Convergence Tracker Card**: visual progress bar showing 1/2 quiet rounds with gradient fill and explanation.
+7. **Glossary System** (glossary.tsx): searchable glossary card with 15 technical terms (punto cinta, chuño, Maillard, algarrobina, horno de barro, etc.) + inline GlossaryTooltip component for term highlighting.
+8. **Section Reveal Animations** (section-reveal.tsx): subtle y-translate entrance animation on scroll (opacity kept at 1 for accessibility/SEO/screenshot compatibility).
+
+Styling improvements:
+- Hero: fixed "Reverse-Engineering" hyphenation (split into 3 lines, [hyphens:none]); added "live" pulse indicator; hover effects on CTA buttons (gap expansion + icon scale).
+- Print CSS: @media print rules to hide nav/footer/charts and show only recipe content.
+- Dotted divider utility class for decorative section separators.
+- ClaimsLedger restructured to 2-column grid (ledger + chart sidebar) with count badge in filter bar.
+
+Architecture changes:
+- ClaimsLedger now accepts optional `sidebar` prop for the chart.
+- ValidationDashboard now accepts optional `overview` prop for the radar + convergence card.
+- page.tsx restructured to pass charts as props, eliminating duplicate section IDs.
+
+Verification:
+- ESLint: 0 errors, 0 warnings.
+- Dev server: HTTP 200 on / and /api/lab.
+- DOM verification: scaler ✓, slider ✓ (aria-valuenow=6, min=1, max=24), donut chart ✓, radar chart ✓, reading progress ✓, back-to-top ✓, glossary ✓ (15 terms), print button ✓.
+- Slider interactivity: changed 6→7 cakes, total batter updated 541.5→631.8 g (correct linear scaling).
+- Claims chart fix verified: hero now shows 4/15 (27%) corroborated.
+- Full-page VLM QA: "All content is visible. The page is fully populated with text, data tables, charts (Donut and Radar), and images. There are no blank or empty sections."
+
+Stage Summary:
+- Phase 0 lab enhanced with 8 new interactive features and multiple styling improvements.
+- Two data-visualization charts added (donut + radar) using the already-installed recharts library.
+- Recipe Scaler provides genuine utility — users can scale the core recipe to any batch size.
+- Glossary provides educational context for 15 technical terms.
+- All animations are accessibility-safe (content always visible).
+- A critical stats-key bug was found and fixed during QA.
+
+Unresolved / next-phase priorities:
+1. Kitchen tests still cannot be executed (predicted checks remain predicted).
+2. The GlossaryTooltip inline component was created but not yet used in body text — could be added to ingredient/technique descriptions in a future round.
+3. Print CSS exists but could be expanded to a full recipe-card print layout.
+4. A "compare two variants side-by-side" feature could be added to the recipe lab.
+5. Mobile viewport testing still limited (agent-browser --viewport didn't resize).

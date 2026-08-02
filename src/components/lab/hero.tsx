@@ -13,7 +13,7 @@ interface HeroProps {
 export function Hero({ data }: HeroProps) {
   const { claims, validations, convergence } = data.stats
   const confirmedPct = Math.round(
-    ((claims.confirmed + claims.stronglySupported) / Math.max(claims.total, 1)) * 100,
+    ((claims.confirmed + claims['strongly-supported']) / Math.max(claims.total, 1)) * 100,
   )
   const passPct = Math.round((validations.pass / Math.max(validations.total, 1)) * 100)
   const convergencePct = Math.round(
@@ -37,16 +37,26 @@ export function Hero({ data }: HeroProps) {
         >
           {/* Left: title block */}
           <div className="flex-1 min-w-0">
-            <div className="flex items-center gap-2 mb-4">
+            <motion.div
+              initial={{ opacity: 0, x: -12 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.4, delay: 0.05 }}
+              className="flex items-center gap-2 mb-4"
+            >
               <Badge variant="outline" className="bg-primary/10 text-primary border-primary/30 font-mono text-xs">
                 Phase 0 · Memory Audit Complete
               </Badge>
               <Badge variant="outline" className="font-mono text-xs">
                 Red → Green → Refactor
               </Badge>
-            </div>
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-balance leading-[1.05]">
-              Chongoyape Bizcochuelos
+              <span className="hidden sm:inline-flex items-center gap-1 text-[10px] text-muted-foreground font-mono">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                live
+              </span>
+            </motion.div>
+            <h1 className="text-4xl sm:text-5xl lg:text-[3.4rem] font-bold tracking-tight leading-[1.08] [hyphens:none]">
+              <span className="block">Chongoyape</span>
+              <span className="block">Bizcochuelos</span>
               <span className="block text-primary mt-1">Reverse-Engineering Lab</span>
             </h1>
             <p className="mt-5 text-base sm:text-lg text-muted-foreground max-w-2xl text-balance leading-relaxed">
@@ -58,16 +68,16 @@ export function Hero({ data }: HeroProps) {
             <div className="mt-7 flex flex-wrap gap-3">
               <a
                 href="#recipe-lab"
-                className="inline-flex items-center justify-center gap-2 h-11 px-5 rounded-md bg-primary text-primary-foreground text-sm font-medium hover:opacity-90 transition-opacity"
+                className="group inline-flex items-center justify-center gap-2 h-11 px-5 rounded-md bg-primary text-primary-foreground text-sm font-medium hover:opacity-90 transition-all hover:gap-3 hover:shadow-lg hover:shadow-primary/25"
               >
-                <Microscope className="h-4 w-4" />
+                <Microscope className="h-4 w-4 transition-transform group-hover:scale-110" />
                 Open the recipe lab
               </a>
               <a
                 href="#verdict"
-                className="inline-flex items-center justify-center gap-2 h-11 px-5 rounded-md border border-border bg-card text-foreground text-sm font-medium hover:bg-accent transition-colors"
+                className="group inline-flex items-center justify-center gap-2 h-11 px-5 rounded-md border border-border bg-card text-foreground text-sm font-medium hover:bg-accent transition-all hover:gap-3"
               >
-                <ShieldCheck className="h-4 w-4" />
+                <ShieldCheck className="h-4 w-4 transition-transform group-hover:scale-110" />
                 Final verdict
               </a>
             </div>
@@ -77,7 +87,7 @@ export function Hero({ data }: HeroProps) {
               <StatusCard
                 icon={<ShieldCheck className="h-4 w-4" />}
                 label="Claims corroborated"
-                value={`${claims.confirmed + claims.stronglySupported} / ${claims.total}`}
+                value={`${claims.confirmed + claims['strongly-supported']} / ${claims.total}`}
                 pct={confirmedPct}
                 hint={`${claims.contradicted} contradicted · ${claims.unresolved} unresolved`}
               />

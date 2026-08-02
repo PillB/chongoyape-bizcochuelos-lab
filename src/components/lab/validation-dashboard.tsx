@@ -29,9 +29,11 @@ const checkStatusIcon: Record<string, React.ReactNode> = {
 export function ValidationDashboard({
   validations,
   failures,
+  overview,
 }: {
   validations: ValidationRound[]
   failures: FailureTest[]
+  overview?: React.ReactNode
 }) {
   const passCount = validations.filter((v) => v.status === 'pass').length
   const reviseCount = validations.filter((v) => v.status === 'revise').length
@@ -64,6 +66,13 @@ export function ValidationDashboard({
               tone="emerald"
             />
           </div>
+
+          {/* Overview: radar chart + convergence */}
+          {overview && (
+            <div className="grid lg:grid-cols-[1fr_360px] gap-4 items-start mb-6">
+              {overview}
+            </div>
+          )}
 
           <div className="grid lg:grid-cols-2 gap-4">
             {validations.map((v) => (
