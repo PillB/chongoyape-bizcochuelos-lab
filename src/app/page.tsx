@@ -25,6 +25,7 @@ import { ReadingProgress } from '@/components/lab/reading-progress'
 import { BackToTop } from '@/components/lab/back-to-top'
 import { SectionRail } from '@/components/lab/section-rail'
 import { SectionReveal } from '@/components/lab/section-reveal'
+import { SectionDivider } from '@/components/lab/section-divider'
 import { ProtocolFlow } from '@/components/lab/protocol-flow'
 import { LabStatsBand } from '@/components/lab/lab-stats-band'
 import { GlossaryCard } from '@/components/lab/glossary'
@@ -133,6 +134,8 @@ export default function Page() {
           <ResearchRounds rounds={data.research} />
         </SectionReveal>
 
+        <SectionDivider variant="dots" />
+
         <SectionReveal>
           <EvidenceConsole />
         </SectionReveal>
@@ -159,9 +162,13 @@ export default function Page() {
           <IngredientLedger ingredients={data.ingredients} />
         </SectionReveal>
 
+        <SectionDivider variant="dots" />
+
         <SectionReveal>
           <TechniqueLedger techniques={data.techniques} />
         </SectionReveal>
+
+        <SectionDivider variant="dots" />
 
         <SectionReveal>
           <SubstitutionMatrix substitutions={data.substitutions} />
@@ -197,6 +204,8 @@ export default function Page() {
           </section>
         </SectionReveal>
 
+        <SectionDivider variant="ornament" />
+
         {/* Validation dashboard with radar + convergence */}
         <SectionReveal>
           <ValidationDashboard
@@ -214,6 +223,8 @@ export default function Page() {
         <SectionReveal>
           <ComplexityLog entries={data.complexity} />
         </SectionReveal>
+
+        <SectionDivider variant="ornament" />
 
         <SectionReveal>
           <Verdict data={data} />

@@ -104,18 +104,18 @@ export function EvidenceConsole() {
         />
 
         <Tabs defaultValue="visual" className="w-full">
-          <TabsList className="grid w-full max-w-md grid-cols-3 h-auto">
-            <TabsTrigger value="visual" className="py-2 text-xs sm:text-sm">
-              <ImageIcon className="h-3.5 w-3.5 mr-1.5" />
-              Visual
+          <TabsList className="grid w-full max-w-lg grid-cols-3 h-auto p-1 rounded-lg border border-border bg-card/60">
+            <TabsTrigger value="visual" className="py-2.5 text-xs sm:text-sm gap-1.5 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-sm transition-all">
+              <ImageIcon className="h-3.5 w-3.5" />
+              <span className="font-medium">Visual</span>
             </TabsTrigger>
-            <TabsTrigger value="contradictions" className="py-2 text-xs sm:text-sm">
-              <AlertTriangle className="h-3.5 w-3.5 mr-1.5" />
-              Contradictions
+            <TabsTrigger value="contradictions" className="py-2.5 text-xs sm:text-sm gap-1.5 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-sm transition-all">
+              <AlertTriangle className="h-3.5 w-3.5" />
+              <span className="font-medium">Contradictions</span>
             </TabsTrigger>
-            <TabsTrigger value="sources" className="py-2 text-xs sm:text-sm">
-              <Globe className="h-3.5 w-3.5 mr-1.5" />
-              Sources
+            <TabsTrigger value="sources" className="py-2.5 text-xs sm:text-sm gap-1.5 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-sm transition-all">
+              <Globe className="h-3.5 w-3.5" />
+              <span className="font-medium">Sources</span>
             </TabsTrigger>
           </TabsList>
 
@@ -146,12 +146,15 @@ export function EvidenceConsole() {
                     </CardTitle>
                   </CardHeader>
                   <CardContent className="p-0">
-                    <ScrollArea className="h-[280px] px-4 pb-4">
-                      <ul className="space-y-2.5">
+                    <ScrollArea className="h-[440px] px-4 pb-4 scroll-warm">
+                      <ul className="space-y-3">
                         {vlmObservations.map((o) => (
                           <li key={o.label} className="text-xs">
-                            <div className="font-semibold text-foreground">{o.label}</div>
-                            <div className="text-muted-foreground mt-0.5">{o.value}</div>
+                            <div className="font-semibold text-foreground flex items-center gap-1.5">
+                              <span className="w-1 h-1 rounded-full bg-primary flex-shrink-0" />
+                              {o.label}
+                            </div>
+                            <div className="text-muted-foreground mt-0.5 pl-2.5 leading-relaxed">{o.value}</div>
                           </li>
                         ))}
                       </ul>

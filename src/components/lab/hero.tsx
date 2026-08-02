@@ -4,6 +4,7 @@ import { motion } from 'framer-motion'
 import { Microscope, AlertTriangle, ShieldCheck, GitBranch } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'
 import { Progress } from '@/components/ui/progress'
+import { CollapseAllControl } from './collapsible-section'
 import type { LabData } from './types'
 
 interface HeroProps {
@@ -80,6 +81,7 @@ export function Hero({ data }: HeroProps) {
                 <ShieldCheck className="h-4 w-4 transition-transform group-hover:scale-110" />
                 Final verdict
               </a>
+              <CollapseAllControl className="h-11" />
             </div>
 
             {/* Status strip */}
