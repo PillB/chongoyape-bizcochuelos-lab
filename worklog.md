@@ -378,3 +378,60 @@ Unresolved / next-phase priorities:
 4. The sandbox effects are predicted from food science — a disclaimer is present but could be more prominent.
 5. Mobile viewport testing still limited.
 6. Could add a "compare scenarios" feature to diff two toggle combinations.
+
+---
+Task ID: 6 (cron webDevReview round 6)
+Agent: main (Z.ai Code)
+Task: QA assessment, interactive substitution explorer, vertical section progress rail.
+
+Work Log:
+- Reviewed worklog.md (Tasks 0-5) to understand project state.
+- QA assessment: dev server stable (HTTP 200, ~43ms), lint clean (0 errors), DOM audit confirmed all 12 sections + main-content, sandbox, stats band, formula breakdown, theme toggle, 6 donut sectors, 1 radar polygon, no runtime errors, page height ~18,181px. No bugs found — project is stable and mature.
+- VLM QA on 4 section screenshots (hero, claims, substitutions, verdict) identified: (1) need for an interactive substitution explorer, (2) need for progressive disclosure / sticky navigation to reduce cognitive load on the very long page.
+
+New features added:
+1. **Interactive Substitution Explorer** (substitution-explorer.tsx):
+   - New section below the Substitution Matrix.
+   - Left panel: clickable list of all 8 substitutions showing original → substitute with active highlighting.
+   - Right detail panel: shows selected substitution's original → substitute header (with arrow icon), confidence badge, quantity adjustment, property replaced (green), property lost (red), technique adjustment.
+   - **Cascading effects** section: for each substitution, 4 predicted cascading effects on properties (gluten development, crumb tenderness, staling rate, availability, etc.) with trend arrows (TrendingUp/TrendingDown/neutral) and colored cards (green/red/gray).
+   - Animated transitions when switching substitutions (framer-motion slide).
+   - Scrollable list with custom scrollbar.
+   - Verified: clicking different substitutions updates the detail panel and cascading effects correctly. VLM confirmed "Algarrobina syrup → Chancaca syrup" detail with properties and technique adjustment.
+
+2. **Vertical Section Progress Rail** (section-rail.tsx):
+   - Fixed-position vertical navigation rail on the right edge (visible on xl+ screens, 1280px+).
+   - 11 dots representing all sections, with a vertical progress line that fills as the user scrolls.
+   - Active section dot is larger with a ring; passed sections are dimmed primary; upcoming sections are border-colored.
+   - Hover tooltips show section number + label.
+   - Scroll progress percentage at top (updates in real-time).
+   - Active section label at bottom with animated transitions.
+   - Clicking any dot smoothly scrolls to that section.
+   - Verified: at 5000px scroll, rail showed 27% progress, "Ingredients" dot highlighted as active with tooltip. VLM confirmed "scroll progress of 27%, Ingredients dot highlighted, filled orange circle."
+
+Architecture changes:
+- page.tsx: added SectionRail at root level (fixed overlay); added SubstitutionExplorer in a new section between SubstitutionMatrix and RecipeLab.
+- New components: substitution-explorer.tsx, section-rail.tsx.
+
+Verification:
+- ESLint: 0 errors, 0 warnings.
+- Dev server: HTTP 200 on / and /api/lab.
+- DOM audit: all 12 sections + main-content present, sandbox found, stats band found, formula breakdown found, substitution explorer found, section rail found, theme toggle found, 6 donut sectors, 1 radar polygon, no runtime errors, page height ~18,845px (grew from 18,181px due to explorer).
+- Substitution explorer interactivity: clicked different substitutions, detail panel updated with correct original → substitute, properties, and cascading effects. VLM confirmed correct rendering of Algarrobina → Chancaca substitution.
+- Section rail: visible on xl viewport, scroll progress updates in real-time, active section dot highlights correctly, tooltips appear on hover. VLM confirmed "27% progress, Ingredients dot highlighted, filled orange circle."
+- Full-page VLM QA: 9/10 polish. "Incredibly dense, professional, data-rich forensic design aesthetic. Excellent use of color-coded tags, status badges, hierarchical typography. No major functional issues."
+
+Stage Summary:
+- Phase 0 lab enhanced with 2 major features: interactive substitution explorer and vertical section progress rail.
+- The Substitution Explorer turns the static substitution matrix into a living decision engine — users can see cascading effects (gluten, tenderness, staling, availability) for each swap, making the food-science reasoning tangible.
+- The Section Rail provides persistent navigation context on the very long page (18,845px) — users always know where they are and can jump to any section instantly.
+- All features verified working via DOM audit and VLM visual QA.
+- Full-page polish rated 9/10.
+
+Unresolved / next-phase priorities:
+1. Kitchen tests still cannot be executed (predicted checks remain predicted).
+2. The substitution explorer's cascading effects are predicted from food science — could be expanded with more substitutions.
+3. Section rail is hidden on smaller screens (xl+ only) — could add a mobile equivalent.
+4. Could add URL hash state for the substitution explorer selection (shareable links).
+5. Mobile viewport testing still limited.
+6. The page is now very long (~18,845px) — could consider a " condensed view" toggle.

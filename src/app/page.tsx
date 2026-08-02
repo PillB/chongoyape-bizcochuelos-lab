@@ -10,6 +10,7 @@ import { ClaimsChart } from '@/components/lab/claims-chart'
 import { IngredientLedger } from '@/components/lab/ingredient-ledger'
 import { TechniqueLedger } from '@/components/lab/technique-ledger'
 import { SubstitutionMatrix } from '@/components/lab/substitution-matrix'
+import { SubstitutionExplorer } from '@/components/lab/substitution-explorer'
 import { RecipeLab } from '@/components/lab/recipe-lab'
 import { RecipeScaler } from '@/components/lab/recipe-scaler'
 import { RecipeComparison } from '@/components/lab/recipe-comparison'
@@ -22,6 +23,7 @@ import { Verdict } from '@/components/lab/verdict'
 import { Footer } from '@/components/lab/footer'
 import { ReadingProgress } from '@/components/lab/reading-progress'
 import { BackToTop } from '@/components/lab/back-to-top'
+import { SectionRail } from '@/components/lab/section-rail'
 import { SectionReveal } from '@/components/lab/section-reveal'
 import { ProtocolFlow } from '@/components/lab/protocol-flow'
 import { LabStatsBand } from '@/components/lab/lab-stats-band'
@@ -110,6 +112,7 @@ export default function Page() {
       <ReadingProgress />
       <NavBar recipes={data.recipes} ingredients={data.ingredients} />
       <BackToTop />
+      <SectionRail />
       <main id="main-content" className="flex-1">
         <Hero data={data} />
 
@@ -162,6 +165,14 @@ export default function Page() {
 
         <SectionReveal>
           <SubstitutionMatrix substitutions={data.substitutions} />
+        </SectionReveal>
+
+        <SectionReveal>
+          <section className="py-8 sm:py-12 border-b border-border/60">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+              <SubstitutionExplorer substitutions={data.substitutions} />
+            </div>
+          </section>
         </SectionReveal>
 
         {/* Recipe lab with scaler + comparison + breakdown + glossary */}
