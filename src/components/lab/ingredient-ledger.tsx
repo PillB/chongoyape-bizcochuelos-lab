@@ -57,27 +57,41 @@ export function IngredientLedger({ ingredients }: { ingredients: Ingredient[] })
           </div>
         </div>
 
-        <Card className="bg-card/60">
+        <Card className="bg-card/60 overflow-hidden">
           <CardContent className="p-0">
-            <ScrollArea className="h-[640px]">
-              <Accordion type="single" collapsible className="divide-y divide-border/50">
-                {filtered.map((i) => (
-                  <AccordionItem key={i.id} value={i.id} className="border-0">
-                    <AccordionTrigger className="px-4 py-3.5 hover:bg-accent/30 hover:no-underline">
+            <ScrollArea className="h-[640px] scroll-warm">
+              <Accordion type="single" collapsible>
+                {filtered.map((i, idx) => (
+                  <AccordionItem
+                    key={i.id}
+                    value={i.id}
+                    className={cn(
+                      'border-0 border-b border-border/40',
+                      idx % 2 === 1 && 'bg-muted/20',
+                    )}
+                  >
+                    <AccordionTrigger className="px-4 py-3.5 hover:bg-primary/5 hover:no-underline group transition-colors">
                       <div className="flex items-center gap-3 flex-1 min-w-0 text-left">
-                        <div className="flex-shrink-0 w-16 text-right">
-                          <span className="font-mono font-semibold text-sm">{i.grams > 0 ? `${i.grams} g` : '—'}</span>
-                          <div className="text-[10px] text-muted-foreground">{i.percent.toFixed(1)}%</div>
+                        <div className="flex-shrink-0 w-[72px] text-right border-r border-border/40 pr-3 mr-1">
+                          <span className="font-mono font-bold text-base text-primary tabular-nums">
+                            {i.grams > 0 ? `${i.grams}` : '—'}
+                          </span>
+                          {i.grams > 0 && <span className="text-[10px] text-muted-foreground ml-0.5">g</span>}
+                          <div className="text-[10px] text-muted-foreground font-mono tabular-nums">
+                            {i.percent.toFixed(1)}%
+                          </div>
                         </div>
                         <div className="flex-1 min-w-0">
-                          <div className="font-medium text-sm truncate">{i.name}</div>
-                          <div className="text-[11px] text-muted-foreground truncate">
+                          <div className="font-semibold text-sm truncate group-hover:text-primary transition-colors">
+                            {i.name}
+                          </div>
+                          <div className="text-[11px] text-muted-foreground truncate mt-0.5">
                             {i.function.split('.')[0]}.
                           </div>
                         </div>
                         <div className="flex flex-col items-end gap-1 flex-shrink-0">
                           <TierBadge value={i.tier} />
-                          <span className={cn('text-[10px] font-mono', availabilityConfig[i.limaAvailability])}>
+                          <span className={cn('text-[10px] font-mono uppercase tracking-wide', availabilityConfig[i.limaAvailability])}>
                             {i.limaAvailability}
                           </span>
                         </div>

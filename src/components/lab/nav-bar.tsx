@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react'
 import { cn } from '@/lib/utils'
 import { FlaskConical, Menu, X } from 'lucide-react'
+import { CommandPalette } from './command-palette'
 
 const sections = [
   { id: 'memory', label: '01 · Memory Audit' },
@@ -92,6 +93,9 @@ export function NavBar() {
               </button>
             ))}
           </nav>
+
+          {/* Command palette trigger */}
+          <CommandPalette />
 
           {/* Mobile toggle */}
           <button

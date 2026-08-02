@@ -20,6 +20,7 @@ import { Footer } from '@/components/lab/footer'
 import { ReadingProgress } from '@/components/lab/reading-progress'
 import { BackToTop } from '@/components/lab/back-to-top'
 import { SectionReveal } from '@/components/lab/section-reveal'
+import { ProtocolFlow } from '@/components/lab/protocol-flow'
 import { GlossaryCard } from '@/components/lab/glossary'
 import { Skeleton } from '@/components/ui/skeleton'
 import { FlaskConical } from 'lucide-react'
@@ -96,11 +97,19 @@ export default function Page() {
 
   return (
     <div className="min-h-screen flex flex-col">
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-[100] focus:px-4 focus:py-2 focus:rounded-md focus:bg-primary focus:text-primary-foreground focus:text-sm focus:shadow-lg"
+      >
+        Skip to content
+      </a>
       <ReadingProgress />
       <NavBar />
       <BackToTop />
-      <main className="flex-1">
+      <main id="main-content" className="flex-1">
         <Hero data={data} />
+
+        <ProtocolFlow />
 
         <SectionReveal>
           <ResearchRounds rounds={data.research} />

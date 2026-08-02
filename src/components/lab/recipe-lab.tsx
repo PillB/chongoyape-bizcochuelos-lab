@@ -121,12 +121,15 @@ export function RecipeLab({ recipes }: { recipes: RecipeVariant[] }) {
                               key={r.id}
                               onClick={() => setSelectedId(r.id)}
                               className={cn(
-                                'w-full text-left rounded-md p-2.5 text-xs transition-colors border',
+                                'w-full text-left rounded-md p-2.5 text-xs transition-all border relative overflow-hidden',
                                 selectedId === r.id
-                                  ? cn(levelConfig[lvl].bg, levelConfig[lvl].border)
-                                  : 'border-transparent hover:bg-accent/40',
+                                  ? cn(levelConfig[lvl].bg, levelConfig[lvl].border, 'shadow-sm')
+                                  : 'border-transparent hover:bg-accent/40 hover:border-border hover:translate-x-0.5',
                               )}
                             >
+                              {selectedId === r.id && (
+                                <span className={cn('absolute left-0 top-0 bottom-0 w-1', levelConfig[lvl].color.replace('text-', 'bg-'))} />
+                              )}
                               <div className="font-medium leading-snug">{r.name}</div>
                               <div className="text-[10px] text-muted-foreground mt-0.5 line-clamp-2">{r.summary}</div>
                             </button>
@@ -189,24 +192,24 @@ export function RecipeLab({ recipes }: { recipes: RecipeVariant[] }) {
                       </div>
                       <div className="rounded-lg border border-border overflow-hidden">
                         <table className="w-full text-xs">
-                          <thead className="bg-muted/50">
+                          <thead className="bg-muted/60 border-b-2 border-border">
                             <tr className="text-left text-[10px] text-muted-foreground uppercase tracking-wider">
-                              <th className="py-2 px-3 font-medium">Ingredient</th>
-                              <th className="py-2 px-2 font-medium text-right">Grams</th>
-                              <th className="py-2 px-2 font-medium text-right">%</th>
-                              <th className="py-2 px-3 font-medium text-right">Baker%</th>
+                              <th className="py-2.5 px-3 font-semibold">Ingredient</th>
+                              <th className="py-2.5 px-2 font-semibold text-right">Grams</th>
+                              <th className="py-2.5 px-2 font-semibold text-right" title="Percentage of total batter weight">Wt %</th>
+                              <th className="py-2.5 px-3 font-semibold text-right" title="Baker's percentage (relative to eggs = 100%)">Baker %</th>
                             </tr>
                           </thead>
                           <tbody>
                             {selected.ingredients.map((ing, idx) => (
-                              <tr key={idx} className="border-t border-border/50">
-                                <td className="py-2 px-3">
+                              <tr key={idx} className="border-t border-border/40 hover:bg-accent/20 transition-colors">
+                                <td className="py-2.5 px-3">
                                   <div className="font-medium">{ing.name}</div>
                                   {ing.note && <div className="text-[10px] text-muted-foreground mt-0.5">{ing.note}</div>}
                                 </td>
-                                <td className="py-2 px-2 text-right font-mono">{ing.grams > 0 ? ing.grams : '—'}</td>
-                                <td className="py-2 px-2 text-right font-mono text-muted-foreground">{ing.percent.toFixed(1)}</td>
-                                <td className="py-2 px-3 text-right font-mono text-muted-foreground">
+                                <td className="py-2.5 px-2 text-right font-mono font-semibold tabular-nums">{ing.grams > 0 ? ing.grams : '—'}</td>
+                                <td className="py-2.5 px-2 text-right font-mono text-muted-foreground tabular-nums">{ing.percent.toFixed(1)}</td>
+                                <td className="py-2.5 px-3 text-right font-mono text-muted-foreground tabular-nums">
                                   {totalGrams > 0 ? ((ing.grams / selected.ingredients[0].grams) * 100).toFixed(0) : '—'}
                                 </td>
                               </tr>
@@ -229,10 +232,12 @@ export function RecipeLab({ recipes }: { recipes: RecipeVariant[] }) {
                           {selected.steps.length} steps
                         </span>
                       </div>
-                      <ol className="space-y-2">
+                      <ol className="space-y-2.5 relative">
+                        {/* vertical timeline line */}
+                        <span className="absolute left-[9px] top-2 bottom-2 w-px bg-border" aria-hidden />
                         {selected.steps.map((step, idx) => (
-                          <li key={idx} className="flex gap-2.5 text-xs">
-                            <span className="flex-shrink-0 w-5 h-5 rounded-full bg-primary/10 text-primary font-mono text-[10px] font-bold flex items-center justify-center mt-0.5">
+                          <li key={idx} className="flex gap-3 text-xs relative">
+                            <span className="flex-shrink-0 w-[18px] h-[18px] rounded-full bg-primary text-primary-foreground font-mono text-[9px] font-bold flex items-center justify-center mt-0.5 z-10 ring-2 ring-background shadow-sm">
                               {idx + 1}
                             </span>
                             <span className="leading-relaxed text-foreground/90 pt-0.5">{step}</span>

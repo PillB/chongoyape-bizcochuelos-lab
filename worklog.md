@@ -133,3 +133,50 @@ Unresolved / next-phase priorities:
 3. Print CSS exists but could be expanded to a full recipe-card print layout.
 4. A "compare two variants side-by-side" feature could be added to the recipe lab.
 5. Mobile viewport testing still limited (agent-browser --viewport didn't resize).
+
+---
+Task ID: 2 (cron webDevReview round 2)
+Agent: main (Z.ai Code)
+Task: QA assessment, styling improvements, and new feature development for the Chongoyape Bizcochuelos Reverse-Engineering Lab.
+
+Work Log:
+- Reviewed worklog.md (Tasks 0, 0-completion, 1) to understand project state.
+- QA assessment: dev server stable (HTTP 200, ~38ms), lint clean (0 errors), DOM audit confirmed all 11 sections present, 6 donut sectors, 1 radar polygon, slider/progress/glossary all functional, no runtime errors, page height ~16,258px.
+- VLM QA on 5 section screenshots (claims, ingredients, recipe, verdict, footer) identified improvement opportunities: ingredient ledger looked plain (needed alternating rows, bolder weights), recipe lab step numbers were small, footer lacked visual grounding, no protocol overview diagram.
+
+New features added:
+1. **Command Palette (Cmd+K)** (command-palette.tsx): power-user feature with ⌘K keyboard shortcut, search input, grouped navigation (all 11 sections + scroll-to-top), fuzzy search with keywords, tips section. Trigger button in nav bar with kbd hint.
+2. **Protocol Flow Diagram** (protocol-flow.tsx): new section between hero and research rounds visualizing the governing sequence — Red → Green → Refactor → Validate → Converge — with 5 color-coded cards, arrow connectors (desktop), staggered reveal animations, and a loop indicator explaining the 2-quiet-rounds convergence rule.
+3. **Skip-to-Content Link**: accessibility improvement, sr-only link that appears on focus, jumps to #main-content.
+
+Styling improvements:
+- **Ingredient Ledger**: alternating row backgrounds (idx % 2), bolder gram values in amber/primary color with larger font, vertical border separator between grams column and name, hover state changes to primary/5, name turns primary on hover, scroll-warm class for custom scrollbar, uppercase tracking on availability labels.
+- **Recipe Lab**: sidebar items now have hover translate-x effect + left accent bar when selected + shadow; ingredient table has bolder 2px header border, hover row highlight, clearer column headers (Wt% / Baker% with title tooltips), tabular-nums for alignment; method steps now use filled amber circles (bg-primary text-primary-foreground) with a vertical timeline line connecting them, ring-2 ring-background for depth.
+- **Footer**: complete redesign with gradient background (from-muted/40 to-muted/70), 2px primary/20 top border, decorative gradient accent line, dotted divider pattern, colored icon boxes for each column (amber/amber/rose), tag pills (evidence-led, foam-only, etc.), status indicator with pulse dot, Back-to-top link.
+- **Accessibility**: skip-to-content link, aria-labels on command palette, title attributes on table headers for tooltip explanations.
+
+Architecture changes:
+- nav-bar.tsx: integrated CommandPalette component.
+- page.tsx: added ProtocolFlow between Hero and ResearchRounds, added skip-to-content link, main element gets id="main-content".
+
+Verification:
+- ESLint: 0 errors, 0 warnings (fixed one JSX parsing typo during development).
+- Dev server: HTTP 200 on / and /api/lab.
+- DOM audit: all 11 sections + main-content present, protocol flow confirmed (7 border-t-2 cards, all 5 phase texts in DOM), command palette button found, skip link found, 6 donut sectors, 1 radar polygon, no runtime errors, page height ~16,714px.
+- Command Palette interactivity: opened via button click, dialog renders with search input, grouped options (Navigation + Sections), fuzzy search working, escape to close.
+- VLM QA: Protocol Flow "clearly visible near the top, just below the header statistics" with "5 colored cards connected by arrow connectors". Ingredient ledger "alternating background colors, bold amber gram values, tier badges aligned". Recipe lab "filled amber circles with vertical timeline line, bolder header border, clearer Wt%/Baker% labels". Footer "distinct background tint, decorative dotted top divider, colored icon boxes, Back-to-top link". Full-page polish rated 8/10.
+
+Stage Summary:
+- Phase 0 lab enhanced with 3 new features (command palette, protocol flow diagram, skip-to-content) and major styling improvements to 3 components (ingredient ledger, recipe lab, footer).
+- Command Palette provides fast keyboard-driven navigation — a genuine power-user feature.
+- Protocol Flow diagram gives users an immediate visual overview of the entire methodology before diving into details.
+- Footer now feels like a proper closing element rather than an afterthought.
+- All animations and interactions are accessibility-safe.
+
+Unresolved / next-phase priorities:
+1. Kitchen tests still cannot be executed (predicted checks remain predicted).
+2. Command Palette could be expanded with recipe-variant and ingredient search (currently sections only).
+3. A "compare two variants side-by-side" feature for the recipe lab would be valuable.
+4. The GlossaryTooltip inline component exists but is not yet used in body text — could annotate ingredient/technique descriptions.
+5. Dark mode toggle could be added (theme variables are already defined in globals.css).
+6. Mobile viewport testing still limited.
