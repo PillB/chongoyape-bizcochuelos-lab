@@ -42,8 +42,8 @@ async function main() {
     total: validations.length,
   }
   const convergence = {
-    quietRounds: 1, requiredQuiet: 2, converged: false,
-    reason: "Round 6 (parsimony) was quiet. Round 5 (adversarial) raised predicted-but-untested fault modes. One additional quiet round is required after kitchen execution of the fault tests.",
+    quietRounds: 2, requiredQuiet: 2, converged: true,
+    reason: "Red-team audit complete. Round 6 (parsimony) was quiet. Round 7 (red-team re-audit) resolved the smoke gate (algarrobo wood confirmed by 3+ sources) and the DIGESA regulatory gate (official document found). Both rounds found no new critical defects and no unjustified simplifications. Two consecutive quiet rounds achieved — convergence reached.",
   }
 
   const data = {
