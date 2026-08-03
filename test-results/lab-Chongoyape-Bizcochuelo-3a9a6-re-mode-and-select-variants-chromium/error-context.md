@@ -1,0 +1,2826 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: lab.spec.ts >> Chongoyape Bizcochuelos Lab — full functional validation >> recipe comparison: toggle compare mode and select variants
+- Location: tests/lab.spec.ts:163:7
+
+# Error details
+
+```
+Error: locator.scrollIntoViewIfNeeded: Error: strict mode violation: locator('#recipe-lab') resolved to 2 elements:
+    1) <section id="recipe-lab" class="scroll-mt-20 py-16 sm:py-20 border-b border-border/60">…</section> aka locator('#recipe-lab').first()
+    2) <section id="recipe-lab" class="scroll-mt-20 py-16 sm:py-20 border-b border-border/60">…</section> aka locator('#recipe-lab').nth(1)
+
+Call log:
+  - waiting for locator('#recipe-lab')
+
+```
+
+# Page snapshot
+
+```yaml
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - link "Skip to content" [ref=e3] [cursor=pointer]:
+      - /url: "#main-content"
+    - generic: 01 · Memory Audit
+    - generic [ref=e6]:
+      - button "Bizcochuelos Lab v0.1 · Phase 0" [ref=e7]:
+        - generic [ref=e10]: Bizcochuelos Lab
+        - generic [ref=e11]: v0.1 · Phase 0
+      - navigation [ref=e12]:
+        - button "01 · Memory Audit" [ref=e13]
+        - button "02 · Evidence" [ref=e14]
+        - button "03 · Claims" [ref=e15]
+        - button "04 · Ingredients" [ref=e16]
+        - button "05 · Techniques" [ref=e17]
+        - button "06 · Substitutions" [ref=e18]
+        - button "07 · Recipe Lab" [ref=e19]
+        - button "08 · Validation" [ref=e20]
+        - button "09 · Failure Tests" [ref=e21]
+        - button "10 · Complexity Log" [ref=e22]
+        - button "11 · Verdict" [ref=e23]
+      - generic [ref=e24]:
+        - button "Open command palette" [ref=e25]:
+          - generic [ref=e29]: Search…
+          - generic [ref=e30]: ⌘K
+        - generic [ref=e31]:
+          - heading "Command Palette" [level=2] [ref=e32]
+          - paragraph [ref=e33]: Search for a command to run...
+        - button "Switch to dark mode" [ref=e34]
+    - generic [ref=e38]:
+      - generic [ref=e39]: 0%
+      - generic [ref=e41]:
+        - button "Go to Memory" [ref=e42]:
+          - generic: 01 Memory
+        - button "Go to Evidence" [ref=e44]:
+          - generic: 02 Evidence
+        - button "Go to Claims" [ref=e46]:
+          - generic: 03 Claims
+        - button "Go to Ingredients" [ref=e48]:
+          - generic: 04 Ingredients
+        - button "Go to Techniques" [ref=e50]:
+          - generic: 05 Techniques
+        - button "Go to Substitutions" [ref=e52]:
+          - generic: 06 Substitutions
+        - button "Go to Recipe Lab" [ref=e54]:
+          - generic: 07 Recipe Lab
+        - button "Go to Validation" [ref=e56]:
+          - generic: 08 Validation
+        - button "Go to Failures" [ref=e58]:
+          - generic: 09 Failures
+        - button "Go to Complexity" [ref=e60]:
+          - generic: 10 Complexity
+        - button "Go to Verdict" [ref=e62]:
+          - generic: 11 Verdict
+      - generic [ref=e64]: Memory
+    - button "Open glossary" [ref=e65]
+    - main [ref=e69]:
+      - generic [ref=e75]:
+        - generic [ref=e76]:
+          - generic [ref=e77]:
+            - generic [ref=e78]: Phase 0 · Memory Audit Complete
+            - generic [ref=e79]: Red → Green → Refactor
+            - generic [ref=e80]: live
+          - heading "Chongoyape Bizcochuelos Reverse-Engineering Lab" [level=1] [ref=e82]:
+            - generic [ref=e83]: Chongoyape
+            - generic [ref=e84]: Bizcochuelos
+            - generic [ref=e85]: Reverse-Engineering Lab
+          - paragraph [ref=e86]:
+            - text: An evidence-gated reconstruction of the
+            - emphasis [ref=e87]: Bizcochuelos Valera
+            - text: — a wood-fired sponge cake from Chongoyape, Lambayeque, Peru. Built from a minimal egg–sugar–flour control, validated across six adversarial lenses, and held to a strict parsimony budget.
+          - generic [ref=e88]:
+            - link "Open the recipe lab" [ref=e89] [cursor=pointer]:
+              - /url: "#recipe-lab"
+            - link "Final verdict" [ref=e94] [cursor=pointer]:
+              - /url: "#verdict"
+            - generic [ref=e98]:
+              - button "Collapse all" [ref=e99]
+              - button "Expand all" [ref=e101]
+          - generic [ref=e103]:
+            - generic [ref=e104]:
+              - generic [ref=e105]: Claims corroborated
+              - generic [ref=e111]: 4 / 15
+              - progressbar [ref=e112]
+              - generic [ref=e114]: 2 contradicted · 1 unresolved
+            - generic [ref=e115]:
+              - generic [ref=e116]: Validation rounds passed
+              - generic [ref=e123]: 4 / 6
+              - progressbar [ref=e124]
+              - generic [ref=e126]: 2 revise · 0 reopen
+            - generic [ref=e127]:
+              - generic [ref=e128]: Convergence
+              - generic [ref=e133]: 1 / 2 quiet rounds
+              - progressbar [ref=e134]
+              - generic [ref=e136]: Not yet converged
+        - 'figure "VLM forensic read: individual round domed cakes (~6.5 cm), deep golden-amber, pebbled matte surface, no filling/icing/liners. Contradicts the prior report’s “rectangular 4×4 slab, flat, pale” description." [ref=e138]':
+          - generic [ref=e139]:
+            - img "Bizcochuelos Valera product — individual round golden-amber sponge cakes in a clear clamshell tray" [ref=e140]
+            - generic [ref=e141]: Primary evidence
+      - generic [ref=e146]:
+        - generic [ref=e147]:
+          - generic [ref=e148]:
+            - generic [ref=e149]: Executive Summary
+            - generic [ref=e154]: 5 key findings
+          - paragraph [ref=e155]: The entire lab distilled to its essential conclusions. Scroll the page for full evidence, ledgers, and recipes.
+        - generic [ref=e156]:
+          - generic [ref=e157]:
+            - generic [ref=e158]:
+              - generic [ref=e160]: Key contradiction
+              - generic [ref=e165]: Product form redefined
+              - generic [ref=e166]: "VLM forensic analysis contradicted the prior report: the product is individual round domed cakes (~6.5 cm), not a rectangular 4×4 slab. All dependent recipe assumptions were downgraded."
+            - generic [ref=e167]:
+              - generic [ref=e169]: Core formula
+              - generic [ref=e175]: Foam-only baseline (4 ingredients)
+              - generic [ref=e176]: Eggs + sugar + flour + salt. No chemical leavener, no starch, no fat, no flavoring in the core. Every other ingredient is held in a separate diagnostic or speculative branch until tested.
+            - generic [ref=e177]:
+              - generic [ref=e179]: Producer confirmed
+              - generic [ref=e186]: 4/15 claims corroborated
+              - generic [ref=e187]: Valera family, Chongoyape origin, wood-fired clay oven — all multiply corroborated across independent source classes (RPP news, directories, social media). Recipe internals remain single-source.
+            - generic [ref=e188]:
+              - generic [ref=e190]: Validation status
+              - generic [ref=e195]: 4/6 rounds passed (67%)
+              - generic [ref=e196]: 6 adversarial lenses applied. Rounds 1-4 and 6 pass; Round 5 (adversarial) raises predicted-but-untested fault modes. Kitchen execution required to convert predicted checks to tested.
+            - generic [ref=e197]:
+              - generic [ref=e199]: Convergence
+              - generic [ref=e204]: Not yet converged
+              - generic [ref=e205]: Round 6 (parsimony) was quiet. Round 5 (adversarial) raised predicted-but-untested fault modes. One additional quiet round is required after kitchen execution of the fault tests.
+          - generic [ref=e206]:
+            - generic [ref=e207]: "Jump to:"
+            - link "Recipe" [ref=e208] [cursor=pointer]:
+              - /url: "#recipe-lab"
+            - link "Evidence" [ref=e211] [cursor=pointer]:
+              - /url: "#evidence"
+            - link "Claims" [ref=e214] [cursor=pointer]:
+              - /url: "#claims"
+            - link "Validation" [ref=e217] [cursor=pointer]:
+              - /url: "#validation"
+            - link "Verdict" [ref=e220] [cursor=pointer]:
+              - /url: "#verdict"
+      - generic [ref=e225]:
+        - generic [ref=e226]:
+          - generic [ref=e227]: "0"
+          - generic [ref=e229]: Claims audited
+          - generic [ref=e230]: confidence-rated
+        - generic [ref=e231]:
+          - generic [ref=e232]: "0"
+          - generic [ref=e234]: Ingredients
+          - generic [ref=e235]: 4 tiers
+        - generic [ref=e236]:
+          - generic [ref=e237]: "0"
+          - generic [ref=e239]: Techniques
+          - generic [ref=e240]: core / optional / rejected
+        - generic [ref=e241]:
+          - generic [ref=e242]: "0"
+          - generic [ref=e244]: Recipe variants
+          - generic [ref=e245]: 4-level hierarchy
+        - generic [ref=e246]:
+          - generic [ref=e247]: "0"
+          - generic [ref=e249]: Validation rounds
+          - generic [ref=e250]: 6 adversarial lenses
+        - generic [ref=e251]:
+          - generic [ref=e252]: "0"
+          - generic [ref=e254]: Complexity removed
+          - generic [ref=e255]: parsimony log
+      - generic [ref=e257]:
+        - heading "The governing sequence" [level=2] [ref=e264]
+        - generic [ref=e265]:
+          - generic [ref=e269]:
+            - generic [ref=e274]:
+              - generic [ref=e275]: Red
+              - generic [ref=e276]: Define failure tests
+            - paragraph [ref=e277]: List every way the claim, ingredient, or recipe could be wrong before formulation.
+          - generic [ref=e284]:
+            - generic [ref=e290]:
+              - generic [ref=e291]: Green
+              - generic [ref=e292]: Build minimal solution
+            - paragraph [ref=e293]: Select the smallest historically & technically plausible formula that satisfies the evidence.
+          - generic [ref=e300]:
+            - generic [ref=e309]:
+              - generic [ref=e310]: Refactor
+              - generic [ref=e311]: Remove complexity
+            - paragraph [ref=e312]: Strip unnecessary ingredients, techniques, and steps without reducing fidelity or safety.
+          - generic [ref=e319]:
+            - generic [ref=e325]:
+              - generic [ref=e326]: Validate
+              - generic [ref=e327]: Test against evidence
+            - paragraph [ref=e328]: Compare against independent sources, food science, the image, and explicit acceptance criteria.
+          - generic [ref=e335]:
+            - generic [ref=e342]:
+              - generic [ref=e343]: Converge
+              - generic [ref=e344]: Two quiet rounds
+            - paragraph [ref=e345]: Stop only after two consecutive rounds produce no new critical defect and no justified simplification.
+        - generic [ref=e352]:
+          - text: Loop repeats until
+          - strong [ref=e353]: two consecutive quiet rounds
+          - text: — max 4 substantive research rounds per question.
+      - generic [ref=e356]:
+        - generic [ref=e357]:
+          - generic [ref=e358]: "01"
+          - generic [ref=e359]:
+            - heading "Pre-Research Protocol — Memory & Multi-Round Audit" [level=2] [ref=e363]
+            - paragraph [ref=e364]: Six bounded research rounds executed before any recipe decision. Each round states findings, what strengthened or weakened the hypothesis, contradictions, decisions changed, and whether another round is justified.
+        - generic [ref=e365]:
+          - generic [ref=e367]:
+            - generic [ref=e368]:
+              - heading [level=3] [ref=e370]:
+                - button "R2 corroboration continued Phase 0 — Corroboration" [expanded] [ref=e371]:
+                  - generic [ref=e372]:
+                    - generic [ref=e373]: R2
+                    - generic [ref=e374]:
+                      - generic [ref=e375]:
+                        - generic [ref=e376]: corroboration
+                        - generic [ref=e377]: continued
+                      - generic [ref=e378]: Phase 0 — Corroboration
+              - region "R2 corroboration continued Phase 0 — Corroboration" [ref=e379]:
+                - generic [ref=e381]:
+                  - generic [ref=e382]:
+                    - generic [ref=e383]: Findings
+                    - generic [ref=e384]: RPP (national news), Restaurant Guru (independent directory), Facebook user posts, YouTube creators, and TikTok tastings all reference Valera independently. Not all derive from a single press release.
+                  - generic [ref=e385]:
+                    - generic [ref=e386]: Strengthened
+                    - generic [ref=e387]: Producer identity is multiply corroborated across source classes.
+                  - generic [ref=e388]:
+                    - generic [ref=e389]: Weakened
+                    - generic [ref=e390]: Recipe-specific claims remain single-source (family statements only).
+                  - generic [ref=e391]:
+                    - generic [ref=e392]: Contradictions
+                    - generic [ref=e393]: None.
+                  - generic [ref=e394]:
+                    - generic [ref=e395]: Decisions changed
+                    - generic [ref=e396]: Accept producer facts as "strongly supported". Recipe internals remain "weak/unresolved".
+                  - generic [ref=e397]:
+                    - generic [ref=e398]: Unresolved
+                    - generic [ref=e399]: No independent recipe disclosure exists. Family recipe is secret by design.
+            - heading [level=3] [ref=e402]:
+              - button "R3 counter continued Phase 0 — Counter-hypothesis" [ref=e403]:
+                - generic [ref=e404]:
+                  - generic [ref=e405]: R3
+                  - generic [ref=e406]:
+                    - generic [ref=e407]:
+                      - generic [ref=e408]: counter
+                      - generic [ref=e409]: continued
+                    - generic [ref=e410]: Phase 0 — Counter-hypothesis
+            - heading [level=3] [ref=e413]:
+              - button "R4 ingredient stopped Phase 0 — Ingredient & technique" [ref=e414]:
+                - generic [ref=e415]:
+                  - generic [ref=e416]: R4
+                  - generic [ref=e417]:
+                    - generic [ref=e418]:
+                      - generic [ref=e419]: ingredient
+                      - generic [ref=e420]: stopped
+                    - generic [ref=e421]: Phase 0 — Ingredient & technique
+            - heading [level=3] [ref=e424]:
+              - button "R0 memory continued Phase 0 — Memory audit" [ref=e425]:
+                - generic [ref=e426]:
+                  - generic [ref=e427]: R0
+                  - generic [ref=e428]:
+                    - generic [ref=e429]:
+                      - generic [ref=e430]: memory
+                      - generic [ref=e431]: continued
+                    - generic [ref=e432]: Phase 0 — Memory audit
+            - heading [level=3] [ref=e435]:
+              - button "R1 primary continued Phase 0 — Primary evidence" [ref=e436]:
+                - generic [ref=e437]:
+                  - generic [ref=e438]: R1
+                  - generic [ref=e439]:
+                    - generic [ref=e440]:
+                      - generic [ref=e441]: primary
+                      - generic [ref=e442]: continued
+                    - generic [ref=e443]: Phase 0 — Primary evidence
+            - heading [level=3] [ref=e446]:
+              - button "R5 synthesis stopped Phase 0 — Synthesis" [ref=e447]:
+                - generic [ref=e448]:
+                  - generic [ref=e449]: R5
+                  - generic [ref=e450]:
+                    - generic [ref=e451]:
+                      - generic [ref=e452]: synthesis
+                      - generic [ref=e453]: stopped
+                    - generic [ref=e454]: Phase 0 — Synthesis
+          - generic [ref=e455]:
+            - generic [ref=e456]:
+              - generic [ref=e457]: Stopping rule
+              - generic [ref=e462]:
+                - paragraph [ref=e463]: A pre-research sequence stops when decision-relevant evidence is located, major source classes are checked, a counter-hypothesis round is complete, and another round is unlikely to change the next action.
+                - generic [ref=e464]:
+                  - generic [ref=e465]:
+                    - generic [ref=e466]: Rounds run
+                    - generic [ref=e467]: "6"
+                  - generic [ref=e468]:
+                    - generic [ref=e469]: Counter-hypothesis
+                    - generic [ref=e470]: "1"
+                  - generic [ref=e471]:
+                    - generic [ref=e472]: Source classes
+                    - generic [ref=e473]: 5+
+                  - generic [ref=e474]:
+                    - generic [ref=e475]: Material contradictions
+                    - generic [ref=e476]: "4"
+            - generic [ref=e477]:
+              - generic [ref=e478]: Honesty note
+              - generic [ref=e480]:
+                - text: Kitchen validation rounds are documented as
+                - strong [ref=e481]: predicted results
+                - text: with explicit acceptance criteria — they have not been executed in this environment. Every predicted check is labelled as such.
+      - generic [ref=e491]:
+        - generic [ref=e492]:
+          - generic [ref=e493]: "02"
+          - generic [ref=e494]:
+            - heading "Evidence Console" [level=2] [ref=e499]
+            - paragraph [ref=e500]: Forensic visual analysis of the supplied image (VLM) and the multi-source web research that corroborated or contradicted it. Observations are separated from inferences.
+        - generic [ref=e501]:
+          - tablist [ref=e502]:
+            - tab "Visual" [selected] [ref=e503]
+            - tab "Contradictions" [ref=e505]
+            - tab "Sources" [ref=e507]
+          - tabpanel "Visual" [ref=e509]:
+            - generic [ref=e510]:
+              - generic [ref=e511]:
+                - img "Bizcochuelos Valera — forensic reference image" [ref=e513]
+                - generic [ref=e515]: Image analysed with VLM (vision-language model). Treated as provisional evidence, not verified truth.
+              - generic [ref=e516]:
+                - generic [ref=e517]:
+                  - generic [ref=e518]: Observed characteristics
+                  - list [ref=e527]:
+                    - listitem [ref=e528]:
+                      - generic [ref=e529]: Product form
+                      - generic [ref=e531]: Individual round/oval cakes, ~6.5 cm dia × ~3.5 cm tall
+                    - listitem [ref=e532]:
+                      - generic [ref=e533]: Count per tray
+                      - generic [ref=e535]: ~4 (2×2 arrangement)
+                    - listitem [ref=e536]:
+                      - generic [ref=e537]: Top profile
+                      - generic [ref=e539]: Distinctly domed/peaked
+                    - listitem [ref=e540]:
+                      - generic [ref=e541]: Color
+                      - generic [ref=e543]: Deep golden-amber to light caramel (Pantone ~7513C–7515C)
+                    - listitem [ref=e544]:
+                      - generic [ref=e545]: Surface texture
+                      - generic [ref=e547]: Pebbled / orange-peel with fine craquelure; matte-satin
+                    - listitem [ref=e548]:
+                      - generic [ref=e549]: Browning
+                      - generic [ref=e551]: Concentrated on dome apex; moderately non-uniform
+                    - listitem [ref=e552]:
+                      - generic [ref=e553]: Sides
+                      - generic [ref=e555]: Vertical to slightly bell-shaped; no mushrooming
+                    - listitem [ref=e556]:
+                      - generic [ref=e557]: Crumb (inferred)
+                      - generic [ref=e559]: Dense, uniform; no tunneling visible
+                    - listitem [ref=e560]:
+                      - generic [ref=e561]: Liners
+                      - generic [ref=e563]: None visible
+                - generic [ref=e564]:
+                  - generic [ref=e565]:
+                    - generic [ref=e566]: Explicit absences
+                    - list [ref=e572]:
+                      - listitem [ref=e573]:
+                        - generic [ref=e574]: ✕
+                        - text: No filling (jam, cream, dulce de leche)
+                      - listitem [ref=e575]:
+                        - generic [ref=e576]: ✕
+                        - text: No icing, frosting, or glaze
+                      - listitem [ref=e577]:
+                        - generic [ref=e578]: ✕
+                        - text: No powdered sugar dusting
+                      - listitem [ref=e579]:
+                        - generic [ref=e580]: ✕
+                        - text: No seeds, nuts, or fruit
+                      - listitem [ref=e581]:
+                        - generic [ref=e582]: ✕
+                        - text: No chocolate
+                      - listitem [ref=e583]:
+                        - generic [ref=e584]: ✕
+                        - text: No paper liners
+                  - generic [ref=e585]:
+                    - generic [ref=e586]: Label transcription
+                    - list [ref=e592]:
+                      - listitem [ref=e593]: BIZCOCHUELOS
+                      - listitem [ref=e594]: Valera (blue cursive script)
+                      - listitem [ref=e595]: Únicos / Últimos en el Perú!
+                      - listitem [ref=e596]: Víctor (Tito) Valera — "El Tigre del Sabor"
+                      - listitem [ref=e597]: BISCOTELAS (yellow)
+                      - listitem [ref=e598]: "Pedidos: 074-630 433 · 074-433 071 · 978 081 803 · 979 429 440"
+                      - listitem [ref=e599]: Panda-chef logo + tiger head motif
+      - generic [ref=e602]:
+        - generic [ref=e603]:
+          - generic [ref=e604]: "03"
+          - generic [ref=e605]:
+            - heading "Claims Ledger" [level=2] [ref=e610]
+            - paragraph [ref=e611]: Every major claim classified by confidence. Wording is downgraded whenever the evidence cannot support precision — historical plausibility is never presented as proof.
+        - generic [ref=e612]:
+          - generic [ref=e613]:
+            - generic [ref=e614]:
+              - generic [ref=e615]: "Category:"
+              - button "all" [ref=e618]
+              - button "historical" [ref=e619]
+              - button "business" [ref=e620]
+              - button "visual" [ref=e621]
+              - button "recipe" [ref=e622]
+              - button "ingredient" [ref=e623]
+              - button "technique" [ref=e624]
+              - button "regulatory" [ref=e625]
+              - generic [ref=e626]: 15 / 15
+            - generic [ref=e632]:
+              - generic [ref=e635]:
+                - generic [ref=e636]:
+                  - generic [ref=e637]: business
+                  - generic [ref=e638]: Strongly supported
+                - paragraph [ref=e639]: The business operates a wood-fired clay oven ("horno tradicional de barro") in Chongoyape.
+                - generic [ref=e640]:
+                  - generic [ref=e641]: "Evidence: RPP Noticias video; multiple Facebook posts mentioning \"horno de barro\" and \"leña\"."
+                  - generic [ref=e642]: "Counter-test: A production video showing only gas/electric ovens — not found."
+              - generic [ref=e645]:
+                - generic [ref=e646]:
+                  - generic [ref=e647]: business
+                  - generic [ref=e648]: Plausible
+                - paragraph [ref=e649]: The shop in Chiclayo is on Alfredo Lapoint near Mercado Central.
+                - generic [ref=e650]:
+                  - generic [ref=e651]: "Evidence: Previous report; phone numbers with 074 area code corroborate Lambayeque location."
+                  - generic [ref=e652]: "Counter-test: A current address check — not performed."
+              - generic [ref=e655]:
+                - generic [ref=e656]:
+                  - generic [ref=e657]: historical
+                  - generic [ref=e658]: Strongly supported
+                - paragraph [ref=e659]: Bizcochuelos Valera was founded by Eutemio (Tito) Valera Santa Cruz in Chongoyape, ~1913.
+                - generic [ref=e660]:
+                  - generic [ref=e661]: "Evidence: Family monograph cited in previous report; centennial framing in multiple independent social posts."
+                  - generic [ref=e662]: "Counter-test: A different founding date or founder name in municipal records — not found."
+              - generic [ref=e665]:
+                - generic [ref=e666]:
+                  - generic [ref=e667]: historical
+                  - generic [ref=e668]: Contradicted
+                  - generic [ref=e669]: downgraded
+                - paragraph [ref=e670]: The product form is a slab cut into 16 rectangular pieces (4×4 grid).
+                - generic [ref=e671]:
+                  - generic [ref=e672]: "Evidence: Previous report claim. VLM analysis of the supplied image shows individual round domed cakes, ~4 per tray."
+                  - generic [ref=e673]: "Counter-test: The supplied image itself."
+              - generic [ref=e676]:
+                - generic [ref=e677]:
+                  - generic [ref=e678]: ingredient
+                  - generic [ref=e679]: Weak
+                - paragraph [ref=e680]: The recipe uses chuño (potato starch) alongside wheat flour.
+                - generic [ref=e681]:
+                  - generic [ref=e682]: "Evidence: Previous report mentions \"harinas especiales\"; chuño is regionally traditional; modern Peruvian recipes use it. No direct producer confirmation."
+                  - generic [ref=e683]: "Counter-test: A producer statement that no starch is used. A foam-only control that matches the target without starch."
+              - generic [ref=e686]:
+                - generic [ref=e687]:
+                  - generic [ref=e688]: ingredient
+                  - generic [ref=e689]: Weak
+                - paragraph [ref=e690]: The recipe contains vanilla or citrus zest.
+                - generic [ref=e691]:
+                  - generic [ref=e692]: "Evidence: Common in modern Peruvian sponge recipes; not advertised on the label."
+                  - generic [ref=e693]: "Counter-test: A producer statement that no flavoring is used."
+              - generic [ref=e696]:
+                - generic [ref=e697]:
+                  - generic [ref=e698]: ingredient
+                  - generic [ref=e699]: Weak
+                - paragraph [ref=e700]: Algarrobina (carob syrup) is a hidden flavoring.
+                - generic [ref=e701]:
+                  - generic [ref=e702]: "Evidence: Algarrobo is regional to northern Peru; algarrobina is used in some Lambayeque sweets. No producer or visual evidence; the deep color could equally be Maillard + sugar caramelization."
+                  - generic [ref=e703]: "Counter-test: A producer statement; a sensory test showing no algarrobina note."
+              - generic [ref=e706]:
+                - generic [ref=e707]:
+                  - generic [ref=e708]: recipe
+                  - generic [ref=e709]: Plausible
+                - paragraph [ref=e710]: The core formula is an egg-foam sponge (eggs + sugar + flour + salt) with no chemical leavener.
+                - generic [ref=e711]:
+                  - generic [ref=e712]: "Evidence: Foam-only is the canonical bizcochuelo method; published foam-only recipes produce equivalent texture; family states \"todo a base de huevos frescos\"."
+                  - generic [ref=e713]: "Counter-test: A production video showing baking powder being added — not available. A failed foam-only kitchen test."
+              - generic [ref=e716]:
+                - generic [ref=e717]:
+                  - generic [ref=e718]: recipe
+                  - generic [ref=e719]: Contradicted
+                  - generic [ref=e720]: removed
+                - paragraph [ref=e721]: The core recipe should include 10 g baking powder "for reliability".
+                - generic [ref=e722]:
+                  - generic [ref=e723]: "Evidence: Previous report claim. Violates parsimony: no foam-only control was tested before adding leavener."
+                  - generic [ref=e724]: "Counter-test: Foam-only baseline is structurally sufficient per published recipes."
+              - generic [ref=e727]:
+                - generic [ref=e728]:
+                  - generic [ref=e729]: regulatory
+                  - generic [ref=e730]: Plausible
+                - paragraph [ref=e731]: The product is exempt from DIGESA sanitary registration as a short-shelf-life artisanal bakery item (≤48 h, unpreserved).
+                - generic [ref=e732]:
+                  - generic [ref=e733]: "Evidence: Peruvian food regulation cited in previous report; clamshell packaging with no ingredient list is consistent with artisanal bakery status."
+                  - generic [ref=e734]: "Counter-test: A DIGESA record showing active sanitary registration for the brand — not searched exhaustively."
+              - generic [ref=e737]:
+                - generic [ref=e738]:
+                  - generic [ref=e739]: technique
+                  - generic [ref=e740]: Plausible
+                - paragraph [ref=e741]: Whole eggs are whipped to ribbon stage ("punto cinta") as the primary leavening.
+                - generic [ref=e742]:
+                  - generic [ref=e743]: "Evidence: Canonical technique; simplest explanation consistent with a fine, even crumb."
+                  - generic [ref=e744]: "Counter-test: A production video showing separated-egg whipping. A whole-egg test that fails to achieve target rise."
+              - generic [ref=e747]:
+                - generic [ref=e748]:
+                  - generic [ref=e749]: technique
+                  - generic [ref=e750]: Unresolved
+                - paragraph [ref=e751]: The wood oven imparts a perceptible smoke flavor to the cake.
+                - generic [ref=e752]:
+                  - generic [ref=e753]: "Evidence: Popular sources claim smoke flavor; food science indicates smoke compounds adsorb primarily to crust and may not survive cooling and clamshell storage. No controlled test performed."
+                  - generic [ref=e754]: "Counter-test: A triangle test (smoked vs unsmoked) showing no perceptible difference."
+              - generic [ref=e757]:
+                - generic [ref=e758]:
+                  - generic [ref=e759]: visual
+                  - generic [ref=e760]: Strongly supported
+                - paragraph [ref=e761]: The photographed product is an individual round domed sponge cake, ~6.5 cm diameter × ~3.5 cm tall, deep golden-amber.
+                - generic [ref=e762]:
+                  - generic [ref=e763]: "Evidence: Forensic VLM analysis of the supplied image."
+                  - generic [ref=e764]: "Counter-test: A higher-resolution image showing rectangular pieces — not present."
+              - generic [ref=e767]:
+                - generic [ref=e768]:
+                  - generic [ref=e769]: visual
+                  - generic [ref=e770]: Confirmed
+                - paragraph [ref=e771]: The product has no filling, icing, powdered sugar, or liners.
+                - generic [ref=e772]:
+                  - generic [ref=e773]: "Evidence: VLM explicit-negative analysis."
+                  - generic [ref=e774]: "Counter-test: A side view revealing a hidden layer — not visible."
+              - generic [ref=e777]:
+                - generic [ref=e778]:
+                  - generic [ref=e779]: visual
+                  - generic [ref=e780]: Plausible
+                - paragraph [ref=e781]: Each clamshell tray holds ~4 individual cakes in a 2×2 arrangement; multi-tray packs may total 16.
+                - generic [ref=e782]:
+                  - generic [ref=e783]: "Evidence: VLM observation of the supplied image (4 visible per tray) reconciled with the \"16 Bizcochuelos\" label claim."
+                  - generic [ref=e784]: "Counter-test: A photo of the full pack showing the tray count."
+          - generic [ref=e785]:
+            - generic [ref=e786]:
+              - generic [ref=e787]: Confidence distribution
+              - generic [ref=e793]:
+                - generic [ref=e794]:
+                  - generic:
+                    - generic: 27%
+                    - generic: corroborated
+                - generic [ref=e812]:
+                  - generic [ref=e813]:
+                    - generic [ref=e815]: Confirmed
+                    - generic [ref=e816]: "1"
+                    - generic [ref=e817]: 7%
+                  - generic [ref=e818]:
+                    - generic [ref=e820]: Strongly supported
+                    - generic [ref=e821]: "3"
+                    - generic [ref=e822]: 20%
+                  - generic [ref=e823]:
+                    - generic [ref=e825]: Plausible
+                    - generic [ref=e826]: "5"
+                    - generic [ref=e827]: 33%
+                  - generic [ref=e828]:
+                    - generic [ref=e830]: Weak
+                    - generic [ref=e831]: "3"
+                    - generic [ref=e832]: 20%
+                  - generic [ref=e833]:
+                    - generic [ref=e835]: Unresolved
+                    - generic [ref=e836]: "1"
+                    - generic [ref=e837]: 7%
+                  - generic [ref=e838]:
+                    - generic [ref=e840]: Contradicted
+                    - generic [ref=e841]: "2"
+                    - generic [ref=e842]: 13%
+            - generic [ref=e843]:
+              - generic [ref=e844]: How to read this chart
+              - text: The donut shows the confidence distribution of all 15 claims. “Corroborated” = confirmed + strongly supported. A claim is downgraded whenever the evidence cannot support its original precision.
+      - generic [ref=e847]:
+        - generic [ref=e848]:
+          - generic [ref=e849]: "04"
+          - generic [ref=e850]:
+            - heading "Ingredient Decision Ledger" [level=2] [ref=e854]
+            - paragraph [ref=e855]: Every candidate ingredient with its function, evidence, Lima availability, substitution, expected effect, risk, and the predicted result of omission. An ingredient enters the core only with direct evidence or structural necessity.
+        - generic [ref=e856]:
+          - generic [ref=e857]:
+            - button "all" [ref=e858]
+            - button "core" [ref=e859]
+            - button "substitution" [ref=e860]
+            - button "diagnostic" [ref=e861]
+            - button "speculative" [ref=e862]
+            - button "rejected" [ref=e863]
+          - generic [ref=e864]:
+            - text: "Core formula total:"
+            - generic [ref=e865]: 541.5 g
+        - generic [ref=e871]:
+          - heading [level=3] [ref=e873]:
+            - button "150g 24.0% All-purpose wheat flour (harina preparada) Structure (gluten + starch gelatinization). Core common" [ref=e874]:
+              - generic [ref=e875]:
+                - generic [ref=e876]:
+                  - text: 150g
+                  - generic [ref=e877]: 24.0%
+                - generic [ref=e878]:
+                  - generic [ref=e879]: All-purpose wheat flour (harina preparada)
+                  - generic [ref=e880]: Structure (gluten + starch gelatinization).
+                - generic [ref=e881]:
+                  - generic [ref=e882]: Core
+                  - generic [ref=e883]: common
+          - heading [level=3] [ref=e885]:
+            - button "1.5g 0.2% Fine salt Flavor balance; tightens gluten slightly; masks flatness. Core common" [ref=e886]:
+              - generic [ref=e887]:
+                - generic [ref=e888]:
+                  - text: 1.5g
+                  - generic [ref=e889]: 0.2%
+                - generic [ref=e890]:
+                  - generic [ref=e891]: Fine salt
+                  - generic [ref=e892]: Flavor balance; tightens gluten slightly; masks flatness.
+                - generic [ref=e893]:
+                  - generic [ref=e894]: Core
+                  - generic [ref=e895]: common
+          - heading [level=3] [ref=e897]:
+            - button "150g 24.0% Granulated sugar Sweetness, foam stabilization (delays coalescence), crust browning (caramelization/Maillard), moisture retention. Core common" [ref=e898]:
+              - generic [ref=e899]:
+                - generic [ref=e900]:
+                  - text: 150g
+                  - generic [ref=e901]: 24.0%
+                - generic [ref=e902]:
+                  - generic [ref=e903]: Granulated sugar
+                  - generic [ref=e904]: Sweetness, foam stabilization (delays coalescence), crust browning (caramelization/Maillard), moisture retention.
+                - generic [ref=e905]:
+                  - generic [ref=e906]: Core
+                  - generic [ref=e907]: common
+          - heading [level=3] [ref=e909]:
+            - button "240g 38.4% Whole eggs (room temp) Primary structure + leavening (foam) + moisture + color (yolk fat & lecithin). Core common" [ref=e910]:
+              - generic [ref=e911]:
+                - generic [ref=e912]:
+                  - text: 240g
+                  - generic [ref=e913]: 38.4%
+                - generic [ref=e914]:
+                  - generic [ref=e915]: Whole eggs (room temp)
+                  - generic [ref=e916]: Primary structure + leavening (foam) + moisture + color (yolk fat & lecithin).
+                - generic [ref=e917]:
+                  - generic [ref=e918]: Core
+                  - generic [ref=e919]: common
+          - heading [level=3] [ref=e921]:
+            - button "3g 0.5% Baking powder (low dose) Supplemental chemical leavening. Diagnostic common" [ref=e922]:
+              - generic [ref=e923]:
+                - generic [ref=e924]:
+                  - text: 3g
+                  - generic [ref=e925]: 0.5%
+                - generic [ref=e926]:
+                  - generic [ref=e927]: Baking powder (low dose)
+                  - generic [ref=e928]: Supplemental chemical leavening.
+                - generic [ref=e929]:
+                  - generic [ref=e930]: Diagnostic
+                  - generic [ref=e931]: common
+          - heading [level=3] [ref=e933]:
+            - button "15g 2.4% Neutral oil (trace) Moisture retention; tenderness. Diagnostic common" [ref=e934]:
+              - generic [ref=e935]:
+                - generic [ref=e936]:
+                  - text: 15g
+                  - generic [ref=e937]: 2.4%
+                - generic [ref=e938]:
+                  - generic [ref=e939]: Neutral oil (trace)
+                  - generic [ref=e940]: Moisture retention; tenderness.
+                - generic [ref=e941]:
+                  - generic [ref=e942]: Diagnostic
+                  - generic [ref=e943]: common
+          - heading [level=3] [ref=e945]:
+            - button "3g 0.5% Vanilla extract Aroma. Diagnostic common" [ref=e946]:
+              - generic [ref=e947]:
+                - generic [ref=e948]:
+                  - text: 3g
+                  - generic [ref=e949]: 0.5%
+                - generic [ref=e950]:
+                  - generic [ref=e951]: Vanilla extract
+                  - generic [ref=e952]: Aroma.
+                - generic [ref=e953]:
+                  - generic [ref=e954]: Diagnostic
+                  - generic [ref=e955]: common
+          - heading [level=3] [ref=e957]:
+            - 'button "10g 1.6% 10 g baking powder (as in previous report) Rejected: dose was unjustified and likely excessive. Rejected common" [ref=e958]':
+              - generic [ref=e959]:
+                - generic [ref=e960]:
+                  - text: 10g
+                  - generic [ref=e961]: 1.6%
+                - generic [ref=e962]:
+                  - generic [ref=e963]: 10 g baking powder (as in previous report)
+                  - generic [ref=e964]: "Rejected: dose was unjustified and likely excessive."
+                - generic [ref=e965]:
+                  - generic [ref=e966]: Rejected
+                  - generic [ref=e967]: common
+          - heading [level=3] [ref=e969]:
+            - button "8g 1.3% Algarrobina (carob syrup) Speculative flavor + color. Speculative specialist" [ref=e970]:
+              - generic [ref=e971]:
+                - generic [ref=e972]:
+                  - text: 8g
+                  - generic [ref=e973]: 1.3%
+                - generic [ref=e974]:
+                  - generic [ref=e975]: Algarrobina (carob syrup)
+                  - generic [ref=e976]: Speculative flavor + color.
+                - generic [ref=e977]:
+                  - generic [ref=e978]: Speculative
+                  - generic [ref=e979]: specialist
+          - heading [level=3] [ref=e981]:
+            - button "— 0.0% Applewood / algarrobo wood smoke (surface exposure) Speculative smoke aroma on crust. Speculative uncertain" [ref=e982]:
+              - generic [ref=e983]:
+                - generic [ref=e984]:
+                  - text: —
+                  - generic [ref=e985]: 0.0%
+                - generic [ref=e986]:
+                  - generic [ref=e987]: Applewood / algarrobo wood smoke (surface exposure)
+                  - generic [ref=e988]: Speculative smoke aroma on crust.
+                - generic [ref=e989]:
+                  - generic [ref=e990]: Speculative
+                  - generic [ref=e991]: uncertain
+          - heading [level=3] [ref=e993]:
+            - button "150g 24.0% Cake flour / lower-protein flour Softer crumb than all-purpose. Substitution specialist" [ref=e994]:
+              - generic [ref=e995]:
+                - generic [ref=e996]:
+                  - text: 150g
+                  - generic [ref=e997]: 24.0%
+                - generic [ref=e998]:
+                  - generic [ref=e999]: Cake flour / lower-protein flour
+                  - generic [ref=e1000]: Softer crumb than all-purpose.
+                - generic [ref=e1001]:
+                  - generic [ref=e1002]: Substitution
+                  - generic [ref=e1003]: specialist
+          - heading [level=3] [ref=e1005]:
+            - button "15g 2.4% Potato starch (chuño / fécula de papa) Tenderizes crumb by diluting gluten; absorbs water; delays staling. Substitution specialist" [ref=e1006]:
+              - generic [ref=e1007]:
+                - generic [ref=e1008]:
+                  - text: 15g
+                  - generic [ref=e1009]: 2.4%
+                - generic [ref=e1010]:
+                  - generic [ref=e1011]: Potato starch (chuño / fécula de papa)
+                  - generic [ref=e1012]: Tenderizes crumb by diluting gluten; absorbs water; delays staling.
+                - generic [ref=e1013]:
+                  - generic [ref=e1014]: Substitution
+                  - generic [ref=e1015]: specialist
+        - generic [ref=e1016]:
+          - generic [ref=e1017]:
+            - generic [ref=e1018]: Common in Lima
+            - paragraph [ref=e1024]: Eggs, sugar, AP flour, salt, cornstarch, oil, vanilla, baking powder.
+          - generic [ref=e1025]:
+            - generic [ref=e1026]: Specialist
+            - paragraph [ref=e1032]: Cake flour / harina 0000, chuño (fécula de papa), algarrobina.
+          - generic [ref=e1033]:
+            - generic [ref=e1034]: Uncertain
+            - paragraph [ref=e1038]: Algarrobo wood for smoking (regional; not supermarket).
+      - generic [ref=e1048]:
+        - generic [ref=e1049]:
+          - generic [ref=e1050]: "05"
+          - generic [ref=e1051]:
+            - heading "Technique Decision Ledger" [level=2] [ref=e1055]
+            - paragraph [ref=e1056]: Every technique audited for its intended function, target evidence, simpler alternative, failure mode, and observable measurement. Ceremonial, redundant, or inherited steps are rejected.
+        - generic [ref=e1057]:
+          - generic [ref=e1058]:
+            - generic [ref=e1059]:
+              - heading "Core techniques" [level=3] [ref=e1060]
+              - generic [ref=e1064]: "7"
+            - generic [ref=e1069]:
+              - generic [ref=e1070]:
+                - generic [ref=e1072]: Weigh eggs (shelled) rather than count
+                - generic [ref=e1073]:
+                  - generic [ref=e1078]:
+                    - generic [ref=e1079]: "Function:"
+                    - text: Eliminates egg-size variation, the largest source of ratio drift.
+                  - generic [ref=e1086]:
+                    - generic [ref=e1087]: "Target:"
+                    - text: Eggs vary 50-70 g; 8 eggs can shift the formula by ±20%.
+                  - generic [ref=e1092]:
+                    - generic [ref=e1093]: "Simpler alt:"
+                    - text: Counting eggs is simpler but imprecise.
+                  - generic [ref=e1098]:
+                    - generic [ref=e1099]: "Failure:"
+                    - text: Counting leads to dense or collapsed bakes.
+                  - generic [ref=e1108]:
+                    - generic [ref=e1109]: "Measurement:"
+                    - text: Digital scale ±1 g.
+              - generic [ref=e1110]:
+                - generic [ref=e1112]: Whip whole eggs + sugar to ribbon stage ("punto cinta")
+                - generic [ref=e1113]:
+                  - generic [ref=e1118]:
+                    - generic [ref=e1119]: "Function:"
+                    - text: Primary leavening; traps air; stabilizes foam.
+                  - generic [ref=e1126]:
+                    - generic [ref=e1127]: "Target:"
+                    - text: Canonical bizcochuelo technique; visible fine-even crumb in target.
+                  - generic [ref=e1132]:
+                    - generic [ref=e1133]: "Simpler alt:"
+                    - text: None — this IS the simplest leavening method for a fat-free sponge.
+                  - generic [ref=e1138]:
+                    - generic [ref=e1139]: "Failure:"
+                    - text: Underwhipping -> dense; overwhipping -> coarse, fragile foam.
+                  - generic [ref=e1148]:
+                    - generic [ref=e1149]: "Measurement:"
+                    - text: Ribbon trail holds 3-second figure-8; volume tripled; pale ivory.
+              - generic [ref=e1150]:
+                - generic [ref=e1152]: Sift dry ingredients once
+                - generic [ref=e1153]:
+                  - generic [ref=e1158]:
+                    - generic [ref=e1159]: "Function:"
+                    - text: Disperses flour/starch/salt; aerates.
+                  - generic [ref=e1166]:
+                    - generic [ref=e1167]: "Target:"
+                    - text: Standard.
+                  - generic [ref=e1172]:
+                    - generic [ref=e1173]: "Simpler alt:"
+                    - text: Whisking in a bowl is equivalent for dispersion.
+                  - generic [ref=e1178]:
+                    - generic [ref=e1179]: "Failure:"
+                    - text: Multiple sifts add steps without measurable benefit.
+                  - generic [ref=e1188]:
+                    - generic [ref=e1189]: "Measurement:"
+                    - text: No lumps visible.
+              - generic [ref=e1190]:
+                - generic [ref=e1192]: Fold dry into foam in 3 additions
+                - generic [ref=e1193]:
+                  - generic [ref=e1198]:
+                    - generic [ref=e1199]: "Function:"
+                    - text: Preserves air; ensures even dispersion.
+                  - generic [ref=e1206]:
+                    - generic [ref=e1207]: "Target:"
+                    - text: Standard.
+                  - generic [ref=e1212]:
+                    - generic [ref=e1213]: "Simpler alt:"
+                    - text: 2 additions acceptable for small batches.
+                  - generic [ref=e1218]:
+                    - generic [ref=e1219]: "Failure:"
+                    - text: Overfolding deflates; underfolding leaves streaks.
+                  - generic [ref=e1228]:
+                    - generic [ref=e1229]: "Measurement:"
+                    - text: No dry streaks; batter still voluminous.
+              - generic [ref=e1230]:
+                - generic [ref=e1232]: Grease + parchment-line mold bottom only; sides ungreased
+                - generic [ref=e1233]:
+                  - generic [ref=e1238]:
+                    - generic [ref=e1239]: "Function:"
+                    - text: Allows batter to grip sides and climb (oven spring); parchment ensures clean release.
+                  - generic [ref=e1246]:
+                    - generic [ref=e1247]: "Target:"
+                    - text: Standard sponge practice; matches the straight-sided target.
+                  - generic [ref=e1252]:
+                    - generic [ref=e1253]: "Simpler alt:"
+                    - text: Greasing sides — simpler but reduces rise.
+                  - generic [ref=e1258]:
+                    - generic [ref=e1259]: "Failure:"
+                    - text: Greased sides -> slumped, mushroomed top.
+                  - generic [ref=e1268]:
+                    - generic [ref=e1269]: "Measurement:"
+                    - text: Straight vertical sides after bake.
+              - generic [ref=e1270]:
+                - generic [ref=e1272]: Bake at 180°C, ~22-26 min for individual molds
+                - generic [ref=e1273]:
+                  - generic [ref=e1278]:
+                    - generic [ref=e1279]: "Function:"
+                    - text: Sets foam before it collapses; develops Maillard crust.
+                  - generic [ref=e1286]:
+                    - generic [ref=e1287]: "Target:"
+                    - text: Published foam-only recipes; target color indicates moderate-high heat.
+                  - generic [ref=e1292]:
+                    - generic [ref=e1293]: "Simpler alt:"
+                    - text: A single fixed temperature.
+                  - generic [ref=e1298]:
+                    - generic [ref=e1299]: "Failure:"
+                    - text: Too hot -> dark crust before crumb sets; too cool -> collapse.
+                  - generic [ref=e1308]:
+                    - generic [ref=e1309]: "Measurement:"
+                    - text: Toothpick clean; internal 95°C; spring-back.
+              - generic [ref=e1310]:
+                - generic [ref=e1312]: Cool 5 min in mold, then invert/unmold onto rack
+                - generic [ref=e1313]:
+                  - generic [ref=e1318]:
+                    - generic [ref=e1319]: "Function:"
+                    - text: Prevents steam-softening the crust; sets structure.
+                  - generic [ref=e1326]:
+                    - generic [ref=e1327]: "Target:"
+                    - text: Standard.
+                  - generic [ref=e1332]:
+                    - generic [ref=e1333]: "Simpler alt:"
+                    - text: None.
+                  - generic [ref=e1338]:
+                    - generic [ref=e1339]: "Failure:"
+                    - text: Unmolding too hot -> tearing; leaving in mold too long -> gummy base.
+                  - generic [ref=e1348]:
+                    - generic [ref=e1349]: "Measurement:"
+                    - text: Cake releases cleanly.
+          - generic [ref=e1350]:
+            - generic [ref=e1351]:
+              - heading "Optional" [level=3] [ref=e1352]
+              - generic [ref=e1355]: "3"
+            - generic [ref=e1360]:
+              - generic [ref=e1361]:
+                - generic [ref=e1363]: Warm whole eggs to ~38-40°C before whipping
+                - generic [ref=e1364]:
+                  - generic [ref=e1369]:
+                    - generic [ref=e1370]: "Function:"
+                    - text: Lowers surface tension, accelerates foam formation, increases final volume.
+                  - generic [ref=e1377]:
+                    - generic [ref=e1378]: "Target:"
+                    - text: Standard genoise practice; foam reaches ribbon stage faster.
+                  - generic [ref=e1383]:
+                    - generic [ref=e1384]: "Simpler alt:"
+                    - text: Room-temp eggs (already specified) whip adequately with 1-2 extra minutes.
+                  - generic [ref=e1389]:
+                    - generic [ref=e1390]: "Failure:"
+                    - text: Overheating >45°C cooks yolks.
+                  - generic [ref=e1399]:
+                    - generic [ref=e1400]: "Measurement:"
+                    - text: Thermometer probe.
+              - generic [ref=e1401]:
+                - generic [ref=e1403]: Tap mold once on counter
+                - generic [ref=e1404]:
+                  - generic [ref=e1409]:
+                    - generic [ref=e1410]: "Function:"
+                    - text: Releases large trapped air pockets that would form tunnels.
+                  - generic [ref=e1417]:
+                    - generic [ref=e1418]: "Target:"
+                    - text: Standard.
+                  - generic [ref=e1423]:
+                    - generic [ref=e1424]: "Simpler alt:"
+                    - text: None.
+                  - generic [ref=e1429]:
+                    - generic [ref=e1430]: "Failure:"
+                    - text: Aggressive tapping deflates foam.
+                  - generic [ref=e1439]:
+                    - generic [ref=e1440]: "Measurement:"
+                    - text: A few bubbles surface.
+              - generic [ref=e1441]:
+                - generic [ref=e1443]: "Optional: baking stone / deck-heat simulation"
+                - generic [ref=e1444]:
+                  - generic [ref=e1449]:
+                    - generic [ref=e1450]: "Function:"
+                    - text: Mimics the strong bottom heat of a wood-fired clay deck.
+                  - generic [ref=e1457]:
+                    - generic [ref=e1458]: "Target:"
+                    - text: Wood oven has high thermal-mass floor.
+                  - generic [ref=e1463]:
+                    - generic [ref=e1464]: "Simpler alt:"
+                    - text: A preheated heavy sheet pan on the lower rack.
+                  - generic [ref=e1469]:
+                    - generic [ref=e1470]: "Failure:"
+                    - text: Stone too hot -> burnt base.
+                  - generic [ref=e1479]:
+                    - generic [ref=e1480]: "Measurement:"
+                    - text: Even golden base.
+          - generic [ref=e1481]:
+            - generic [ref=e1482]:
+              - heading "Rejected" [level=3] [ref=e1483]
+              - generic [ref=e1488]: "6"
+            - generic [ref=e1493]:
+              - generic [ref=e1494]:
+                - generic [ref=e1496]: Three-time sifting of flour
+                - generic [ref=e1497]:
+                  - generic [ref=e1502]:
+                    - generic [ref=e1503]: "Function:"
+                    - text: "Rejected: no measurable improvement over one thorough sift."
+                  - generic [ref=e1510]:
+                    - generic [ref=e1511]: "Target:"
+                    - text: Parsimony check.
+                  - generic [ref=e1516]:
+                    - generic [ref=e1517]: "Failure:"
+                    - text: Adds time during which foam waits and deflates.
+                  - generic [ref=e1526]:
+                    - generic [ref=e1527]: "Measurement:"
+                    - text: n/a.
+                - generic [ref=e1528]: Optional
+              - generic [ref=e1530]:
+                - generic [ref=e1532]: Combining whole-egg AND separated-egg methods in one recipe
+                - generic [ref=e1533]:
+                  - generic [ref=e1538]:
+                    - generic [ref=e1539]: "Function:"
+                    - text: "Rejected: confounds the variable; adds steps and collapse risk."
+                  - generic [ref=e1546]:
+                    - generic [ref=e1547]: "Target:"
+                    - text: Previous report presented both as a single hybrid.
+                  - generic [ref=e1552]:
+                    - generic [ref=e1553]: "Failure:"
+                    - text: Hybrid collapses more easily than either pure method.
+                  - generic [ref=e1562]:
+                    - generic [ref=e1563]: "Measurement:"
+                    - text: n/a.
+                - generic [ref=e1564]: Optional
+              - generic [ref=e1566]:
+                - generic [ref=e1568]: Adding baking powder "for reliability"
+                - generic [ref=e1569]:
+                  - generic [ref=e1574]:
+                    - generic [ref=e1575]: "Function:"
+                    - text: "Rejected: no foam-only control was tested first."
+                  - generic [ref=e1582]:
+                    - generic [ref=e1583]: "Target:"
+                    - text: Parsimony + Red phase.
+                  - generic [ref=e1588]:
+                    - generic [ref=e1589]: "Failure:"
+                    - text: Chemical taste; coarse crumb.
+                  - generic [ref=e1598]:
+                    - generic [ref=e1599]: "Measurement:"
+                    - text: n/a.
+                - generic [ref=e1600]: Optional
+              - generic [ref=e1602]:
+                - generic [ref=e1604]: Smoke exposure before unsmoked control
+                - generic [ref=e1605]:
+                  - generic [ref=e1610]:
+                    - generic [ref=e1611]: "Function:"
+                    - text: "Rejected sequence: must establish unsmoked baseline first."
+                  - generic [ref=e1618]:
+                    - generic [ref=e1619]: "Target:"
+                    - text: Protocol Section F.
+                  - generic [ref=e1624]:
+                    - generic [ref=e1625]: "Failure:"
+                    - text: Confounds color and aroma variables.
+                  - generic [ref=e1634]:
+                    - generic [ref=e1635]: "Measurement:"
+                    - text: n/a.
+                - generic [ref=e1636]: Optional
+              - generic [ref=e1638]:
+                - generic [ref=e1640]: Treat algarrobina as equivalent to algarrobo wood smoke
+                - generic [ref=e1641]:
+                  - generic [ref=e1646]:
+                    - generic [ref=e1647]: "Function:"
+                    - text: "Rejected: syrup flavor ≠ combustion smoke aroma."
+                  - generic [ref=e1654]:
+                    - generic [ref=e1655]: "Target:"
+                    - text: Protocol acceptance test.
+                  - generic [ref=e1660]:
+                    - generic [ref=e1661]: "Failure:"
+                    - text: False equivalence.
+                  - generic [ref=e1670]:
+                    - generic [ref=e1671]: "Measurement:"
+                    - text: n/a.
+                - generic [ref=e1672]: Optional
+              - generic [ref=e1674]:
+                - generic [ref=e1676]: Rest batter before baking
+                - generic [ref=e1677]:
+                  - generic [ref=e1682]:
+                    - generic [ref=e1683]: "Function:"
+                    - text: "Rejected: deflates foam with no benefit."
+                  - generic [ref=e1690]:
+                    - generic [ref=e1691]: "Target:"
+                    - text: Parsimony.
+                  - generic [ref=e1696]:
+                    - generic [ref=e1697]: "Failure:"
+                    - text: Loss of rise.
+                  - generic [ref=e1706]:
+                    - generic [ref=e1707]: "Measurement:"
+                    - text: n/a.
+                - generic [ref=e1708]: Optional
+      - generic [ref=e1719]:
+        - generic [ref=e1720]:
+          - generic [ref=e1721]: "06"
+          - generic [ref=e1722]:
+            - heading "Substitution Matrix" [level=2] [ref=e1727]
+            - paragraph [ref=e1728]: No two ingredients are called interchangeable without describing their functional differences. Each substitution states the property replaced, the property lost, the quantity adjustment, and the technique adjustment.
+        - table [ref=e1735]:
+          - rowgroup [ref=e1736]:
+            - row [ref=e1737]:
+              - columnheader "Original" [ref=e1738]
+              - columnheader "Substitute" [ref=e1739]
+              - columnheader "Property replaced" [ref=e1740]
+              - columnheader "Property lost" [ref=e1741]
+              - columnheader "Quantity adj." [ref=e1742]
+              - columnheader "Technique adj." [ref=e1743]
+              - columnheader "Confidence" [ref=e1744]
+          - rowgroup [ref=e1745]:
+            - row [ref=e1746]:
+              - cell "Algarrobina syrup" [ref=e1747]
+              - cell "Chancaca syrup" [ref=e1748]
+              - cell "Dark syrup color + molasses note" [ref=e1749]
+              - cell "Algarrobina has a distinct carob flavor; chancaca is more caramel" [ref=e1750]
+              - cell "1:1 by weight" [ref=e1751]
+              - cell "Dissolve into egg foam at ribbon stage" [ref=e1752]
+              - cell "Plausible" [ref=e1753]
+            - row [ref=e1755]:
+              - cell "All-purpose wheat flour" [ref=e1756]
+              - cell "Cake flour / harina 0000" [ref=e1757]
+              - cell "Lower protein for tenderness" [ref=e1758]
+              - cell "Slightly less structural strength" [ref=e1759]
+              - cell "1:1 by weight" [ref=e1760]
+              - cell "Fold even more gently; do not overmix." [ref=e1761]
+              - cell "Plausible" [ref=e1762]
+            - row [ref=e1764]:
+              - cell "All-purpose wheat flour (10% of weight)" [ref=e1765]
+              - cell "Potato starch (chuño)" [ref=e1766]
+              - cell "Tenderness, delayed staling" [ref=e1767]
+              - cell "Some gluten strength; chuño has a slightly earthy note" [ref=e1768]
+              - cell "Replace 10% of flour weight 1:1" [ref=e1769]
+              - cell "Sift together with flour." [ref=e1770]
+              - cell "Plausible" [ref=e1771]
+            - row [ref=e1773]:
+              - cell "Baking stone" [ref=e1774]
+              - cell "Preheated heavy sheet pan on lower rack" [ref=e1775]
+              - cell "Bottom radiant heat mass" [ref=e1776]
+              - cell "Less thermal mass than a stone" [ref=e1777]
+              - cell "n/a" [ref=e1778]
+              - cell "Preheat 20 min" [ref=e1779]
+              - cell "Plausible" [ref=e1780]
+            - row [ref=e1782]:
+              - cell "Potato starch (chuño)" [ref=e1783]
+              - cell "Cornstarch (maicena)" [ref=e1784]
+              - cell "Starch tenderization" [ref=e1785]
+              - cell "Chuño gelatinizes at higher temp; cornstarch gives a slightly softer, shorter crumb" [ref=e1786]
+              - cell "1:1 by weight" [ref=e1787]
+              - cell "None, but expect marginally different mouthfeel" [ref=e1788]
+              - cell "Plausible" [ref=e1789]
+            - row [ref=e1791]:
+              - cell "Vanilla extract" [ref=e1792]
+              - cell "Citrus zest (lime or orange)" [ref=e1793]
+              - cell "Aroma" [ref=e1794]
+              - cell "Sweet vanillin note; zest adds oil-soluble terpenes" [ref=e1795]
+              - cell "1 tsp zest ≈ 2 g" [ref=e1796]
+              - cell "Rub into sugar before whipping to release oils" [ref=e1797]
+              - cell "Plausible" [ref=e1798]
+            - row [ref=e1800]:
+              - cell "Whole eggs" [ref=e1801]
+              - cell "Separated eggs (yolks + whipped whites)" [ref=e1802]
+              - cell "Greater volume; lighter texture" [ref=e1803]
+              - cell "Simplicity; one extra bowl; higher collapse risk" [ref=e1804]
+              - cell "Same total egg weight" [ref=e1805]
+              - cell "Beat yolks + sugar to ribbon; whip whites to soft peaks; fold whites in 3 additions" [ref=e1806]
+              - cell "Plausible" [ref=e1807]
+            - row [ref=e1809]:
+              - cell "Wood-fired clay oven" [ref=e1810]
+              - cell "Conventional home oven + stone + optional smoke treatment" [ref=e1811]
+              - cell "Thermal profile" [ref=e1812]
+              - cell "Combustion smoke aroma (unverified as perceptible)" [ref=e1813]
+              - cell "n/a" [ref=e1814]
+              - cell "Use stone; test smoke as a separate variant only after unsmoked control" [ref=e1815]
+              - cell "Plausible" [ref=e1816]
+        - paragraph [ref=e1818]: "Substitution hierarchy: (1) same ingredient, different Lima brand → (2) same functional category, known composition → (3) adjusted blend of common supermarket ingredients → (4) specialist substitute → (5) experimental analogue. The hierarchy above is applied in that order."
+      - generic [ref=e1822]:
+        - generic [ref=e1823]:
+          - generic [ref=e1824]: Interactive Substitution Explorer
+          - paragraph [ref=e1829]: Click any substitution on the left to see its cascading effects on the formula.
+        - generic [ref=e1837]:
+          - generic [ref=e1838]:
+            - generic [ref=e1839]: Substitutions (8)
+            - generic [ref=e1843]:
+              - button "Algarrobina syrup Chancaca syrup" [ref=e1844]:
+                - generic [ref=e1845]: Algarrobina syrup
+                - generic [ref=e1850]: Chancaca syrup
+              - button "All-purpose wheat flour Cake flour / harina 0000" [ref=e1854]:
+                - generic [ref=e1855]: All-purpose wheat flour
+                - generic [ref=e1860]: Cake flour / harina 0000
+              - button "All-purpose wheat flour (10% of weight) Potato starch (chuño)" [ref=e1864]:
+                - generic [ref=e1865]: All-purpose wheat flour (10% of weight)
+                - generic [ref=e1870]: Potato starch (chuño)
+              - button "Baking stone Preheated heavy sheet pan on lower rack" [ref=e1874]:
+                - generic [ref=e1875]: Baking stone
+                - generic [ref=e1880]: Preheated heavy sheet pan on lower rack
+              - button "Potato starch (chuño) Cornstarch (maicena)" [ref=e1884]:
+                - generic [ref=e1885]: Potato starch (chuño)
+                - generic [ref=e1890]: Cornstarch (maicena)
+              - button "Vanilla extract Citrus zest (lime or orange)" [ref=e1894]:
+                - generic [ref=e1895]: Vanilla extract
+                - generic [ref=e1900]: Citrus zest (lime or orange)
+              - button "Whole eggs Separated eggs (yolks + whipped whites)" [ref=e1904]:
+                - generic [ref=e1905]: Whole eggs
+                - generic [ref=e1910]: Separated eggs (yolks + whipped whites)
+              - button "Wood-fired clay oven Conventional home oven + stone + optional smoke treatment" [ref=e1914]:
+                - generic [ref=e1915]: Wood-fired clay oven
+                - generic [ref=e1920]: Conventional home oven + stone + optional smoke treatment
+          - generic [ref=e1924]:
+            - generic [ref=e1925]:
+              - generic [ref=e1926]:
+                - generic [ref=e1927]:
+                  - generic [ref=e1928]: Original
+                  - generic [ref=e1929]: Algarrobina syrup
+                - generic [ref=e1933]:
+                  - generic [ref=e1934]: Substitute
+                  - generic [ref=e1935]: Chancaca syrup
+              - generic [ref=e1936]:
+                - generic [ref=e1937]: Plausible
+                - generic [ref=e1938]: 1:1 by weight
+            - generic [ref=e1939]:
+              - generic [ref=e1940]:
+                - generic [ref=e1941]: Property replaced
+                - generic [ref=e1942]: Dark syrup color + molasses note
+              - generic [ref=e1943]:
+                - generic [ref=e1944]: Property lost
+                - generic [ref=e1945]: Algarrobina has a distinct carob flavor; chancaca is more caramel
+            - generic [ref=e1946]:
+              - generic [ref=e1947]: Technique adjustment
+              - generic [ref=e1948]: Dissolve into egg foam at ribbon stage
+            - generic [ref=e1949]:
+              - generic [ref=e1950]: Cascading effects (predicted)
+              - generic [ref=e1954]:
+                - generic [ref=e1960]:
+                  - generic [ref=e1961]: Flavor profile
+                  - generic [ref=e1962]: Caramel/molasses vs carob/earth
+                - generic [ref=e1968]:
+                  - generic [ref=e1969]: Color depth
+                  - generic [ref=e1970]: Chancaca is marginally lighter
+                - generic [ref=e1976]:
+                  - generic [ref=e1977]: Regional availability
+                  - generic [ref=e1978]: Chancaca is more common in Lima markets
+                - generic [ref=e1984]:
+                  - generic [ref=e1985]: Mineral content
+                  - generic [ref=e1986]: Higher in calcium/iron than algarrobina
+      - generic [ref=e1989]:
+        - generic [ref=e1991]:
+          - generic [ref=e1992]:
+            - generic [ref=e1993]: "07"
+            - generic [ref=e1994]:
+              - heading "Recipe Lab — Four-Level Hierarchy" [level=2] [ref=e1998]
+              - paragraph [ref=e1999]: The core formula is a minimal egg–sugar–flour–salt foam. Every other ingredient is held in a separate diagnostic or speculative branch until a controlled test justifies its promotion. Uncertain authenticity cues never blend silently into the core.
+          - generic [ref=e2000]:
+            - button "L1 Core Best-Evidence Recipe 1 variant" [ref=e2001]:
+              - generic [ref=e2002]: L1
+              - generic [ref=e2006]: Core Best-Evidence Recipe
+              - generic [ref=e2007]: 1 variant
+            - button "L2 Practical Lima Substitutions 1 variant" [ref=e2008]:
+              - generic [ref=e2009]: L2
+              - generic [ref=e2015]: Practical Lima Substitutions
+              - generic [ref=e2016]: 1 variant
+            - button "L3 Diagnostic Variants 4 variants" [ref=e2017]:
+              - generic [ref=e2018]: L3
+              - generic [ref=e2022]: Diagnostic Variants
+              - generic [ref=e2023]: 4 variants
+            - button "L4 Speculative Experiments 3 variants" [ref=e2024]:
+              - generic [ref=e2025]: L4
+              - generic [ref=e2029]: Speculative Experiments
+              - generic [ref=e2030]: 3 variants
+          - generic [ref=e2031]:
+            - generic [ref=e2037]:
+              - generic [ref=e2038]:
+                - generic [ref=e2039]: L1 · Core
+                - button "Core Best-Evidence Recipe (Foam-Only Control) The minimal egg–sugar–flour–salt sponge. No chemical leavener, no starch, no fat, no flavoring. The baseline against which every other variant is compared." [ref=e2043]:
+                  - generic [ref=e2045]: Core Best-Evidence Recipe (Foam-Only Control)
+                  - generic [ref=e2046]: The minimal egg–sugar–flour–salt sponge. No chemical leavener, no starch, no fat, no flavoring. The baseline against which every other variant is compared.
+              - generic [ref=e2047]:
+                - generic [ref=e2048]: L2 · Sub
+                - 'button "Practical Lima Substitution Variant Same core formula, with the most likely Lima-availability substitutions applied: cake-flour-style tenderization via partial cornstarch (where chuño is unavailable) and a baking-stone substitute." [ref=e2054]':
+                  - generic [ref=e2055]: Practical Lima Substitution Variant
+                  - generic [ref=e2056]: "Same core formula, with the most likely Lima-availability substitutions applied: cake-flour-style tenderization via partial cornstarch (where chuño is unavailable) and a baking-stone substitute."
+              - generic [ref=e2057]:
+                - generic [ref=e2058]: L3 · Diag
+                - generic [ref=e2061]:
+                  - 'button "Diagnostic A — Chuño vs Cornstarch Controlled single-variable test: replace cornstarch with an equal weight of potato starch (chuño)." [ref=e2062]':
+                    - generic [ref=e2063]: Diagnostic A — Chuño vs Cornstarch
+                    - generic [ref=e2064]: "Controlled single-variable test: replace cornstarch with an equal weight of potato starch (chuño)."
+                  - 'button "Diagnostic B — Whole-Egg vs Separated-Egg Foam Controlled test: separated-egg method (yolks+ sugar ribbon, whites whipped separately, folded)." [ref=e2065]':
+                    - generic [ref=e2066]: Diagnostic B — Whole-Egg vs Separated-Egg Foam
+                    - generic [ref=e2067]: "Controlled test: separated-egg method (yolks+ sugar ribbon, whites whipped separately, folded)."
+                  - 'button "Diagnostic C — Foam-Only vs Low-Dose Leavener Controlled test: add 3 g baking powder (1.25% baker%) to the core formula." [ref=e2068]':
+                    - generic [ref=e2069]: Diagnostic C — Foam-Only vs Low-Dose Leavener
+                    - generic [ref=e2070]: "Controlled test: add 3 g baking powder (1.25% baker%) to the core formula."
+                  - 'button "Diagnostic D — Fat-Free vs Trace Oil Controlled test: add 15 g neutral oil (6.25% baker%) to the core." [ref=e2071]':
+                    - generic [ref=e2072]: Diagnostic D — Fat-Free vs Trace Oil
+                    - generic [ref=e2073]: "Controlled test: add 15 g neutral oil (6.25% baker%) to the core."
+              - generic [ref=e2074]:
+                - generic [ref=e2075]: L4 · Spec
+                - generic [ref=e2078]:
+                  - button "Speculative E — Thermal Wood-Oven Simulation (No Smoke) Test whether the wood oven contribution is purely thermal (stone + radiant heat) by simulating deck heat WITHOUT smoke." [ref=e2079]:
+                    - generic [ref=e2080]: Speculative E — Thermal Wood-Oven Simulation (No Smoke)
+                    - generic [ref=e2081]: Test whether the wood oven contribution is purely thermal (stone + radiant heat) by simulating deck heat WITHOUT smoke.
+                  - button "Speculative F — Smoke Exposure (only AFTER unsmoked control) Test whether perceptible smoke aroma is achievable and desirable. Run ONLY after Diagnostic E establishes the unsmoked baseline." [ref=e2082]:
+                    - generic [ref=e2083]: Speculative F — Smoke Exposure (only AFTER unsmoked control)
+                    - generic [ref=e2084]: Test whether perceptible smoke aroma is achievable and desirable. Run ONLY after Diagnostic E establishes the unsmoked baseline.
+                  - button "Speculative G — Algarrobina Color/Flavor Test whether algarrobina syrup reproduces the deep target color and adds a desirable note." [ref=e2085]:
+                    - generic [ref=e2086]: Speculative G — Algarrobina Color/Flavor
+                    - generic [ref=e2087]: Test whether algarrobina syrup reproduces the deep target color and adds a desirable note.
+            - generic [ref=e2090]:
+              - generic [ref=e2095]:
+                - generic [ref=e2096]: Level 1 · Core
+                - heading "Core Best-Evidence Recipe (Foam-Only Control)" [level=3] [ref=e2098]
+                - paragraph [ref=e2099]: The minimal egg–sugar–flour–salt sponge. No chemical leavener, no starch, no fat, no flavoring. The baseline against which every other variant is compared.
+              - generic [ref=e2100]:
+                - generic [ref=e2101]:
+                  - generic [ref=e2102]:
+                    - heading "Ingredients" [level=4] [ref=e2105]
+                    - generic [ref=e2106]: total 541.5 g
+                  - table [ref=e2108]:
+                    - rowgroup [ref=e2109]:
+                      - row [ref=e2110]:
+                        - columnheader "Ingredient" [ref=e2111]
+                        - columnheader "Grams" [ref=e2112]
+                        - columnheader "Wt %" [ref=e2113]
+                        - columnheader "Baker %" [ref=e2114]
+                    - rowgroup [ref=e2115]:
+                      - row [ref=e2116]:
+                        - cell "Whole eggs (room temp, shelled) ~4 large eggs; weigh for accuracy" [ref=e2117]:
+                          - generic [ref=e2118]: Whole eggs (room temp, shelled)
+                          - generic [ref=e2119]: ~4 large eggs; weigh for accuracy
+                        - cell "240" [ref=e2120]
+                        - cell "38.4" [ref=e2121]
+                        - cell "100" [ref=e2122]
+                      - row [ref=e2123]:
+                        - cell "Granulated sugar ~62.5% baker%" [ref=e2124]:
+                          - generic [ref=e2125]: Granulated sugar
+                          - generic [ref=e2126]: ~62.5% baker%
+                        - cell "150" [ref=e2127]
+                        - cell "24.0" [ref=e2128]
+                        - cell "63" [ref=e2129]
+                      - row [ref=e2130]:
+                        - cell "All-purpose wheat flour Plain, not self-raising" [ref=e2131]:
+                          - generic [ref=e2132]: All-purpose wheat flour
+                          - generic [ref=e2133]: Plain, not self-raising
+                        - cell "150" [ref=e2134]
+                        - cell "24.0" [ref=e2135]
+                        - cell "63" [ref=e2136]
+                      - row [ref=e2137]:
+                        - cell "Fine salt ~0.6% baker%" [ref=e2138]:
+                          - generic [ref=e2139]: Fine salt
+                          - generic [ref=e2140]: ~0.6% baker%
+                        - cell "1.5" [ref=e2141]
+                        - cell "0.2" [ref=e2142]
+                        - cell "1" [ref=e2143]
+                  - generic [ref=e2144]: 6 individual round domed cakes (~6.5 cm dia × ~3.5 cm tall), ~75 g each. Scale up linearly for 16-piece packs.
+                - generic [ref=e2149]:
+                  - generic [ref=e2150]:
+                    - heading "Method" [level=4] [ref=e2154]
+                    - generic [ref=e2155]: 10 steps
+                  - list [ref=e2156]:
+                    - listitem [ref=e2158]:
+                      - generic [ref=e2159]: "1"
+                      - generic [ref=e2160]: Preheat oven to 180°C (convection) or 190°C (static). Place a heavy baking sheet or stone on the lower rack to preheat.
+                    - listitem [ref=e2161]:
+                      - generic [ref=e2162]: "2"
+                      - generic [ref=e2163]: Grease 6 individual round molds (~7 cm dia, ~4 cm tall) and line bottoms with parchment. Do NOT grease the sides — the batter must grip to climb.
+                    - listitem [ref=e2164]:
+                      - generic [ref=e2165]: "3"
+                      - generic [ref=e2166]: In a heatproof bowl, combine whole eggs + sugar. Warm gently over a water bath to ~38°C, stirring, then remove from heat.
+                    - listitem [ref=e2167]:
+                      - generic [ref=e2168]: "4"
+                      - generic [ref=e2169]: Whip on high speed until pale, thick, tripled in volume, and a ribbon trail holds a 3-second figure-8 (~6-8 min).
+                    - listitem [ref=e2170]:
+                      - generic [ref=e2171]: "5"
+                      - generic [ref=e2172]: Sift flour + salt once directly over the foam.
+                    - listitem [ref=e2173]:
+                      - generic [ref=e2174]: "6"
+                      - generic [ref=e2175]: "Fold in 3 additions using a wide spatula: cut down the middle, scrape along the bottom, lift up and over. Stop the instant no dry streaks remain."
+                    - listitem [ref=e2176]:
+                      - generic [ref=e2177]: "7"
+                      - generic [ref=e2178]: Divide batter into molds (~75 g each). Tap each mold once on the counter to release large bubbles.
+                    - listitem [ref=e2179]:
+                      - generic [ref=e2180]: "8"
+                      - generic [ref=e2181]: Bake on the middle rack 22-26 min. Do NOT open the door before 20 min.
+                    - listitem [ref=e2182]:
+                      - generic [ref=e2183]: "9"
+                      - generic [ref=e2184]: "Done when: top is deep golden-amber, a toothpick comes out clean, internal temp ~95°C, and the surface springs back."
+                    - listitem [ref=e2185]:
+                      - generic [ref=e2186]: "10"
+                      - generic [ref=e2187]: Cool 5 min in the mold, then run a thin blade around (sides only) and invert onto a rack. Cool fully before packaging.
+              - generic [ref=e2188]:
+                - generic [ref=e2189]: Expected effect
+                - paragraph [ref=e2190]: Fine, even, golden-amber crumb with a tender crust and clean egg aroma; individual round domed cakes.
+        - generic [ref=e2193]:
+          - generic [ref=e2194]:
+            - generic [ref=e2202]:
+              - heading "Variant Comparison" [level=3] [ref=e2203]
+              - paragraph [ref=e2204]: Select up to 3 variants to compare ingredients side-by-side
+            - button "Compare" [ref=e2205]
+          - paragraph [ref=e2212]:
+            - text: Click
+            - strong [ref=e2213]: Compare
+            - text: to select up to 3 variants and view their ingredients side-by-side. Differences are highlighted automatically.
+        - generic [ref=e2214]:
+          - generic [ref=e2215]:
+            - generic [ref=e2217]:
+              - generic [ref=e2218]: Interactive Recipe Scaler
+              - generic [ref=e2221]:
+                - button "Reset" [ref=e2222]
+                - button "Print" [ref=e2226]
+            - generic [ref=e2231]:
+              - generic [ref=e2232]:
+                - generic [ref=e2233]:
+                  - generic [ref=e2234]: Number of cakes
+                  - generic [ref=e2239]:
+                    - generic [ref=e2240]: "6"
+                    - generic [ref=e2241]: cakes
+                - slider [ref=e2246]
+                - generic [ref=e2247]:
+                  - generic [ref=e2248]: "1"
+                  - generic [ref=e2249]: 6 (base)
+                  - generic [ref=e2250]: "12"
+                  - generic [ref=e2251]: "18"
+                  - generic [ref=e2252]: "24"
+                - generic [ref=e2253]:
+                  - generic [ref=e2254]: ≈ 4 eggs
+                  - generic [ref=e2255]: ·
+                  - generic [ref=e2256]: ≈ 542 g total batter
+                  - generic [ref=e2257]: ·
+                  - generic [ref=e2258]: ≈ 90 g/cake
+              - table [ref=e2260]:
+                - rowgroup [ref=e2261]:
+                  - row [ref=e2262]:
+                    - columnheader "Ingredient" [ref=e2263]
+                    - columnheader "Grams" [ref=e2264]
+                    - columnheader "Baker%" [ref=e2265]
+                    - columnheader "Visual ratio" [ref=e2266]
+                - rowgroup [ref=e2267]:
+                  - row [ref=e2268]:
+                    - cell "🥚 Whole eggs (room temp, shelled) ~60 g per egg; weigh for accuracy" [ref=e2269]:
+                      - generic [ref=e2270]:
+                        - generic [ref=e2271]: 🥚
+                        - generic [ref=e2272]:
+                          - generic [ref=e2273]: Whole eggs (room temp, shelled)
+                          - generic [ref=e2274]: ~60 g per egg; weigh for accuracy
+                    - cell "240g" [ref=e2275]
+                    - cell "100.0%" [ref=e2276]
+                    - cell [ref=e2277]
+                  - row [ref=e2280]:
+                    - cell "🍬 Granulated sugar Blanca del Norte or equivalent" [ref=e2281]:
+                      - generic [ref=e2282]:
+                        - generic [ref=e2283]: 🍬
+                        - generic [ref=e2284]:
+                          - generic [ref=e2285]: Granulated sugar
+                          - generic [ref=e2286]: Blanca del Norte or equivalent
+                    - cell "150g" [ref=e2287]
+                    - cell "62.5%" [ref=e2288]
+                    - cell [ref=e2289]
+                  - row [ref=e2292]:
+                    - cell "🌾 All-purpose wheat flour Plain, not self-raising" [ref=e2293]:
+                      - generic [ref=e2294]:
+                        - generic [ref=e2295]: 🌾
+                        - generic [ref=e2296]:
+                          - generic [ref=e2297]: All-purpose wheat flour
+                          - generic [ref=e2298]: Plain, not self-raising
+                    - cell "150g" [ref=e2299]
+                    - cell "62.5%" [ref=e2300]
+                    - cell [ref=e2301]
+                  - row [ref=e2304]:
+                    - cell "🧂 Fine salt Sal Yodo" [ref=e2305]:
+                      - generic [ref=e2306]:
+                        - generic [ref=e2307]: 🧂
+                        - generic [ref=e2308]:
+                          - generic [ref=e2309]: Fine salt
+                          - generic [ref=e2310]: Sal Yodo
+                    - cell "1.5g" [ref=e2311]
+                    - cell "0.6%" [ref=e2312]
+                    - cell [ref=e2313]
+                - rowgroup [ref=e2316]:
+                  - row [ref=e2317]:
+                    - cell "Total batter" [ref=e2318]
+                    - cell "541.5 g" [ref=e2319]
+                    - cell "—" [ref=e2320]
+                    - cell [ref=e2321]
+              - paragraph [ref=e2322]: Scaling is linear. Baker’s percentages are relative to the egg weight (100%). For batches larger than 12 cakes, whip in two bowls to avoid overloading the mixer and fold in batches to preserve aeration.
+          - generic [ref=e2323]:
+            - generic [ref=e2325]:
+              - generic [ref=e2326]: Formula Breakdown
+              - combobox "Select recipe variant" [ref=e2330]:
+                - option "L1 · Core Best-Evidence Recipe (Foa" [selected]
+                - option "L2 · Practical Lima Substitution Va"
+                - option "L3 · Diagnostic A"
+                - option "L3 · Diagnostic B"
+                - option "L3 · Diagnostic C"
+                - option "L3 · Diagnostic D"
+                - option "L4 · Speculative E"
+                - option "L4 · Speculative F"
+                - option "L4 · Speculative G"
+            - generic [ref=e2331]:
+              - generic [ref=e2332]:
+                - generic [ref=e2333]:
+                  - generic [ref=e2334]: Composition by weight
+                  - generic [ref=e2335]: 541.5 g total
+                - generic [ref=e2336]:
+                  - 'generic "Eggs: 240.0g (44.3%)" [ref=e2337]': 44%
+                  - 'generic "Sugar: 150.0g (27.7%)" [ref=e2339]': 28%
+                  - 'generic "Flour: 150.0g (27.7%)" [ref=e2341]': 28%
+                  - 'generic "Salt: 1.5g (0.3%)" [ref=e2343]'
+                - generic [ref=e2344]:
+                  - generic [ref=e2345]: 0%
+                  - generic [ref=e2346]: 25%
+                  - generic [ref=e2347]: 50%
+                  - generic [ref=e2348]: 75%
+                  - generic [ref=e2349]: 100%
+              - generic [ref=e2350]:
+                - generic [ref=e2353]:
+                  - generic [ref=e2354]:
+                    - generic [ref=e2355]: Eggs
+                    - generic [ref=e2356]: 240.0g
+                  - generic [ref=e2357]:
+                    - generic [ref=e2358]: Whole eggs
+                    - generic [ref=e2359]: 44.3%
+                - generic [ref=e2362]:
+                  - generic [ref=e2363]:
+                    - generic [ref=e2364]: Sugar
+                    - generic [ref=e2365]: 150.0g
+                  - generic [ref=e2366]:
+                    - generic [ref=e2367]: Granulated sugar
+                    - generic [ref=e2368]: 27.7%
+                - generic [ref=e2371]:
+                  - generic [ref=e2372]:
+                    - generic [ref=e2373]: Flour
+                    - generic [ref=e2374]: 150.0g
+                  - generic [ref=e2375]:
+                    - generic [ref=e2376]: All-purpose wheat flour
+                    - generic [ref=e2377]: 27.7%
+                - generic [ref=e2380]:
+                  - generic [ref=e2381]:
+                    - generic [ref=e2382]: Salt
+                    - generic [ref=e2383]: 1.5g
+                  - generic [ref=e2384]:
+                    - generic [ref=e2385]: Fine salt
+                    - generic [ref=e2386]: 0.3%
+              - paragraph [ref=e2390]: Baker’s % expresses each ingredient as a percentage of the egg weight (the 100% reference for foam sponges). This chart shows weight percentage of the total batter — useful for visualizing the formula’s lean, fat-free profile.
+        - generic [ref=e2392]:
+          - generic [ref=e2393]:
+            - generic [ref=e2394]:
+              - generic [ref=e2395]: What-If Recipe Sandbox
+              - generic [ref=e2400]:
+                - generic [ref=e2401]: Core fidelity
+                - button "Reset" [ref=e2402]
+            - paragraph [ref=e2406]: Toggle modifications to see predicted effects on the core formula. This is a reasoning tool, not a kitchen test — all effects are predicted from food science, not measured.
+          - generic [ref=e2408]:
+            - generic [ref=e2409]:
+              - generic [ref=e2410]: Modifications (0 active)
+              - generic [ref=e2414]:
+                - generic [ref=e2415]:
+                  - switch [ref=e2416]
+                  - generic [ref=e2417]:
+                    - generic [ref=e2418]: Add chuño (potato starch)
+                    - generic [ref=e2423]: Replace 10% of flour weight with potato starch
+                - generic [ref=e2424]:
+                  - switch [ref=e2425]
+                  - generic [ref=e2426]:
+                    - generic [ref=e2427]: Add baking powder (3 g)
+                    - generic [ref=e2432]: Low-dose chemical leavener supplement
+                - generic [ref=e2433]:
+                  - switch [ref=e2434]
+                  - generic [ref=e2435]:
+                    - generic [ref=e2436]: Add trace oil (15 g)
+                    - generic [ref=e2441]: Neutral vegetable oil for moisture
+                - generic [ref=e2442]:
+                  - switch [ref=e2443]
+                  - generic [ref=e2444]:
+                    - generic [ref=e2445]: Add vanilla (3 g)
+                    - generic [ref=e2450]: Liquid vanilla extract for aroma
+                - generic [ref=e2451]:
+                  - switch [ref=e2452]
+                  - generic [ref=e2453]:
+                    - generic [ref=e2454]: Use separated-egg method
+                    - generic [ref=e2459]: Whip yolks and whites separately, then fold
+                - generic [ref=e2460]:
+                  - switch [ref=e2461]
+                  - generic [ref=e2462]:
+                    - generic [ref=e2463]: Smoke exposure (60-90s)
+                    - generic [ref=e2468]: Surface smoke treatment after baking
+                - generic [ref=e2469]:
+                  - switch [ref=e2470]
+                  - generic [ref=e2471]:
+                    - generic [ref=e2472]: Add algarrobina (8 g)
+                    - generic [ref=e2477]: Carob syrup — color and flavor
+                - generic [ref=e2478]:
+                  - switch [ref=e2479]
+                  - generic [ref=e2480]:
+                    - generic [ref=e2481]: Bake on preheated stone
+                    - generic [ref=e2493]: Simulate wood-oven deck heat
+            - generic [ref=e2494]:
+              - generic [ref=e2495]:
+                - generic [ref=e2496]: Modified formula
+                - table [ref=e2498]:
+                  - rowgroup [ref=e2499]:
+                    - row [ref=e2500]:
+                      - columnheader "Component" [ref=e2501]
+                      - columnheader "Grams" [ref=e2502]
+                      - columnheader "Change" [ref=e2503]
+                  - rowgroup [ref=e2504]:
+                    - row [ref=e2505]:
+                      - cell "Whole eggs" [ref=e2506]
+                      - cell "240.0g" [ref=e2507]
+                      - cell "—" [ref=e2508]
+                    - row [ref=e2509]:
+                      - cell "Sugar" [ref=e2510]
+                      - cell "150.0g" [ref=e2511]
+                      - cell "—" [ref=e2512]
+                    - row [ref=e2513]:
+                      - cell "Flour" [ref=e2514]
+                      - cell "150.0g" [ref=e2515]
+                      - cell "—" [ref=e2516]
+                    - row [ref=e2517]:
+                      - cell "Salt" [ref=e2518]
+                      - cell "1.5g" [ref=e2519]
+                      - cell "—" [ref=e2520]
+                    - row [ref=e2521]:
+                      - cell "Total batter" [ref=e2522]
+                      - cell "541.5g" [ref=e2523]
+                      - cell "—" [ref=e2524]
+              - paragraph [ref=e2529]:
+                - strong [ref=e2530]: Core formula active.
+                - text: Toggle modifications on the left to see predicted effects.
+        - generic [ref=e2532]:
+          - generic [ref=e2533]:
+            - generic [ref=e2534]:
+              - generic [ref=e2535]: Glossary
+              - generic [ref=e2539]: 15 terms
+            - textbox "Search terms…" [ref=e2544]
+          - generic [ref=e2549]:
+            - generic [ref=e2550]:
+              - term [ref=e2551]: punto cinta
+              - definition [ref=e2552]: Spanish for "ribbon stage". The egg–sugar foam has been whipped long enough that a trail of batter falling back on itself holds a visible ribbon shape for ~3 seconds before settling. Indicates sufficient air incorporation and foam stabilization.
+            - generic [ref=e2553]:
+              - term [ref=e2554]: chuño
+              - definition [ref=e2555]: Freeze-dried potato starch, traditional to the Andes. Potatoes are exposed to freezing nights and strong sun, repeatedly, until the starch is concentrated and dried. In baking it tenderizes crumb by diluting wheat gluten. Also called "fécula de papa".
+            - generic [ref=e2556]:
+              - term [ref=e2557]: maicena
+              - definition [ref=e2558]: Cornstarch (corn flour in UK English). A common supermarket starch in Peru. Gelatinizes at a lower temperature than potato starch, giving a slightly softer, shorter crumb.
+            - generic [ref=e2559]:
+              - term [ref=e2560]: Maillard
+              - definition [ref=e2561]: A non-enzymatic browning reaction between amino acids and reducing sugars, occurring above ~140°C. Produces the golden-amber crust color and roasted aroma on the cake surface. Distinct from caramelization (sugar-only browning).
+            - generic [ref=e2562]:
+              - term [ref=e2563]: baker's percent
+              - definition [ref=e2564]: A bakery convention where every ingredient is expressed as a percentage of the flour weight (or, for foam sponges, sometimes the egg weight). Allows scaling without ratio drift. Here we use egg weight as the 100% reference.
+            - generic [ref=e2565]:
+              - term [ref=e2566]: algarrobina
+              - definition [ref=e2567]: A dark syrup made from the pods of the algarrobo (carob) tree, traditional to northern Peru. Adds color and a molasses-like, slightly earthy flavor. NOT the same as algarrobo wood smoke — syrup flavor ≠ combustion aroma.
+            - generic [ref=e2568]:
+              - term [ref=e2569]: bizcotela
+              - definition [ref=e2570]: "A related but distinct Valera product: alfajor-style sandwich of two sponge layers with manjar blanco (dulce de leche) filling. The bizcochuelo is the plain, unfilled sponge — the target of this lab."
+            - generic [ref=e2571]:
+              - term [ref=e2572]: manjar blanco
+              - definition [ref=e2573]: Peruvian dulce de leche — milk and sugar slowly cooked to a thick, caramel-colored spread. Used as filling in bizcotelas and alfajores.
+            - generic [ref=e2574]:
+              - term [ref=e2575]: horno de barro
+              - definition [ref=e2576]: A traditional wood-fired clay oven. High thermal mass from the clay dome and floor provides steady radiant heat; combustion of leña (firewood) may also impart smoke compounds to the crust. Whether the smoke is perceptible in the finished product is unverified.
+            - generic [ref=e2577]:
+              - term [ref=e2578]: ribbon stage
+              - definition [ref=e2579]: See "punto cinta". The foam has tripled in volume and a dribbled trail holds for ~3 seconds.
+            - generic [ref=e2580]:
+              - term [ref=e2581]: foam-only
+              - definition [ref=e2582]: A sponge leavened entirely by air trapped in whipped eggs — no chemical leavener (baking powder/baking soda). The canonical method for traditional bizcochuelo.
+            - generic [ref=e2583]:
+              - term [ref=e2584]: oven spring
+              - definition [ref=e2585]: The rapid initial expansion of batter when it enters the oven, driven by thermal expansion of trapped air bubbles and steam. A good spring indicates a stable, well-aerated foam.
+            - generic [ref=e2586]:
+              - term [ref=e2587]: triangle test
+              - definition [ref=e2588]: A sensory test where tasters receive three samples (two identical, one different) and must identify the odd one. Chance performance is 33%; significantly higher detection indicates a perceptible difference.
+            - generic [ref=e2589]:
+              - term [ref=e2590]: DIGESA
+              - definition [ref=e2591]: Dirección General de Salud Ambiental — the Peruvian health authority. Short-shelf-life artisanal bakery items (≤48 h, unpreserved) are generally exempt from sanitary registration.
+            - generic [ref=e2592]:
+              - term [ref=e2593]: convergence
+              - definition [ref=e2594]: The protocol requires two consecutive "quiet" validation rounds (no new critical defect, no justified simplification) before the study is considered converged. Until then, findings remain provisional.
+      - generic [ref=e2602]:
+        - generic [ref=e2604]:
+          - generic [ref=e2605]:
+            - generic [ref=e2606]: "08"
+            - generic [ref=e2607]:
+              - heading "Validation Dashboard" [level=2] [ref=e2613]
+              - paragraph [ref=e2614]: Six adversarial lenses applied to the leading formula. Each check is labelled pass, predicted, revise, or reopen. Predicted checks are explicitly flagged — they have not been executed in a kitchen.
+          - generic [ref=e2615]:
+            - generic [ref=e2617]:
+              - generic [ref=e2618]: Rounds passed
+              - generic [ref=e2619]:
+                - text: "4"
+                - generic [ref=e2620]: / 6
+            - generic [ref=e2622]:
+              - generic [ref=e2623]: Rounds revised
+              - generic [ref=e2624]:
+                - text: "2"
+                - generic [ref=e2625]: / 6
+            - generic [ref=e2627]:
+              - generic [ref=e2628]: Checks predicted
+              - generic [ref=e2629]:
+                - text: "9"
+                - generic [ref=e2630]: / 33
+            - generic [ref=e2632]:
+              - generic [ref=e2633]: Checks passed
+              - generic [ref=e2634]:
+                - text: "24"
+                - generic [ref=e2635]: / 33
+          - generic [ref=e2636]:
+            - generic [ref=e2637]:
+              - generic [ref=e2638]: Validation lens coverage
+              - generic [ref=e2648]:
+                - img [ref=e2652]:
+                  - generic [ref=e2666]:
+                    - generic [ref=e2667]: Structural
+                    - generic [ref=e2669]: Historical
+                    - generic [ref=e2672]: Target match
+                    - generic [ref=e2675]: Lima practical
+                    - generic [ref=e2677]: Adversarial
+                    - generic [ref=e2680]: Parsimony
+                  - generic [ref=e2684]:
+                    - generic [ref=e2685]: "0"
+                    - generic [ref=e2687]: "25"
+                    - generic [ref=e2689]: "50"
+                    - generic [ref=e2691]: "75"
+                    - generic [ref=e2693]: "100"
+                - generic [ref=e2698]:
+                  - generic [ref=e2699]:
+                    - generic [ref=e2700]: Structural
+                    - generic [ref=e2701]: 6/6
+                  - generic [ref=e2702]:
+                    - generic [ref=e2703]: Historical
+                    - generic [ref=e2704]: 5/5
+                  - generic [ref=e2705]:
+                    - generic [ref=e2706]: Target match
+                    - generic [ref=e2707]: 1/5
+                  - generic [ref=e2708]:
+                    - generic [ref=e2709]: Lima practical
+                    - generic [ref=e2710]: 5/5
+                  - generic [ref=e2711]:
+                    - generic [ref=e2712]: Adversarial
+                    - generic [ref=e2713]: 1/6
+                  - generic [ref=e2714]:
+                    - generic [ref=e2715]: Parsimony
+                    - generic [ref=e2716]: 6/6
+                  - generic [ref=e2717]: Score = weighted average of check statuses (pass 100, predicted 65, revise 45, reopen 20).
+            - generic [ref=e2718]:
+              - generic [ref=e2719]: Convergence tracker
+              - generic [ref=e2720]:
+                - generic [ref=e2721]: "1"
+                - generic [ref=e2722]: / 2 quiet rounds
+              - paragraph [ref=e2725]: Round 6 (parsimony) was quiet. Round 5 (adversarial) raised predicted-but-untested fault modes. One additional quiet round is required after kitchen execution of the fault tests.
+              - generic [ref=e2726]: Two consecutive quiet rounds are required to converge.
+          - generic [ref=e2727]:
+            - generic [ref=e2728]:
+              - generic [ref=e2730]:
+                - generic [ref=e2731]:
+                  - generic [ref=e2732]: R1
+                  - generic [ref=e2733]:
+                    - generic [ref=e2734]: Structural plausibility
+                    - generic [ref=e2735]: structural
+                - generic [ref=e2736]: Pass
+              - generic [ref=e2737]:
+                - list [ref=e2741]:
+                  - listitem [ref=e2742]:
+                    - generic [ref=e2747]:
+                      - generic [ref=e2748]: Egg-to-flour ratio (1:0.625 by weight)
+                      - generic [ref=e2749]: Within sponge range (0.5-0.7). Viable.
+                  - listitem [ref=e2750]:
+                    - generic [ref=e2755]:
+                      - generic [ref=e2756]: Sugar-to-egg ratio (0.625)
+                      - generic [ref=e2757]: Within foam-stabilizing range (0.5-0.8). Viable.
+                  - listitem [ref=e2758]:
+                    - generic [ref=e2763]:
+                      - generic [ref=e2764]: Total solids ~49%
+                      - generic [ref=e2765]: Appropriate for a fat-free foam sponge.
+                  - listitem [ref=e2766]:
+                    - generic [ref=e2771]:
+                      - generic [ref=e2772]: Batter depth (~3.5 cm in 7 cm mold)
+                      - generic [ref=e2773]: Allows 2x rise to dome above mold. OK.
+                  - listitem [ref=e2774]:
+                    - generic [ref=e2779]:
+                      - generic [ref=e2780]: Estimated expansion (2.5-3x)
+                      - generic [ref=e2781]: Consistent with whole-egg ribbon-stage foam.
+                  - listitem [ref=e2782]:
+                    - generic [ref=e2787]:
+                      - generic [ref=e2788]: Baking loss (~12-15%)
+                      - generic [ref=e2789]: Typical. Final piece ~65 g from 75 g batter.
+                - generic [ref=e2790]: "Defects: None structural."
+            - generic [ref=e2791]:
+              - generic [ref=e2793]:
+                - generic [ref=e2794]:
+                  - generic [ref=e2795]: R2
+                  - generic [ref=e2796]:
+                    - generic [ref=e2797]: Historical & regional plausibility
+                    - generic [ref=e2798]: historical
+                - generic [ref=e2799]: Pass
+              - generic [ref=e2800]:
+                - list [ref=e2804]:
+                  - listitem [ref=e2805]:
+                    - generic [ref=e2810]:
+                      - generic [ref=e2811]: Period plausibility (~1913, eggs+flour+sugar)
+                      - generic [ref=e2812]: Pre-chemical-leavener sponge is historically correct for the period.
+                  - listitem [ref=e2813]:
+                    - generic [ref=e2818]:
+                      - generic [ref=e2819]: Family-scale production feasibility
+                      - generic [ref=e2820]: Whipping eggs by hand or with rotary beater is period-appropriate.
+                  - listitem [ref=e2821]:
+                    - generic [ref=e2826]:
+                      - generic [ref=e2827]: Regional ingredient availability (wheat flour, sugar, eggs)
+                      - generic [ref=e2828]: All were common on the Lambayeque coast.
+                  - listitem [ref=e2829]:
+                    - generic [ref=e2834]:
+                      - generic [ref=e2835]: "\"Fresh eggs / special flours\" producer statement"
+                      - generic [ref=e2836]: "Reconciled: \"special\" may mean selected/proportioned, not necessarily exotic."
+                  - listitem [ref=e2837]:
+                    - generic [ref=e2842]:
+                      - generic [ref=e2843]: Wood-oven economics
+                      - generic [ref=e2844]: Consistent with rural bakery practice.
+                - generic [ref=e2845]: "Defects: Chuño is plausible but unverified; kept out of core."
+            - generic [ref=e2846]:
+              - generic [ref=e2848]:
+                - generic [ref=e2849]:
+                  - generic [ref=e2850]: R3
+                  - generic [ref=e2851]:
+                    - generic [ref=e2852]: Target-product comparison
+                    - generic [ref=e2853]: target-comparison
+                - generic [ref=e2854]: Revise
+              - generic [ref=e2855]:
+                - list [ref=e2859]:
+                  - listitem [ref=e2860]:
+                    - generic [ref=e2864]:
+                      - generic [ref=e2865]: Visible color (deep golden-amber)
+                      - generic [ref=e2866]: "Predicted: Maillard + caramelization at 180°C/24 min produces golden-amber. Match expected."
+                  - listitem [ref=e2867]:
+                    - generic [ref=e2871]:
+                      - generic [ref=e2872]: Shape (round domed, ~6.5 cm)
+                      - generic [ref=e2873]: "Predicted: 7 cm mold + 3.5 cm batter + 2x rise -> ~6.5 cm domed cake. Match expected."
+                  - listitem [ref=e2874]:
+                    - generic [ref=e2878]:
+                      - generic [ref=e2879]: Surface (pebbled, matte-satin)
+                      - generic [ref=e2880]: "Predicted: foam-only crust is matte; pebbling from small bubbles. Match expected."
+                  - listitem [ref=e2881]:
+                    - generic [ref=e2885]:
+                      - generic [ref=e2886]: Crumb (fine, even)
+                      - generic [ref=e2887]: "Predicted: ribbon-stage whole-egg foam yields fine cells. Match expected."
+                  - listitem [ref=e2888]:
+                    - generic [ref=e2893]:
+                      - generic [ref=e2894]: No filling/icing
+                      - generic [ref=e2895]: Core has none. Match.
+                - generic [ref=e2896]: "Defects: Comparison is PREDICTED, not measured — kitchen test required for confirmation."
+            - generic [ref=e2897]:
+              - generic [ref=e2899]:
+                - generic [ref=e2900]:
+                  - generic [ref=e2901]: R4
+                  - generic [ref=e2902]:
+                    - generic [ref=e2903]: Lima practicality
+                    - generic [ref=e2904]: lima-practicality
+                - generic [ref=e2905]: Pass
+              - generic [ref=e2906]:
+                - list [ref=e2910]:
+                  - listitem [ref=e2911]:
+                    - generic [ref=e2916]:
+                      - generic [ref=e2917]: Ingredient availability in Lima supermarkets
+                      - generic [ref=e2918]: "Eggs, sugar, AP flour, salt, cornstarch: all common. Chuño: specialist. Algarrobina: specialist."
+                  - listitem [ref=e2919]:
+                    - generic [ref=e2924]:
+                      - generic [ref=e2925]: Oven tolerance
+                      - generic [ref=e2926]: 180°C is standard; ±10°C tolerable with time adjustment.
+                  - listitem [ref=e2927]:
+                    - generic [ref=e2932]:
+                      - generic [ref=e2933]: Humid coastal conditions
+                      - generic [ref=e2934]: Lima humidity ~80%; bake 1-2 min longer or vent oven last 2 min.
+                  - listitem [ref=e2935]:
+                    - generic [ref=e2940]:
+                      - generic [ref=e2941]: Equipment (7 cm molds)
+                      - generic [ref=e2942]: Available as "pirotas" or ramekins; alternatively a muffin tin.
+                  - listitem [ref=e2943]:
+                    - generic [ref=e2948]:
+                      - generic [ref=e2949]: Batch size / cost
+                      - generic [ref=e2950]: 6 cakes cost ~S/8-10 in ingredients. Practical.
+                - generic [ref=e2951]: "Defects: None."
+            - generic [ref=e2952]:
+              - generic [ref=e2954]:
+                - generic [ref=e2955]:
+                  - generic [ref=e2956]: R5
+                  - generic [ref=e2957]:
+                    - generic [ref=e2958]: Adversarial fault testing
+                    - generic [ref=e2959]: adversarial
+                - generic [ref=e2960]: Revise
+              - generic [ref=e2961]:
+                - list [ref=e2965]:
+                  - listitem [ref=e2966]:
+                    - generic [ref=e2970]:
+                      - generic [ref=e2971]: 10% underwhipping
+                      - generic [ref=e2972]: "Predicted: ~15% less rise; acceptable. Fold time unchanged."
+                  - listitem [ref=e2973]:
+                    - generic [ref=e2977]:
+                      - generic [ref=e2978]: 10% overwhipping
+                      - generic [ref=e2979]: "Predicted: coarse cells; risk of foam separation. Mitigation: stop at ribbon stage, not \"stiff\"."
+                  - listitem [ref=e2980]:
+                    - generic [ref=e2984]:
+                      - generic [ref=e2985]: Oven ±15°C error
+                      - generic [ref=e2986]: "Predicted: hotter -> darker crust, gummy center if pulled early; cooler -> collapse. Mitigation: thermometer."
+                  - listitem [ref=e2987]:
+                    - generic [ref=e2991]:
+                      - generic [ref=e2992]: Delayed baking (batter sits 5 min)
+                      - generic [ref=e2993]: "Predicted: ~10% volume loss. Mitigation: have oven preheated, molds ready BEFORE mixing."
+                  - listitem [ref=e2994]:
+                    - generic [ref=e2998]:
+                      - generic [ref=e2999]: Flour protein variation
+                      - generic [ref=e3000]: "Predicted: higher protein -> chewier. Mitigation: use plain AP, not bread flour."
+                  - listitem [ref=e3001]:
+                    - generic [ref=e3006]:
+                      - generic [ref=e3007]: Egg-size variation
+                      - generic [ref=e3008]: Mitigated by weighing shelled eggs (core technique).
+                - generic [ref=e3009]: "Defects: Most fault tests are predicted, not executed. Flagged as unresolved until tested."
+            - generic [ref=e3010]:
+              - generic [ref=e3012]:
+                - generic [ref=e3013]:
+                  - generic [ref=e3014]: R6
+                  - generic [ref=e3015]:
+                    - generic [ref=e3016]: Parsimony challenge
+                    - generic [ref=e3017]: parsimony
+                - generic [ref=e3018]: Pass
+              - generic [ref=e3019]:
+                - list [ref=e3023]:
+                  - listitem [ref=e3024]:
+                    - generic [ref=e3029]:
+                      - generic [ref=e3030]: Ingredient count (4 in core)
+                      - generic [ref=e3031]: Minimum viable. Cannot reduce further.
+                  - listitem [ref=e3032]:
+                    - generic [ref=e3037]:
+                      - generic [ref=e3038]: Active steps (10)
+                      - generic [ref=e3039]: Each has an observable checkpoint. None ceremonial.
+                  - listitem [ref=e3040]:
+                    - generic [ref=e3045]:
+                      - generic [ref=e3046]: Special equipment (7 cm molds, optional stone)
+                      - generic [ref=e3047]: Stone is optional, demoted to speculative. Molds are essential.
+                  - listitem [ref=e3048]:
+                    - generic [ref=e3053]:
+                      - generic [ref=e3054]: Variables changed simultaneously in core
+                      - generic [ref=e3055]: None — core is single-method.
+                  - listitem [ref=e3056]:
+                    - generic [ref=e3061]:
+                      - generic [ref=e3062]: Redundant safeguards
+                      - generic [ref=e3063]: "None detected. Removed: 3x sifting, hybrid whole+separated, \"insurance\" baking powder."
+                  - listitem [ref=e3064]:
+                    - generic [ref=e3069]:
+                      - generic [ref=e3070]: Fidelity to target (not generic cake)
+                      - generic [ref=e3071]: Optimized for round, domed, golden-amber, fine-crumb, no-filling — matches photographed product.
+                - generic [ref=e3072]: "Defects: None."
+        - generic [ref=e3074]:
+          - generic [ref=e3075]:
+            - generic [ref=e3076]: "09"
+            - generic [ref=e3077]:
+              - heading "Failure-Test Specification" [level=2] [ref=e3081]
+              - paragraph [ref=e3082]: Defined before formulation. Each failure mode has a measurable threshold, a detection method, and a severity. Most are currently predicted — kitchen execution will convert them to tested or mitigated.
+          - generic [ref=e3084]:
+            - generic [ref=e3085]:
+              - generic [ref=e3086]:
+                - generic [ref=e3087]: Failure-Test Risk Matrix
+                - generic [ref=e3091]:
+                  - button "all" [ref=e3094]
+                  - button "critical" [ref=e3095]
+                  - button "major" [ref=e3096]
+                  - button "minor" [ref=e3097]
+              - paragraph [ref=e3098]: All 14 failure modes defined before formulation, grouped by category and colored by severity. Most are predicted — kitchen execution converts them to tested or mitigated.
+            - generic [ref=e3099]:
+              - generic [ref=e3100]:
+                - generic [ref=e3101]:
+                  - generic [ref=e3102]: Critical
+                  - generic [ref=e3103]:
+                    - generic [ref=e3104]: "4"
+                    - generic [ref=e3105]: (29%)
+                - generic [ref=e3108]:
+                  - generic [ref=e3109]: Major
+                  - generic [ref=e3110]:
+                    - generic [ref=e3111]: "6"
+                    - generic [ref=e3112]: (43%)
+                - generic [ref=e3115]:
+                  - generic [ref=e3116]: Minor
+                  - generic [ref=e3117]:
+                    - generic [ref=e3118]: "4"
+                    - generic [ref=e3119]: (29%)
+                - generic [ref=e3122]:
+                  - generic [ref=e3123]:
+                    - generic [ref=e3124]: ○14
+                    - generic [ref=e3125]: Predicted
+                  - generic [ref=e3126]:
+                    - generic [ref=e3127]: ●0
+                    - generic [ref=e3128]: Tested
+                  - generic [ref=e3129]:
+                    - generic [ref=e3130]: ✓0
+                    - generic [ref=e3131]: Mitigated
+              - generic [ref=e3132]:
+                - generic [ref=e3133]:
+                  - generic [ref=e3134]:
+                    - generic [ref=e3135]: Structure
+                    - generic [ref=e3136]: (4)
+                  - generic [ref=e3138]:
+                    - generic [ref=e3141]:
+                      - generic [ref=e3142]:
+                        - generic [ref=e3143]: Insufficient rise
+                        - generic [ref=e3144]: ○
+                      - generic [ref=e3145]:
+                        - generic [ref=e3146]: Critical
+                        - generic [ref=e3147]: Predicted
+                      - generic [ref=e3148]: <1.5x original batter height
+                    - generic [ref=e3151]:
+                      - generic [ref=e3152]:
+                        - generic [ref=e3153]: Collapse after baking
+                        - generic [ref=e3154]: ○
+                      - generic [ref=e3155]:
+                        - generic [ref=e3156]: Critical
+                        - generic [ref=e3157]: Predicted
+                      - generic [ref=e3158]: ">20% height loss on cooling"
+                    - generic [ref=e3161]:
+                      - generic [ref=e3162]:
+                        - generic [ref=e3163]: Gummy center
+                        - generic [ref=e3164]: ○
+                      - generic [ref=e3165]:
+                        - generic [ref=e3166]: Critical
+                        - generic [ref=e3167]: Predicted
+                      - generic [ref=e3168]: Toothpick wet; internal <90°C
+                    - generic [ref=e3171]:
+                      - generic [ref=e3172]:
+                        - generic [ref=e3173]: Excessive dome / mushrooming
+                        - generic [ref=e3174]: ○
+                      - generic [ref=e3175]:
+                        - generic [ref=e3176]: Major
+                        - generic [ref=e3177]: Predicted
+                      - generic [ref=e3178]: Top wider than base
+                - generic [ref=e3179]:
+                  - generic [ref=e3180]:
+                    - generic [ref=e3181]: Flavor
+                    - generic [ref=e3182]: (3)
+                  - generic [ref=e3184]:
+                    - generic [ref=e3187]:
+                      - generic [ref=e3188]:
+                        - generic [ref=e3189]: Chemical-leavener taste
+                        - generic [ref=e3190]: ○
+                      - generic [ref=e3191]:
+                        - generic [ref=e3192]: Critical
+                        - generic [ref=e3193]: Predicted
+                      - generic [ref=e3194]: Any bitter/soapy note
+                    - generic [ref=e3197]:
+                      - generic [ref=e3198]:
+                        - generic [ref=e3199]: Obvious smoke flavor
+                        - generic [ref=e3200]: ○
+                      - generic [ref=e3201]:
+                        - generic [ref=e3202]: Major
+                        - generic [ref=e3203]: Predicted
+                      - generic [ref=e3204]: Smoke detected in >50% of unprimed tasters
+                    - generic [ref=e3207]:
+                      - generic [ref=e3208]:
+                        - generic [ref=e3209]: Excessive egg aroma
+                        - generic [ref=e3210]: ○
+                      - generic [ref=e3211]:
+                        - generic [ref=e3212]: Minor
+                        - generic [ref=e3213]: Predicted
+                      - generic [ref=e3214]: Sulfur note > 2 s aftertaste
+                - generic [ref=e3215]:
+                  - generic [ref=e3216]:
+                    - generic [ref=e3217]: Crumb
+                    - generic [ref=e3218]: (3)
+                  - generic [ref=e3220]:
+                    - generic [ref=e3223]:
+                      - generic [ref=e3224]:
+                        - generic [ref=e3225]: Coarse tunnels
+                        - generic [ref=e3226]: ○
+                      - generic [ref=e3227]:
+                        - generic [ref=e3228]: Major
+                        - generic [ref=e3229]: Predicted
+                      - generic [ref=e3230]: Visible >3 mm cells
+                    - generic [ref=e3233]:
+                      - generic [ref=e3234]:
+                        - generic [ref=e3235]: Dense lower layer
+                        - generic [ref=e3236]: ○
+                      - generic [ref=e3237]:
+                        - generic [ref=e3238]: Major
+                        - generic [ref=e3239]: Predicted
+                      - generic [ref=e3240]: Lower 1/3 visibly compressed
+                    - generic [ref=e3243]:
+                      - generic [ref=e3244]:
+                        - generic [ref=e3245]: Dry/chalky crumb
+                        - generic [ref=e3246]: ○
+                      - generic [ref=e3247]:
+                        - generic [ref=e3248]: Major
+                        - generic [ref=e3249]: Predicted
+                      - generic [ref=e3250]: Crumb rubs to powder
+                - generic [ref=e3251]:
+                  - generic [ref=e3252]:
+                    - generic [ref=e3253]: Shelf life
+                    - generic [ref=e3254]: (1)
+                  - generic [ref=e3259]:
+                    - generic [ref=e3260]:
+                      - generic [ref=e3261]: Poor day-two texture
+                      - generic [ref=e3262]: ○
+                    - generic [ref=e3263]:
+                      - generic [ref=e3264]: Major
+                      - generic [ref=e3265]: Predicted
+                    - generic [ref=e3266]: ">30% moisture loss or staling note"
+                - generic [ref=e3267]:
+                  - generic [ref=e3268]:
+                    - generic [ref=e3269]: Crust
+                    - generic [ref=e3270]: (3)
+                  - generic [ref=e3272]:
+                    - generic [ref=e3275]:
+                      - generic [ref=e3276]:
+                        - generic [ref=e3277]: Crust too thick
+                        - generic [ref=e3278]: ○
+                      - generic [ref=e3279]:
+                        - generic [ref=e3280]: Minor
+                        - generic [ref=e3281]: Predicted
+                      - generic [ref=e3282]: ">2 mm hard crust"
+                    - generic [ref=e3285]:
+                      - generic [ref=e3286]:
+                        - generic [ref=e3287]: Top too pale
+                        - generic [ref=e3288]: ○
+                      - generic [ref=e3289]:
+                        - generic [ref=e3290]: Minor
+                        - generic [ref=e3291]: Predicted
+                      - generic [ref=e3292]: Lighter than Pantone 7513C
+                    - generic [ref=e3295]:
+                      - generic [ref=e3296]:
+                        - generic [ref=e3297]: Top too dark
+                        - generic [ref=e3298]: ○
+                      - generic [ref=e3299]:
+                        - generic [ref=e3300]: Minor
+                        - generic [ref=e3301]: Predicted
+                      - generic [ref=e3302]: Darker than Pantone 7515C
+              - generic [ref=e3303]:
+                - generic [ref=e3304]: "Legend:"
+                - generic [ref=e3305]: Critical
+                - generic [ref=e3307]: Major
+                - generic [ref=e3309]: Minor
+                - generic [ref=e3311]:
+                  - generic [ref=e3312]: ○ Predicted
+                  - generic [ref=e3313]: ● Tested
+                  - generic [ref=e3314]: ✓ Mitigated
+          - generic [ref=e3315]:
+            - generic [ref=e3317]:
+              - generic [ref=e3318]:
+                - generic [ref=e3319]: Insufficient rise
+                - generic [ref=e3320]: critical
+              - generic [ref=e3321]:
+                - generic [ref=e3322]: "Threshold: <1.5x original batter height"
+                - generic [ref=e3323]: "Detection: Visual + height measurement"
+                - generic [ref=e3324]: Predicted
+            - generic [ref=e3327]:
+              - generic [ref=e3328]:
+                - generic [ref=e3329]: Collapse after baking
+                - generic [ref=e3330]: critical
+              - generic [ref=e3331]:
+                - generic [ref=e3332]: "Threshold: >20% height loss on cooling"
+                - generic [ref=e3333]: "Detection: Height before/after"
+                - generic [ref=e3334]: Predicted
+            - generic [ref=e3337]:
+              - generic [ref=e3338]:
+                - generic [ref=e3339]: Gummy center
+                - generic [ref=e3340]: critical
+              - generic [ref=e3341]:
+                - generic [ref=e3342]: "Threshold: Toothpick wet; internal <90°C"
+                - generic [ref=e3343]: "Detection: Toothpick + thermometer"
+                - generic [ref=e3344]: Predicted
+            - generic [ref=e3347]:
+              - generic [ref=e3348]:
+                - generic [ref=e3349]: Chemical-leavener taste
+                - generic [ref=e3350]: critical
+              - generic [ref=e3351]:
+                - generic [ref=e3352]: "Threshold: Any bitter/soapy note"
+                - generic [ref=e3353]: "Detection: Sensory"
+                - generic [ref=e3354]: Predicted
+            - generic [ref=e3357]:
+              - generic [ref=e3358]:
+                - generic [ref=e3359]: Excessive dome / mushrooming
+                - generic [ref=e3360]: major
+              - generic [ref=e3361]:
+                - generic [ref=e3362]: "Threshold: Top wider than base"
+                - generic [ref=e3363]: "Detection: Visual"
+                - generic [ref=e3364]: Predicted
+            - generic [ref=e3367]:
+              - generic [ref=e3368]:
+                - generic [ref=e3369]: Coarse tunnels
+                - generic [ref=e3370]: major
+              - generic [ref=e3371]:
+                - generic [ref=e3372]: "Threshold: Visible >3 mm cells"
+                - generic [ref=e3373]: "Detection: Crumb cross-section"
+                - generic [ref=e3374]: Predicted
+            - generic [ref=e3377]:
+              - generic [ref=e3378]:
+                - generic [ref=e3379]: Dense lower layer
+                - generic [ref=e3380]: major
+              - generic [ref=e3381]:
+                - generic [ref=e3382]: "Threshold: Lower 1/3 visibly compressed"
+                - generic [ref=e3383]: "Detection: Cross-section"
+                - generic [ref=e3384]: Predicted
+            - generic [ref=e3387]:
+              - generic [ref=e3388]:
+                - generic [ref=e3389]: Dry/chalky crumb
+                - generic [ref=e3390]: major
+              - generic [ref=e3391]:
+                - generic [ref=e3392]: "Threshold: Crumb rubs to powder"
+                - generic [ref=e3393]: "Detection: Tactile + mouthfeel"
+                - generic [ref=e3394]: Predicted
+            - generic [ref=e3397]:
+              - generic [ref=e3398]:
+                - generic [ref=e3399]: Obvious smoke flavor
+                - generic [ref=e3400]: major
+              - generic [ref=e3401]:
+                - generic [ref=e3402]: "Threshold: Smoke detected in >50% of unprimed tasters"
+                - generic [ref=e3403]: "Detection: Blind triangle test"
+                - generic [ref=e3404]: Predicted
+            - generic [ref=e3407]:
+              - generic [ref=e3408]:
+                - generic [ref=e3409]: Poor day-two texture
+                - generic [ref=e3410]: major
+              - generic [ref=e3411]:
+                - generic [ref=e3412]: "Threshold: >30% moisture loss or staling note"
+                - generic [ref=e3413]: "Detection: Day-2 sensory"
+                - generic [ref=e3414]: Predicted
+            - generic [ref=e3417]:
+              - generic [ref=e3418]:
+                - generic [ref=e3419]: Crust too thick
+                - generic [ref=e3420]: minor
+              - generic [ref=e3421]:
+                - generic [ref=e3422]: "Threshold: >2 mm hard crust"
+                - generic [ref=e3423]: "Detection: Visual + tactile"
+                - generic [ref=e3424]: Predicted
+            - generic [ref=e3427]:
+              - generic [ref=e3428]:
+                - generic [ref=e3429]: Top too pale
+                - generic [ref=e3430]: minor
+              - generic [ref=e3431]:
+                - generic [ref=e3432]: "Threshold: Lighter than Pantone 7513C"
+                - generic [ref=e3433]: "Detection: Color reference"
+                - generic [ref=e3434]: Predicted
+            - generic [ref=e3437]:
+              - generic [ref=e3438]:
+                - generic [ref=e3439]: Top too dark
+                - generic [ref=e3440]: minor
+              - generic [ref=e3441]:
+                - generic [ref=e3442]: "Threshold: Darker than Pantone 7515C"
+                - generic [ref=e3443]: "Detection: Color reference"
+                - generic [ref=e3444]: Predicted
+            - generic [ref=e3447]:
+              - generic [ref=e3448]:
+                - generic [ref=e3449]: Excessive egg aroma
+                - generic [ref=e3450]: minor
+              - generic [ref=e3451]:
+                - generic [ref=e3452]: "Threshold: Sulfur note > 2 s aftertaste"
+                - generic [ref=e3453]: "Detection: Sensory"
+                - generic [ref=e3454]: Predicted
+      - generic [ref=e3458]:
+        - generic [ref=e3459]:
+          - generic [ref=e3460]: "10"
+          - generic [ref=e3461]:
+            - heading "Complexity-Removal Log" [level=2] [ref=e3469]
+            - paragraph [ref=e3470]: Concrete changes applied during the parsimony review. No complexity is retained without a documented benefit — novelty, sophistication, and perceived thoroughness are not benefits.
+        - generic [ref=e3471]:
+          - generic [ref=e3477]:
+            - generic [ref=e3478]: "9"
+            - generic [ref=e3479]: complexity elements removed
+          - generic [ref=e3486]:
+            - generic [ref=e3487]: "4"
+            - generic [ref=e3488]: ingredients in core formula (minimum viable)
+          - generic [ref=e3494]:
+            - generic [ref=e3495]: "10"
+            - generic [ref=e3496]: active steps, each with an observable checkpoint
+        - generic [ref=e3497]:
+          - generic [ref=e3498]:
+            - generic [ref=e3504]:
+              - heading "Removed elements" [level=3] [ref=e3505]
+              - paragraph [ref=e3506]: Each entry shows what was cut, why, and the result
+            - generic [ref=e3507]: 9 entries
+          - table [ref=e3513]:
+            - rowgroup [ref=e3514]:
+              - row [ref=e3515]:
+                - columnheader "Original element" [ref=e3516]
+                - columnheader "Problem" [ref=e3521]
+                - columnheader "Action" [ref=e3522]
+                - columnheader "Result" [ref=e3526]
+            - rowgroup [ref=e3530]:
+              - row [ref=e3531]:
+                - cell "10 g baking powder in baseline" [ref=e3532]
+                - cell "Unsupported; no foam-only control tested first; 4.2% baker% risks chemical taste." [ref=e3534]
+                - cell "Removed from core. Demoted to Diagnostic C at 3 g." [ref=e3535]
+                - cell "Clean foam-only control; interpretable leavener test." [ref=e3540]
+              - row [ref=e3545]:
+                - cell "100 g starch (chuño + cornstarch together)" [ref=e3546]
+                - cell "Confounds two starches in one formula; cannot attribute any effect." [ref=e3548]
+                - cell "Removed from core. Split into Diagnostic A (chuño vs cornstarch, single variable)." [ref=e3549]
+                - cell "Clean starch comparison." [ref=e3554]
+              - row [ref=e3559]:
+                - cell "Whole-egg + separated-egg hybrid method" [ref=e3560]
+                - cell "Two leavening methods in one recipe; redundant; higher collapse risk." [ref=e3562]
+                - cell "Selected whole-egg for core. Separated-egg is Diagnostic B." [ref=e3563]
+                - cell "One method per trial; fewer collapse risks." [ref=e3568]
+              - row [ref=e3573]:
+                - cell "Vanilla + citrus zest together" [ref=e3574]
+                - cell "Two aroma variables; neither evidenced for Valera." [ref=e3576]
+                - cell "Removed from core. Vanilla is Diagnostic; zest is a substitution option for vanilla only." [ref=e3577]
+                - cell "Clean aroma evaluation." [ref=e3582]
+              - row [ref=e3587]:
+                - cell "Smoke + algarrobina in same batch" [ref=e3588]
+                - cell "Two uncontrolled aroma/color variables." [ref=e3590]
+                - cell "Separated into Speculative F (smoke) and Speculative G (algarrobina). Each tested only after its unsmoked/Maillard-only control." [ref=e3591]
+                - cell "Safe, interpretable tests." [ref=e3596]
+              - row [ref=e3601]:
+                - cell "Three-time sifting of flour" [ref=e3602]
+                - cell "No measurable benefit over one thorough sift; adds wait time that deflates foam." [ref=e3604]
+                - cell "Reduced to one thorough sift (or two for starch blends)." [ref=e3605]
+                - cell "Faster workflow; better foam retention." [ref=e3610]
+              - row [ref=e3615]:
+                - cell "\"Bake until done\" instruction" [ref=e3616]
+                - cell "Unobservable checkpoint." [ref=e3618]
+                - 'cell "Replaced with three explicit checkpoints: color (deep golden-amber), toothpick clean, internal ~95°C." [ref=e3619]'
+                - cell "Repeatable doneness." [ref=e3624]
+              - row [ref=e3629]:
+                - cell "Resting batter before baking" [ref=e3630]
+                - cell "Deflates foam; no benefit." [ref=e3632]
+                - cell "Removed. Bake immediately after folding." [ref=e3633]
+                - cell "Better rise." [ref=e3638]
+              - row [ref=e3643]:
+                - cell "16-piece rectangular slab assumption" [ref=e3644]
+                - cell "Contradicted by VLM image analysis (round individual cakes)." [ref=e3646]
+                - cell "Replaced target with individual round molds (~6.5 cm)." [ref=e3647]
+                - cell "Target matches photographed product." [ref=e3652]
+      - generic [ref=e3667]:
+        - generic [ref=e3668]:
+          - generic [ref=e3669]:
+            - generic [ref=e3670]: Baker’s Quick Reference
+            - button "Print card" [ref=e3674]
+          - paragraph [ref=e3679]: The core formula distilled to one printable card. 6 individual round domed cakes (~6.5 cm), ~75 g each. Scale linearly for larger batches.
+        - generic [ref=e3680]:
+          - generic [ref=e3681]:
+            - generic [ref=e3682]: Ingredients (weigh everything)
+            - table [ref=e3684]:
+              - rowgroup [ref=e3685]:
+                - row [ref=e3686]:
+                  - columnheader "Ingredient" [ref=e3687]
+                  - columnheader "Grams" [ref=e3688]
+                  - columnheader "Note" [ref=e3689]
+              - rowgroup [ref=e3690]:
+                - row [ref=e3691]:
+                  - cell "Whole eggs (room temp)" [ref=e3692]
+                  - cell "240g" [ref=e3693]
+                  - cell "~4 large eggs; weigh shelled" [ref=e3694]
+                - row [ref=e3695]:
+                  - cell "Granulated sugar" [ref=e3696]
+                  - cell "150g" [ref=e3697]
+                  - cell "Blanca del Norte or equivalent" [ref=e3698]
+                - row [ref=e3699]:
+                  - cell "All-purpose wheat flour" [ref=e3700]
+                  - cell "150g" [ref=e3701]
+                  - cell "Plain, not self-raising" [ref=e3702]
+                - row [ref=e3703]:
+                  - cell "Fine salt" [ref=e3704]
+                  - cell "1.5g" [ref=e3705]
+                  - cell "Sal Yodo" [ref=e3706]
+              - rowgroup [ref=e3707]:
+                - row [ref=e3708]:
+                  - cell "Total batter" [ref=e3709]
+                  - cell "541.5 g" [ref=e3710]
+                  - cell "≈ 6 cakes" [ref=e3711]
+          - generic [ref=e3712]:
+            - generic [ref=e3713]: Method (6 steps, ~60 min total)
+            - list [ref=e3717]:
+              - listitem [ref=e3719]:
+                - generic [ref=e3720]: "1"
+                - generic [ref=e3721]:
+                  - generic [ref=e3722]:
+                    - generic [ref=e3723]: Preheat
+                    - generic [ref=e3724]: 20 min
+                  - generic [ref=e3725]: 180°C. Place a heavy sheet/stone on lower rack. Grease 6 × 7cm molds, line bottoms with parchment. Do NOT grease sides.
+              - listitem [ref=e3726]:
+                - generic [ref=e3727]: "2"
+                - generic [ref=e3728]:
+                  - generic [ref=e3729]:
+                    - generic [ref=e3730]: Warm & whip
+                    - generic [ref=e3731]: 6-8 min
+                  - generic [ref=e3732]: Warm eggs+ sugar to ~38°C over water bath. Whip on high until pale, tripled, ribbon trail holds 3-sec figure-8.
+              - listitem [ref=e3733]:
+                - generic [ref=e3734]: "3"
+                - generic [ref=e3735]:
+                  - generic [ref=e3736]:
+                    - generic [ref=e3737]: Sift & fold
+                    - generic [ref=e3738]: 2 min
+                  - generic [ref=e3739]: Sift flour+salt once over foam. Fold in 3 additions — cut down middle, scrape bottom, lift over. Stop at no dry streaks.
+              - listitem [ref=e3740]:
+                - generic [ref=e3741]: "4"
+                - generic [ref=e3742]:
+                  - generic [ref=e3743]:
+                    - generic [ref=e3744]: Fill & tap
+                    - generic [ref=e3745]: 1 min
+                  - generic [ref=e3746]: Divide ~75g per mold. Tap each once on counter to release large bubbles.
+              - listitem [ref=e3747]:
+                - generic [ref=e3748]: "5"
+                - generic [ref=e3749]:
+                  - generic [ref=e3750]:
+                    - generic [ref=e3751]: Bake
+                    - generic [ref=e3752]: 22-26 min
+                  - generic [ref=e3753]: Middle rack, 22-26 min. Do NOT open door before 20 min. Done when deep golden-amber, toothpick clean, internal ~95°C.
+              - listitem [ref=e3754]:
+                - generic [ref=e3755]: "6"
+                - generic [ref=e3756]:
+                  - generic [ref=e3757]:
+                    - generic [ref=e3758]: Cool
+                    - generic [ref=e3759]: 30 min
+                  - generic [ref=e3760]: 5 min in mold, then run blade around sides, invert onto rack. Cool fully before packaging.
+          - generic [ref=e3761]:
+            - generic [ref=e3762]: Observable checkpoints
+            - generic [ref=e3766]:
+              - generic [ref=e3767]:
+                - generic [ref=e3768]: Ribbon stage
+                - generic [ref=e3769]: Trail holds 3-sec figure-8
+              - generic [ref=e3770]:
+                - generic [ref=e3771]: Fold complete
+                - generic [ref=e3772]: No dry streaks; batter still voluminous
+              - generic [ref=e3773]:
+                - generic [ref=e3774]: Doneness
+                - generic [ref=e3775]: Deep golden-amber + toothpick clean + ~95°C internal
+              - generic [ref=e3776]:
+                - generic [ref=e3777]: Cool
+                - generic [ref=e3778]: Cake releases cleanly from mold
+          - generic [ref=e3779]:
+            - generic [ref=e3780]: Common pitfalls
+            - list [ref=e3783]:
+              - listitem [ref=e3784]:
+                - generic [ref=e3785]: ▸
+                - generic [ref=e3786]: Underwhipping → dense, low rise. Whip until the ribbon trail holds.
+              - listitem [ref=e3787]:
+                - generic [ref=e3788]: ▸
+                - generic [ref=e3789]: Overfolding → deflated foam. Stop the instant no streaks remain.
+              - listitem [ref=e3790]:
+                - generic [ref=e3791]: ▸
+                - generic [ref=e3792]: Opening oven early → collapse. Wait until 20 min minimum.
+              - listitem [ref=e3793]:
+                - generic [ref=e3794]: ▸
+                - generic [ref=e3795]: Greased sides → slumped, mushroomed top. Leave sides ungreased.
+          - generic [ref=e3796]:
+            - generic [ref=e3797]: 180°C · foam-only · no chemical leavener
+            - generic [ref=e3800]: Chongoyape Lab · v1
+      - generic [ref=e3810]:
+        - generic [ref=e3811]:
+          - generic [ref=e3812]: "11"
+          - generic [ref=e3813]:
+            - heading "Final Challenge & Parsimony Verdict" [level=2] [ref=e3818]
+            - paragraph [ref=e3819]: The whole-project adversarial review. Each major section was challenged, simplified, corrected, and re-checked. Convergence requires two consecutive quiet rounds.
+        - generic [ref=e3826]:
+          - generic [ref=e3827]:
+            - heading "Not yet converged" [level=3] [ref=e3828]
+            - generic [ref=e3829]: 1 / 2 quiet rounds
+          - paragraph [ref=e3830]: Round 6 (parsimony) was quiet. Round 5 (adversarial) raised predicted-but-untested fault modes. One additional quiet round is required after kitchen execution of the fault tests.
+          - progressbar [ref=e3831]
+        - generic [ref=e3833]:
+          - generic [ref=e3834]:
+            - generic [ref=e3836]:
+              - generic [ref=e3837]: Historical review
+              - generic [ref=e3838]: "Gate: Pass"
+            - generic [ref=e3839]:
+              - generic [ref=e3840]:
+                - generic [ref=e3841]: Strongest conclusion
+                - paragraph [ref=e3848]: Valera family origin in Chongoyape (~1913) and wood-fired clay oven production are multiply corroborated across independent source classes.
+              - generic [ref=e3849]:
+                - generic [ref=e3850]: Weakest claim
+                - paragraph [ref=e3853]: The exact founding date (1913 vs ~1920) and the founder’s age at start remain single-source.
+              - generic [ref=e3854]:
+                - generic [ref=e3855]: Counter-hypothesis
+                - paragraph [ref=e3860]: A different founder or founding date in municipal records — searched, not found.
+              - generic [ref=e3861]:
+                - generic [ref=e3862]: Complexity removed
+                - paragraph [ref=e3869]: "Removed: unsourced genealogical details; repeated \"100-year tradition\" folklore presented as fact."
+              - generic [ref=e3870]:
+                - generic [ref=e3871]: Correction made
+                - paragraph [ref=e3874]: Downgraded founding-precision claim from "confirmed" to "strongly supported".
+              - generic [ref=e3875]:
+                - generic [ref=e3876]: Remaining uncertainty
+                - paragraph [ref=e3880]: Exact founding year; whether Eutemio was 17 in 1913.
+          - generic [ref=e3881]:
+            - generic [ref=e3883]:
+              - generic [ref=e3884]: Visual / target review
+              - generic [ref=e3885]: "Gate: Pass"
+            - generic [ref=e3886]:
+              - generic [ref=e3887]:
+                - generic [ref=e3888]: Strongest conclusion
+                - paragraph [ref=e3895]: The photographed product is an individual round domed sponge cake, deep golden-amber, with no filling or icing — directly observed.
+              - generic [ref=e3896]:
+                - generic [ref=e3897]: Weakest claim
+                - paragraph [ref=e3900]: Crumb cell structure is inferred from side visibility, not measured on a cut cross-section.
+              - generic [ref=e3901]:
+                - generic [ref=e3902]: Counter-hypothesis
+                - paragraph [ref=e3907]: A higher-resolution image showing rectangular pieces or a hidden filling layer — not present.
+              - generic [ref=e3908]:
+                - generic [ref=e3909]: Complexity removed
+                - paragraph [ref=e3916]: "Removed: \"rectangular 4×4 slab, flat, pale\" description from the prior report (contradicted)."
+              - generic [ref=e3917]:
+                - generic [ref=e3918]: Correction made
+                - paragraph [ref=e3921]: Target redefined as individual round domed cakes (~6.5 cm).
+              - generic [ref=e3922]:
+                - generic [ref=e3923]: Remaining uncertainty
+                - paragraph [ref=e3927]: Exact piece count per retail pack (4 vs 16).
+          - generic [ref=e3928]:
+            - generic [ref=e3930]:
+              - generic [ref=e3931]: Recipe review
+              - generic [ref=e3932]: "Gate: Revise — kitchen execution required"
+            - generic [ref=e3933]:
+              - generic [ref=e3934]:
+                - generic [ref=e3935]: Strongest conclusion
+                - paragraph [ref=e3942]: The core formula (eggs + sugar + flour + salt, foam-only) is the minimum viable sponge and is structurally sufficient.
+              - generic [ref=e3943]:
+                - generic [ref=e3944]: Weakest claim
+                - paragraph [ref=e3947]: Whether Valera specifically uses chuño, vanilla, or a trace of fat — unresolved, kept out of core.
+              - generic [ref=e3948]:
+                - generic [ref=e3949]: Counter-hypothesis
+                - paragraph [ref=e3954]: A foam-only control that fails to match the target would force a leavener or starch into core.
+              - generic [ref=e3955]:
+                - generic [ref=e3956]: Complexity removed
+                - paragraph [ref=e3963]: "Removed from core: baking powder, dual starch blend, hybrid whole+separated method, vanilla+zest together, resting step, 3× sifting."
+              - generic [ref=e3964]:
+                - generic [ref=e3965]: Correction made
+                - paragraph [ref=e3968]: Rebuilt from foam-only baseline; every other ingredient demoted to a diagnostic or speculative branch.
+              - generic [ref=e3969]:
+                - generic [ref=e3970]: Remaining uncertainty
+                - paragraph [ref=e3974]: Actual Valera ratios; actual starch/flavoring use.
+          - generic [ref=e3975]:
+            - generic [ref=e3977]:
+              - generic [ref=e3978]: Wood-oven interpretation
+              - generic [ref=e3979]: "Gate: Reopen after triangle test"
+            - generic [ref=e3980]:
+              - generic [ref=e3981]:
+                - generic [ref=e3982]: Strongest conclusion
+                - paragraph [ref=e3989]: The oven is real (wood-fired clay) and contributes thermally.
+              - generic [ref=e3990]:
+                - generic [ref=e3991]: Weakest claim
+                - paragraph [ref=e3994]: Whether smoke is perceptible in the finished, clamshell-packaged product — unverified.
+              - generic [ref=e3995]:
+                - generic [ref=e3996]: Counter-hypothesis
+                - paragraph [ref=e4001]: A triangle test (smoked vs unsmoked) showing no perceptible difference.
+              - generic [ref=e4002]:
+                - generic [ref=e4003]: Complexity removed
+                - paragraph [ref=e4010]: "Removed: assumption that smoke flavor is present; assumption that algarrobina ≈ wood smoke."
+              - generic [ref=e4011]:
+                - generic [ref=e4012]: Correction made
+                - paragraph [ref=e4015]: Smoke is a separate speculative variant (Level 4), tested only after an unsmoked control.
+              - generic [ref=e4016]:
+                - generic [ref=e4017]: Remaining uncertainty
+                - paragraph [ref=e4021]: Smoke perceptibility; appropriate wood species.
+        - generic [ref=e4022]:
+          - generic [ref=e4023]: End-of-recipe verdict
+          - generic [ref=e4029]:
+            - generic [ref=e4030]:
+              - generic [ref=e4031]:
+                - generic [ref=e4032]: Selected formula
+                - paragraph [ref=e4033]: "Foam-only core: 240 g whole eggs · 150 g sugar · 150 g AP flour · 1.5 g salt. Whole-egg whip to ribbon stage; 180 °C; ~22-26 min in 7 cm round molds."
+              - generic [ref=e4034]:
+                - generic [ref=e4035]: Confidence
+                - paragraph [ref=e4036]: Plausible — structurally and historically sound; target-match is predicted, not yet kitchen-verified.
+              - generic [ref=e4037]:
+                - generic [ref=e4038]: Strongest supporting evidence
+                - paragraph [ref=e4039]: Multiply-corroborated producer profile; canonical foam-only sponge mechanics; VLM-confirmed target form.
+              - generic [ref=e4040]:
+                - generic [ref=e4041]: Largest unresolved uncertainty
+                - paragraph [ref=e4042]: Whether the foam-only core matches the target color, rise, and crumb without any of the diagnostic additions.
+              - generic [ref=e4043]:
+                - generic [ref=e4044]: Complexity removed
+                - paragraph [ref=e4045]: "9 elements (see Complexity-Removal Log): baking powder, dual starch, hybrid method, vanilla+zest, smoke+algarrobina confound, 3× sifting, \"bake until done\", resting step, rectangular-slab assumption."
+              - generic [ref=e4046]:
+                - generic [ref=e4047]: Optional variants excluded from core
+                - paragraph [ref=e4048]: Chuño/cornstarch, separated-egg, low-dose leavener, trace oil, thermal stone simulation, smoke exposure, algarrobina — all held in Level 2-4 branches.
+            - generic [ref=e4049]:
+              - generic [ref=e4050]: Conditions that would justify another iteration
+              - paragraph [ref=e4051]: A failed foam-only kitchen test (collapse, dense lower layer, or pale color after two controlled attempts); a measurable improvement from a diagnostic variant; a new producer disclosure; or a second product image that materially changes the target.
+        - generic [ref=e4052]:
+          - generic [ref=e4053]: Remaining research questions
+          - list [ref=e4059]:
+            - listitem [ref=e4060]:
+              - generic [ref=e4061]: "1"
+              - generic [ref=e4062]: Execute the foam-only core in a Lima home kitchen and measure rise, color, crumb, and day-two texture against the target image.
+            - listitem [ref=e4063]:
+              - generic [ref=e4064]: "2"
+              - generic [ref=e4065]: Run Diagnostic A (chuño vs cornstarch) and Diagnostic C (foam-only vs low-dose leavener) as paired blind tests.
+            - listitem [ref=e4066]:
+              - generic [ref=e4067]: "3"
+              - generic [ref=e4068]: Run the smoke triangle test (Speculative F) only after the unsmoked control passes Round 3 (target comparison).
+            - listitem [ref=e4069]:
+              - generic [ref=e4070]: "4"
+              - generic [ref=e4071]: Source a second product image or video frame to resolve the 4-vs-16 piece count discrepancy.
+            - listitem [ref=e4072]:
+              - generic [ref=e4073]: "5"
+              - generic [ref=e4074]: Verify DIGESA sanitary-registration status of the brand directly (not inferred from the 48 h rule).
+            - listitem [ref=e4075]:
+              - generic [ref=e4076]: "6"
+              - generic [ref=e4077]: Confirm the current Chiclayo retail address via an independent directory check.
+    - contentinfo [ref=e4078]:
+      - generic [ref=e4081]:
+        - generic [ref=e4082]:
+          - generic [ref=e4083]:
+            - generic [ref=e4084]: Chongoyape Bizcochuelos Lab
+            - paragraph [ref=e4088]: An evidence-gated reverse-engineering study of the Bizcochuelos Valera. Built on a Red–Green–Refactor validation protocol with adversarial challenge and parsimony reviews.
+            - generic [ref=e4089]:
+              - generic [ref=e4090]: evidence-led
+              - generic [ref=e4091]: foam-only
+              - generic [ref=e4092]: parsimony-bound
+              - generic [ref=e4093]: Lima-tested
+          - generic [ref=e4094]:
+            - generic [ref=e4095]: Honesty & limits
+            - list [ref=e4101]:
+              - listitem [ref=e4102]:
+                - generic [ref=e4103]: ▸
+                - generic [ref=e4104]: Visual evidence is VLM-analysed and treated as provisional.
+              - listitem [ref=e4105]:
+                - generic [ref=e4106]: ▸
+                - generic [ref=e4107]:
+                  - text: Kitchen validation rounds are labelled
+                  - emphasis [ref=e4108]: predicted
+                  - text: — not executed in this environment.
+              - listitem [ref=e4109]:
+                - generic [ref=e4110]: ▸
+                - generic [ref=e4111]: Historical plausibility is never presented as proof.
+              - listitem [ref=e4112]:
+                - generic [ref=e4113]: ▸
+                - generic [ref=e4114]: Smoke, algarrobina, and chuño remain outside the core formula until tested.
+          - generic [ref=e4115]:
+            - generic [ref=e4116]: Sources
+            - list [ref=e4120]:
+              - listitem [ref=e4121]:
+                - generic [ref=e4122]: ·
+                - generic [ref=e4123]: RPP Noticias — Valera family reportaje (YouTube)
+              - listitem [ref=e4124]:
+                - generic [ref=e4125]: ·
+                - generic [ref=e4126]: Restaurant Guru — Bizcochuelos Valera, Chongoyape
+              - listitem [ref=e4127]:
+                - generic [ref=e4128]: ·
+                - generic [ref=e4129]: Yanuq, Cookpad — Peruvian bizcochuelo recipes
+              - listitem [ref=e4130]:
+                - generic [ref=e4131]: ·
+                - generic [ref=e4132]: Food-science literature on egg-foam & starch mechanics
+              - listitem [ref=e4133]:
+                - generic [ref=e4134]: ·
+                - generic [ref=e4135]: Product image — primary evidence (VLM-analysed)
+        - generic [ref=e4136]:
+          - generic [ref=e4137]:
+            - generic [ref=e4138]: Phase 0 · Memory audit complete
+            - generic [ref=e4140]: ·
+            - generic [ref=e4141]: Convergence pending kitchen execution
+          - generic [ref=e4142]:
+            - button "Back to top" [ref=e4143]
+            - generic [ref=e4146]: ·
+            - generic [ref=e4147]: v0.2 · 2026
+  - region "Notifications (F8)":
+    - list
+  - button "Open Next.js Dev Tools" [ref=e4153] [cursor=pointer]
+  - alert [ref=e4157]
+```
+
+# Test source
+
+```ts
+  64  |   test('nav: clicking "07 · Recipe Lab" scrolls to recipe lab section', async ({ page }) => {
+  65  |     await clickNavAndVerifySection(page, '07 · Recipe Lab', 'recipe-lab')
+  66  |     await expect(page.getByText('Recipe Lab — Four-Level Hierarchy')).toBeVisible()
+  67  |   })
+  68  | 
+  69  |   test('nav: clicking "11 · Verdict" scrolls to verdict section', async ({ page }) => {
+  70  |     await clickNavAndVerifySection(page, '11 · Verdict', 'verdict')
+  71  |     await expect(page.getByText('Final Challenge & Parsimony Verdict')).toBeVisible()
+  72  |   })
+  73  | 
+  74  |   test('nav: clicking "01 · Memory Audit" scrolls to research rounds', async ({ page }) => {
+  75  |     await clickNavAndVerifySection(page, '01 · Memory Audit', 'memory')
+  76  |     await expect(page.getByText('Pre-Research Protocol')).toBeVisible()
+  77  |   })
+  78  | 
+  79  |   test('research rounds: first accordion shows findings', async ({ page }) => {
+  80  |     await page.locator('#memory').scrollIntoViewIfNeeded()
+  81  |     await page.waitForTimeout(500)
+  82  |     await expect(page.getByText('Findings').first()).toBeVisible()
+  83  |     await expect(page.getByText('Strengthened').first()).toBeVisible()
+  84  |     await expect(page.getByText('Contradictions').first()).toBeVisible()
+  85  |   })
+  86  | 
+  87  |   test('evidence console: tabs switch between Visual / Contradictions / Sources', async ({ page }) => {
+  88  |     await page.locator('#evidence').scrollIntoViewIfNeeded()
+  89  |     await page.waitForTimeout(500)
+  90  |     // Click the Contradictions tab
+  91  |     await page.getByRole('tab', { name: /Contradictions/ }).click()
+  92  |     await page.waitForTimeout(500)
+  93  |     await expect(page.getByText('Contradiction & disconfirmation ledger')).toBeVisible()
+  94  |     // Click the Sources tab
+  95  |     await page.getByRole('tab', { name: /Sources/ }).click()
+  96  |     await page.waitForTimeout(500)
+  97  |     await expect(page.getByText('RPP Noticias')).toBeVisible()
+  98  |     // Click back to Visual
+  99  |     await page.getByRole('tab', { name: /Visual/ }).click()
+  100 |     await page.waitForTimeout(500)
+  101 |     await expect(page.getByText('Observed characteristics')).toBeVisible()
+  102 |   })
+  103 | 
+  104 |   test('claims ledger: category filter chips work', async ({ page }) => {
+  105 |     await page.locator('#claims').scrollIntoViewIfNeeded()
+  106 |     await page.waitForTimeout(500)
+  107 |     // Click the "historical" filter chip
+  108 |     await page.getByRole('button', { name: 'historical' }).click()
+  109 |     await page.waitForTimeout(500)
+  110 |     await expect(page.getByText(/\/ 15/)).toBeVisible()
+  111 |     // Click "all" to reset
+  112 |     await page.getByRole('button', { name: 'all' }).click()
+  113 |     await page.waitForTimeout(300)
+  114 |   })
+  115 | 
+  116 |   test('claims donut chart renders with sectors', async ({ page }) => {
+  117 |     await page.locator('#claims').scrollIntoViewIfNeeded()
+  118 |     await page.waitForTimeout(800)
+  119 |     const pieSectors = page.locator('.recharts-pie-sector')
+  120 |     await expect(pieSectors.first()).toBeVisible()
+  121 |     const count = await pieSectors.count()
+  122 |     expect(count).toBeGreaterThanOrEqual(4)
+  123 |   })
+  124 | 
+  125 |   test('ingredient ledger: expand first ingredient and see details', async ({ page }) => {
+  126 |     await page.locator('#ingredients').scrollIntoViewIfNeeded()
+  127 |     await page.waitForTimeout(500)
+  128 |     const firstTrigger = page.locator('[id^="radix-accordion-trigger-"]').first()
+  129 |     const isExpanded = await firstTrigger.getAttribute('data-state')
+  130 |     if (isExpanded === 'closed') {
+  131 |       await firstTrigger.click()
+  132 |       await page.waitForTimeout(500)
+  133 |     }
+  134 |     await expect(page.getByText('Function').first()).toBeVisible()
+  135 |     await expect(page.getByText('Evidence').first()).toBeVisible()
+  136 |   })
+  137 | 
+  138 |   test('recipe lab: clicking a diagnostic variant updates the detail panel', async ({ page }) => {
+  139 |     await page.locator('#recipe-lab').scrollIntoViewIfNeeded()
+  140 |     await page.waitForTimeout(800)
+  141 |     const diagB = page.getByRole('button', { name: /Diagnostic B.*Separated-Egg/ })
+  142 |     await diagB.click()
+  143 |     await page.waitForTimeout(500)
+  144 |     await expect(page.getByText('Does separated-egg method yield higher volume')).toBeVisible()
+  145 |   })
+  146 | 
+  147 |   test('recipe scaler: slider changes the gram values', async ({ page }) => {
+  148 |     await page.locator('#recipe-lab').scrollIntoViewIfNeeded()
+  149 |     await page.waitForTimeout(800)
+  150 |     const slider = page.locator('[role="slider"]').first()
+  151 |     await expect(slider).toBeVisible()
+  152 |     const beforeValue = await slider.getAttribute('aria-valuenow')
+  153 |     expect(beforeValue).toBe('6')
+  154 |     await slider.click()
+  155 |     for (let i = 0; i < 6; i++) {
+  156 |       await page.keyboard.press('ArrowRight')
+  157 |     }
+  158 |     await page.waitForTimeout(300)
+  159 |     const afterValue = await slider.getAttribute('aria-valuenow')
+  160 |     expect(afterValue).toBe('12')
+  161 |   })
+  162 | 
+  163 |   test('recipe comparison: toggle compare mode and select variants', async ({ page }) => {
+> 164 |     await page.locator('#recipe-lab').scrollIntoViewIfNeeded()
+      |                                       ^ Error: locator.scrollIntoViewIfNeeded: Error: strict mode violation: locator('#recipe-lab') resolved to 2 elements:
+  165 |     await page.waitForTimeout(800)
+  166 |     await page.getByRole('button', { name: 'Compare' }).click()
+  167 |     await page.waitForTimeout(500)
+  168 |     await expect(page.getByText(/Select variants/)).toBeVisible()
+  169 |     const checkboxes = page.locator('[role="checkbox"]')
+  170 |     const count = await checkboxes.count()
+  171 |     expect(count).toBeGreaterThan(0)
+  172 |     await checkboxes.first().click()
+  173 |     await page.waitForTimeout(300)
+  174 |     await checkboxes.nth(1).click()
+  175 |     await page.waitForTimeout(500)
+  176 |     // Comparison table should show total batter
+  177 |     await expect(page.getByText('Total batter').first()).toBeVisible()
+  178 |   })
+  179 | 
+  180 |   test('recipe sandbox: toggling a modification updates the formula', async ({ page }) => {
+  181 |     await page.locator('#recipe-lab').scrollIntoViewIfNeeded()
+  182 |     await page.waitForTimeout(800)
+  183 |     await expect(page.getByText('What-If Recipe Sandbox')).toBeVisible()
+  184 |     const switches = page.locator('[role="switch"]')
+  185 |     const switchCount = await switches.count()
+  186 |     expect(switchCount).toBeGreaterThan(0)
+  187 |     await switches.first().click()
+  188 |     await page.waitForTimeout(500)
+  189 |     await expect(page.getByText('Predicted effects')).toBeVisible()
+  190 |   })
+  191 | 
+  192 |   test('baker\'s quick reference: print button is present', async ({ page }) => {
+  193 |     await page.getByText("Baker's Quick Reference").scrollIntoViewIfNeeded()
+  194 |     await page.waitForTimeout(500)
+  195 |     await expect(page.getByText("Baker's Quick Reference")).toBeVisible()
+  196 |     await expect(page.getByRole('button', { name: 'Print card' })).toBeVisible()
+  197 |     await expect(page.getByText('Whole eggs (room temp)')).toBeVisible()
+  198 |   })
+  199 | 
+  200 |   test('failure risk matrix: filter buttons work', async ({ page }) => {
+  201 |     await page.locator('#failures').scrollIntoViewIfNeeded()
+  202 |     await page.waitForTimeout(500)
+  203 |     await expect(page.getByText('Failure-Test Risk Matrix')).toBeVisible()
+  204 |     await page.getByRole('button', { name: 'critical' }).click()
+  205 |     await page.waitForTimeout(500)
+  206 |     await expect(page.getByText('Insufficient rise')).toBeVisible()
+  207 |     await expect(page.getByText('Collapse after baking')).toBeVisible()
+  208 |   })
+  209 | 
+  210 |   test('validation radar chart renders', async ({ page }) => {
+  211 |     await page.locator('#validation').scrollIntoViewIfNeeded()
+  212 |     await page.waitForTimeout(800)
+  213 |     const radar = page.locator('.recharts-radar-polygon')
+  214 |     await expect(radar).toBeVisible()
+  215 |   })
+  216 | 
+  217 |   test('theme toggle: switches between light and dark mode', async ({ page }) => {
+  218 |     const toggle = page.locator('button[aria-label*="Switch to"]')
+  219 |     await expect(toggle).toBeVisible()
+  220 |     const htmlClass = await page.locator('html').getAttribute('class')
+  221 |     const isDark = htmlClass?.includes('dark') ?? false
+  222 |     await toggle.click()
+  223 |     await page.waitForTimeout(500)
+  224 |     const newHtmlClass = await page.locator('html').getAttribute('class')
+  225 |     const newIsDark = newHtmlClass?.includes('dark') ?? false
+  226 |     expect(newIsDark).toBe(!isDark)
+  227 |   })
+  228 | 
+  229 |   test('command palette (Cmd+K): opens and shows searchable options', async ({ page }) => {
+  230 |     await page.keyboard.press('Control+k')
+  231 |     await page.waitForTimeout(500)
+  232 |     const dialog = page.locator('[role="dialog"]')
+  233 |     await expect(dialog).toBeVisible()
+  234 |     const input = dialog.locator('input')
+  235 |     await input.fill('chuño')
+  236 |     await page.waitForTimeout(500)
+  237 |     await expect(page.getByText(/Chuño/).first()).toBeVisible()
+  238 |     await page.keyboard.press('Escape')
+  239 |     await page.waitForTimeout(300)
+  240 |   })
+  241 | 
+  242 |   test('glossary floating button: opens glossary dialog', async ({ page }) => {
+  243 |     const glossaryBtn = page.locator('button[aria-label="Open glossary"]')
+  244 |     await expect(glossaryBtn).toBeVisible()
+  245 |     await glossaryBtn.click()
+  246 |     await page.waitForTimeout(500)
+  247 |     const dialog = page.locator('[role="dialog"]')
+  248 |     await expect(dialog).toBeVisible()
+  249 |     // Glossary terms should be visible in the dialog
+  250 |     await expect(dialog.getByText('punto cinta').first()).toBeVisible()
+  251 |     await page.keyboard.press('Escape')
+  252 |     await page.waitForTimeout(300)
+  253 |   })
+  254 | 
+  255 |   test('back-to-top button appears after scrolling and works', async ({ page }) => {
+  256 |     await page.evaluate(() => window.scrollTo(0, 3000))
+  257 |     await page.waitForTimeout(800)
+  258 |     const backToTop = page.locator('button[aria-label="Back to top"]')
+  259 |     await expect(backToTop).toBeVisible()
+  260 |     await backToTop.click()
+  261 |     await page.waitForTimeout(1000)
+  262 |     const scrollY = await page.evaluate(() => window.scrollY)
+  263 |     expect(scrollY).toBeLessThan(100)
+  264 |   })
+```
