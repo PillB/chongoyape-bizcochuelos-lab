@@ -106,7 +106,7 @@ export function ExecutiveSummary({ data }: { data: LabData }) {
         </p>
       </CardHeader>
       <CardContent>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-3">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3">
           {findings.map((f, idx) => (
             <motion.div
               key={idx}

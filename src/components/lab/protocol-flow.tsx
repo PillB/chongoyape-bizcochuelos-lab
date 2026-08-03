@@ -83,7 +83,7 @@ export function ProtocolFlow() {
         </div>
 
         {/* Horizontal flow on desktop, vertical on mobile */}
-        <div className="grid grid-cols-1 md:grid-cols-5 gap-3 md:gap-0 relative">
+        <div className="grid grid-cols-1 md:grid-cols-5 gap-3 md:gap-2 relative">
           {steps.map((step, idx) => (
             <div key={step.phase} className="relative">
               <motion.div
@@ -91,11 +91,12 @@ export function ProtocolFlow() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.4, delay: idx * 0.08 }}
+                className="h-full"
               >
-                <Card className={cn('h-full bg-card/60 border-t-2 transition-shadow hover:shadow-md', step.border)}>
+                <Card className={cn('h-full bg-card/60 border-t-2 transition-all hover:shadow-md hover:-translate-y-0.5', step.border)}>
                   <CardContent className="p-4">
                     <div className="flex items-center gap-2 mb-2">
-                      <div className={cn('w-7 h-7 rounded-md flex items-center justify-center', step.bg, step.color)}>
+                      <div className={cn('w-8 h-8 rounded-lg flex items-center justify-center shadow-sm', step.bg, step.color)}>
                         {step.icon}
                       </div>
                       <div>
@@ -112,8 +113,8 @@ export function ProtocolFlow() {
 
               {/* Arrow connector (desktop only) */}
               {idx < steps.length - 1 && (
-                <div className="hidden md:flex absolute top-1/2 -right-3 -translate-y-1/2 z-10 w-6 h-6 rounded-full bg-background border border-border items-center justify-center shadow-sm">
-                  <ArrowRight className="h-3 w-3 text-muted-foreground" />
+                <div className="hidden md:flex absolute top-1/2 -right-2.5 -translate-y-1/2 z-10 w-5 h-5 rounded-full bg-primary text-primary-foreground border-2 border-background items-center justify-center shadow-md">
+                  <ArrowRight className="h-2.5 w-2.5" />
                 </div>
               )}
             </div>

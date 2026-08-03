@@ -56,8 +56,17 @@ export function ClaimsLedger({ claims, sidebar }: { claims: Claim[]; sidebar?: R
               <CardContent className="p-0">
                 <ScrollArea className="h-[560px]">
                   <div className="divide-y divide-border/50">
-                    {filtered.map((c) => (
-                      <div key={c.id} className="p-4 hover:bg-accent/30 transition-colors">
+                    {filtered.map((c) => {
+                      const borderColor = {
+                        confirmed: 'border-l-emerald-500',
+                        'strongly-supported': 'border-l-amber-500',
+                        plausible: 'border-l-yellow-500',
+                        weak: 'border-l-orange-500',
+                        unresolved: 'border-l-sky-500',
+                        contradicted: 'border-l-rose-500',
+                      }[c.confidence] ?? 'border-l-border'
+                      return (
+                      <div key={c.id} className={cn('p-4 hover:bg-accent/30 transition-colors border-l-2', borderColor)}>
                         <div className="flex items-start gap-3">
                           <div className="flex-1 min-w-0">
                             <div className="flex items-center gap-2 flex-wrap mb-1.5">
@@ -87,7 +96,8 @@ export function ClaimsLedger({ claims, sidebar }: { claims: Claim[]; sidebar?: R
                           </div>
                         </div>
                       </div>
-                    ))}
+                      )
+                    })}
                   </div>
                 </ScrollArea>
               </CardContent>
