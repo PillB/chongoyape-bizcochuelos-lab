@@ -104,7 +104,7 @@ export function ValidationRadar({ validations }: { validations: ValidationRound[
           {/* Legend / detail */}
           <div className="space-y-1.5 text-xs">
             {data.map((d) => (
-              <div key={d.lens} className="flex items-center justify-between gap-2">
+              <div key={`${d.lens}-${d.round}`} className="flex items-center justify-between gap-2">
                 <span className="text-muted-foreground truncate">{d.lens}</span>
                 <span className="font-mono font-semibold tabular-nums">
                   {d.passCount}/{d.totalCount}
