@@ -31,3 +31,4 @@
 Read more: https://nextjs.org/docs/app/api-reference/config/next-config-js/allowedDevOrigins
  GET / 200 in 41ms (compile: 3ms, render: 38ms)
  GET / 200 in 42ms (compile: 5ms, render: 37ms)
+ GET / 200 in 42ms (compile: 3ms, render: 39ms)
