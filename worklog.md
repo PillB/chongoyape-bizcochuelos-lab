@@ -677,3 +677,48 @@ Unresolved / next-phase priorities:
 4. Could add URL hash state for sharing specific views.
 5. The executive summary could be made sticky/collapsible for persistent reference.
 6. Could add a "share" button that generates a URL with recipe variant or sandbox state.
+
+---
+Task ID: 11 (deployment)
+Agent: main (Z.ai Code)
+Task: Playwright testing, GitHub auth, deploy to GitHub Pages.
+
+Work Log:
+- Installed Playwright + Chromium browser, gh CLI (user-local)
+- Started GitHub auth in persistent session (setsid+nohup+subshell)
+- Device code 703F-F04E → user authorized as PillB
+- Wrote 27 Playwright E2E tests covering all interactive features (mouse/keyboard emulation, not commands)
+- Fixed duplicate #recipe-lab ID (page wrapper + component both had same ID)
+- Fixed multiple Playwright locator issues: strict-mode violations, curly apostrophe matching, scroll timing, JavaScript evaluate for glossary dialog
+- All 27 tests passing (1.8m total runtime)
+- Configured Next.js for static export (output: "export", basePath for GitHub Pages)
+- Generated static lab-data.json from Prisma DB (replaces API route)
+- Removed API route (incompatible with static export)
+- Created assetUrl() helper for basePath-compatible asset URLs
+- Created GitHub Actions workflow (.github/workflows/deploy.yml) — pending workflow scope auth
+- Built static site, pushed to gh-pages branch
+- Enabled GitHub Pages via gh API (branch: gh-pages, path: /)
+- Source code pushed to main branch on GitHub
+
+Verification:
+- ESLint: 0 errors, 0 warnings
+- Playwright: 27/27 tests passing
+- Production build: clean static export to out/
+- GitHub repo: https://github.com/PillB/chongoyape-bizcochuelos-lab
+- Live site: https://pillb.github.io/chongoyape-bizcochuelos-lab/
+  - Site: HTTP 200
+  - lab-data.json: HTTP 200
+  - Product image: HTTP 200
+  - Content: "Chongoyape", "Bizcochuelos", "Reverse-Engineering Lab" all present
+
+Stage Summary:
+- Full lab deployed to GitHub Pages at https://pillb.github.io/chongoyape-bizcochuelos-lab/
+- 27 Playwright E2E tests all passing
+- Source code on GitHub: https://github.com/PillB/chongoyape-bizcochuelos-lab
+- Static export with basePath for GitHub Pages compatibility
+- No API routes (static JSON data file used instead)
+
+Unresolved / pending:
+1. GitHub Actions workflow file (.github/workflows/deploy.yml) not pushed — requires `workflow` scope authorization (device code 0667-A847 was issued but user hasn't authorized yet). The workflow would automate redeployment on push to main.
+2. Kitchen tests still cannot be executed (predicted checks remain predicted).
+3. The gh-pages branch deployment is manual (build + push). Once the workflow scope is authorized, the GitHub Actions workflow will automate this.
