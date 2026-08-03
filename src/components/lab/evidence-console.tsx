@@ -15,6 +15,7 @@ import {
   X,
   ExternalLink,
 } from 'lucide-react'
+import { assetUrl } from '@/lib/asset-url'
 
 const vlmObservations = [
   { label: 'Product form', value: 'Individual round/oval cakes, ~6.5 cm dia × ~3.5 cm tall', contradicts: 'Rectangular slab' },
@@ -125,7 +126,7 @@ export function EvidenceConsole() {
               <Card className="overflow-hidden bg-card">
                 <div className="relative aspect-[4/3] bg-muted">
                   <img
-                    src="/product/bizcochuelos-valera.jpeg"
+                    src={assetUrl('/product/bizcochuelos-valera.jpeg')}
                     alt="Bizcochuelos Valera — forensic reference image"
                     className="w-full h-full object-cover"
                   />

@@ -7,7 +7,7 @@
 # Test info
 
 - Name: lab.spec.ts >> Chongoyape Bizcochuelos Lab — full functional validation >> baker's quick reference: print button is present
-- Location: tests/lab.spec.ts:192:7
+- Location: tests/lab.spec.ts:187:7
 
 # Error details
 
@@ -2622,206 +2622,206 @@ Call log:
 # Test source
 
 ```ts
-  93  |     await expect(page.getByText('Contradiction & disconfirmation ledger')).toBeVisible()
-  94  |     // Click the Sources tab
-  95  |     await page.getByRole('tab', { name: /Sources/ }).click()
-  96  |     await page.waitForTimeout(500)
-  97  |     await expect(page.getByText('RPP Noticias')).toBeVisible()
-  98  |     // Click back to Visual
-  99  |     await page.getByRole('tab', { name: /Visual/ }).click()
-  100 |     await page.waitForTimeout(500)
-  101 |     await expect(page.getByText('Observed characteristics')).toBeVisible()
-  102 |   })
-  103 | 
-  104 |   test('claims ledger: category filter chips work', async ({ page }) => {
-  105 |     await page.locator('#claims').scrollIntoViewIfNeeded()
-  106 |     await page.waitForTimeout(500)
-  107 |     // Click the "historical" filter chip
-  108 |     await page.getByRole('button', { name: 'historical' }).click()
-  109 |     await page.waitForTimeout(500)
-  110 |     await expect(page.getByText(/\/ 15/)).toBeVisible()
-  111 |     // Click "all" to reset
-  112 |     await page.getByRole('button', { name: 'all' }).click()
-  113 |     await page.waitForTimeout(300)
-  114 |   })
-  115 | 
-  116 |   test('claims donut chart renders with sectors', async ({ page }) => {
-  117 |     await page.locator('#claims').scrollIntoViewIfNeeded()
-  118 |     await page.waitForTimeout(800)
-  119 |     const pieSectors = page.locator('.recharts-pie-sector')
-  120 |     await expect(pieSectors.first()).toBeVisible()
-  121 |     const count = await pieSectors.count()
-  122 |     expect(count).toBeGreaterThanOrEqual(4)
-  123 |   })
-  124 | 
-  125 |   test('ingredient ledger: expand first ingredient and see details', async ({ page }) => {
-  126 |     await page.locator('#ingredients').scrollIntoViewIfNeeded()
-  127 |     await page.waitForTimeout(500)
-  128 |     const firstTrigger = page.locator('[id^="radix-accordion-trigger-"]').first()
-  129 |     const isExpanded = await firstTrigger.getAttribute('data-state')
-  130 |     if (isExpanded === 'closed') {
-  131 |       await firstTrigger.click()
-  132 |       await page.waitForTimeout(500)
-  133 |     }
-  134 |     await expect(page.getByText('Function').first()).toBeVisible()
-  135 |     await expect(page.getByText('Evidence').first()).toBeVisible()
-  136 |   })
-  137 | 
-  138 |   test('recipe lab: clicking a diagnostic variant updates the detail panel', async ({ page }) => {
-  139 |     await page.locator('#recipe-lab').scrollIntoViewIfNeeded()
-  140 |     await page.waitForTimeout(800)
-  141 |     const diagB = page.getByRole('button', { name: /Diagnostic B.*Separated-Egg/ })
-  142 |     await diagB.click()
-  143 |     await page.waitForTimeout(500)
-  144 |     await expect(page.getByText('Does separated-egg method yield higher volume')).toBeVisible()
-  145 |   })
-  146 | 
-  147 |   test('recipe scaler: slider changes the gram values', async ({ page }) => {
-  148 |     await page.locator('#recipe-lab').scrollIntoViewIfNeeded()
-  149 |     await page.waitForTimeout(800)
-  150 |     const slider = page.locator('[role="slider"]').first()
-  151 |     await expect(slider).toBeVisible()
-  152 |     const beforeValue = await slider.getAttribute('aria-valuenow')
-  153 |     expect(beforeValue).toBe('6')
-  154 |     await slider.click()
-  155 |     for (let i = 0; i < 6; i++) {
-  156 |       await page.keyboard.press('ArrowRight')
-  157 |     }
-  158 |     await page.waitForTimeout(300)
-  159 |     const afterValue = await slider.getAttribute('aria-valuenow')
-  160 |     expect(afterValue).toBe('12')
-  161 |   })
-  162 | 
-  163 |   test('recipe comparison: toggle compare mode and select variants', async ({ page }) => {
-  164 |     await page.locator('#recipe-lab').scrollIntoViewIfNeeded()
-  165 |     await page.waitForTimeout(800)
-  166 |     await page.getByRole('button', { name: 'Compare' }).click()
-  167 |     await page.waitForTimeout(500)
-  168 |     await expect(page.getByText(/Select variants/)).toBeVisible()
-  169 |     const checkboxes = page.locator('[role="checkbox"]')
-  170 |     const count = await checkboxes.count()
-  171 |     expect(count).toBeGreaterThan(0)
-  172 |     await checkboxes.first().click()
-  173 |     await page.waitForTimeout(300)
-  174 |     await checkboxes.nth(1).click()
-  175 |     await page.waitForTimeout(500)
-  176 |     // Comparison table should show total batter
-  177 |     await expect(page.getByText('Total batter').first()).toBeVisible()
-  178 |   })
-  179 | 
-  180 |   test('recipe sandbox: toggling a modification updates the formula', async ({ page }) => {
-  181 |     await page.locator('#recipe-lab').scrollIntoViewIfNeeded()
-  182 |     await page.waitForTimeout(800)
-  183 |     await expect(page.getByText('What-If Recipe Sandbox')).toBeVisible()
-  184 |     const switches = page.locator('[role="switch"]')
-  185 |     const switchCount = await switches.count()
-  186 |     expect(switchCount).toBeGreaterThan(0)
-  187 |     await switches.first().click()
-  188 |     await page.waitForTimeout(500)
-  189 |     await expect(page.getByText('Predicted effects')).toBeVisible()
-  190 |   })
-  191 | 
-  192 |   test('baker\'s quick reference: print button is present', async ({ page }) => {
-> 193 |     await page.getByText("Baker's Quick Reference").scrollIntoViewIfNeeded()
+  88  |     await page.waitForTimeout(500)
+  89  |     await page.getByRole('tab', { name: /Contradictions/ }).click()
+  90  |     await page.waitForTimeout(500)
+  91  |     await expect(page.getByText('Contradiction & disconfirmation ledger')).toBeVisible()
+  92  |     await page.getByRole('tab', { name: /Sources/ }).click()
+  93  |     await page.waitForTimeout(500)
+  94  |     // "RPP Noticias" appears multiple times; use .first()
+  95  |     await expect(page.getByText('RPP Noticias').first()).toBeVisible()
+  96  |     await page.getByRole('tab', { name: /Visual/ }).click()
+  97  |     await page.waitForTimeout(500)
+  98  |     await expect(page.getByText('Observed characteristics')).toBeVisible()
+  99  |   })
+  100 | 
+  101 |   test('claims ledger: category filter chips work', async ({ page }) => {
+  102 |     await page.locator('#claims').first().scrollIntoViewIfNeeded()
+  103 |     await page.waitForTimeout(500)
+  104 |     await page.getByRole('button', { name: 'historical' }).click()
+  105 |     await page.waitForTimeout(500)
+  106 |     // "/ 15" may appear multiple times; use .first()
+  107 |     await expect(page.getByText(/\/ 15/).first()).toBeVisible()
+  108 |     await page.getByRole('button', { name: 'all' }).click()
+  109 |     await page.waitForTimeout(300)
+  110 |   })
+  111 | 
+  112 |   test('claims donut chart renders with sectors', async ({ page }) => {
+  113 |     await page.locator('#claims').first().scrollIntoViewIfNeeded()
+  114 |     await page.waitForTimeout(800)
+  115 |     const pieSectors = page.locator('.recharts-pie-sector')
+  116 |     await expect(pieSectors.first()).toBeVisible()
+  117 |     const count = await pieSectors.count()
+  118 |     expect(count).toBeGreaterThanOrEqual(4)
+  119 |   })
+  120 | 
+  121 |   test('ingredient ledger: expand first ingredient and see details', async ({ page }) => {
+  122 |     await page.locator('#ingredients').scrollIntoViewIfNeeded()
+  123 |     await page.waitForTimeout(500)
+  124 |     const firstTrigger = page.locator('[id^="radix-accordion-trigger-"]').first()
+  125 |     const isExpanded = await firstTrigger.getAttribute('data-state')
+  126 |     if (isExpanded === 'closed') {
+  127 |       await firstTrigger.click()
+  128 |       await page.waitForTimeout(500)
+  129 |     }
+  130 |     await expect(page.getByText('Function').first()).toBeVisible()
+  131 |     await expect(page.getByText('Evidence').first()).toBeVisible()
+  132 |   })
+  133 | 
+  134 |   test('recipe lab: clicking a diagnostic variant updates the detail panel', async ({ page }) => {
+  135 |     await page.locator('#recipe-lab').first().scrollIntoViewIfNeeded()
+  136 |     await page.waitForTimeout(1000)
+  137 |     const diagB = page.getByRole('button', { name: /Diagnostic B.*Separated-Egg/ })
+  138 |     await diagB.click()
+  139 |     await page.waitForTimeout(500)
+  140 |     await expect(page.getByText('Does separated-egg method yield higher volume')).toBeVisible()
+  141 |   })
+  142 | 
+  143 |   test('recipe scaler: slider changes the gram values', async ({ page }) => {
+  144 |     await page.locator('#recipe-lab').first().scrollIntoViewIfNeeded()
+  145 |     await page.waitForTimeout(1000)
+  146 |     const slider = page.locator('[role="slider"]').first()
+  147 |     await expect(slider).toBeVisible()
+  148 |     const beforeValue = await slider.getAttribute('aria-valuenow')
+  149 |     expect(beforeValue).toBe('6')
+  150 |     await slider.click()
+  151 |     for (let i = 0; i < 6; i++) {
+  152 |       await page.keyboard.press('ArrowRight')
+  153 |     }
+  154 |     await page.waitForTimeout(300)
+  155 |     const afterValue = await slider.getAttribute('aria-valuenow')
+  156 |     expect(afterValue).toBe('12')
+  157 |   })
+  158 | 
+  159 |   test('recipe comparison: toggle compare mode and select variants', async ({ page }) => {
+  160 |     await page.locator('#recipe-lab').first().scrollIntoViewIfNeeded()
+  161 |     await page.waitForTimeout(1000)
+  162 |     await page.getByRole('button', { name: 'Compare' }).click()
+  163 |     await page.waitForTimeout(500)
+  164 |     await expect(page.getByText(/Select variants/)).toBeVisible()
+  165 |     const checkboxes = page.locator('[role="checkbox"]')
+  166 |     const count = await checkboxes.count()
+  167 |     expect(count).toBeGreaterThan(0)
+  168 |     await checkboxes.first().click()
+  169 |     await page.waitForTimeout(300)
+  170 |     await checkboxes.nth(1).click()
+  171 |     await page.waitForTimeout(500)
+  172 |     await expect(page.getByText('Total batter').first()).toBeVisible()
+  173 |   })
+  174 | 
+  175 |   test('recipe sandbox: toggling a modification updates the formula', async ({ page }) => {
+  176 |     await page.locator('#recipe-lab').first().scrollIntoViewIfNeeded()
+  177 |     await page.waitForTimeout(1000)
+  178 |     await expect(page.getByText('What-If Recipe Sandbox')).toBeVisible()
+  179 |     const switches = page.locator('[role="switch"]')
+  180 |     const switchCount = await switches.count()
+  181 |     expect(switchCount).toBeGreaterThan(0)
+  182 |     await switches.first().click()
+  183 |     await page.waitForTimeout(500)
+  184 |     await expect(page.getByText('Predicted effects')).toBeVisible()
+  185 |   })
+  186 | 
+  187 |   test("baker's quick reference: print button is present", async ({ page }) => {
+> 188 |     await page.getByText("Baker's Quick Reference").scrollIntoViewIfNeeded()
       |                                                     ^ Error: locator.scrollIntoViewIfNeeded: Test timeout of 30000ms exceeded.
-  194 |     await page.waitForTimeout(500)
-  195 |     await expect(page.getByText("Baker's Quick Reference")).toBeVisible()
-  196 |     await expect(page.getByRole('button', { name: 'Print card' })).toBeVisible()
-  197 |     await expect(page.getByText('Whole eggs (room temp)')).toBeVisible()
-  198 |   })
-  199 | 
-  200 |   test('failure risk matrix: filter buttons work', async ({ page }) => {
-  201 |     await page.locator('#failures').scrollIntoViewIfNeeded()
-  202 |     await page.waitForTimeout(500)
-  203 |     await expect(page.getByText('Failure-Test Risk Matrix')).toBeVisible()
-  204 |     await page.getByRole('button', { name: 'critical' }).click()
-  205 |     await page.waitForTimeout(500)
-  206 |     await expect(page.getByText('Insufficient rise')).toBeVisible()
-  207 |     await expect(page.getByText('Collapse after baking')).toBeVisible()
-  208 |   })
-  209 | 
-  210 |   test('validation radar chart renders', async ({ page }) => {
-  211 |     await page.locator('#validation').scrollIntoViewIfNeeded()
-  212 |     await page.waitForTimeout(800)
-  213 |     const radar = page.locator('.recharts-radar-polygon')
-  214 |     await expect(radar).toBeVisible()
-  215 |   })
-  216 | 
-  217 |   test('theme toggle: switches between light and dark mode', async ({ page }) => {
-  218 |     const toggle = page.locator('button[aria-label*="Switch to"]')
-  219 |     await expect(toggle).toBeVisible()
-  220 |     const htmlClass = await page.locator('html').getAttribute('class')
-  221 |     const isDark = htmlClass?.includes('dark') ?? false
-  222 |     await toggle.click()
-  223 |     await page.waitForTimeout(500)
-  224 |     const newHtmlClass = await page.locator('html').getAttribute('class')
-  225 |     const newIsDark = newHtmlClass?.includes('dark') ?? false
-  226 |     expect(newIsDark).toBe(!isDark)
-  227 |   })
-  228 | 
-  229 |   test('command palette (Cmd+K): opens and shows searchable options', async ({ page }) => {
-  230 |     await page.keyboard.press('Control+k')
-  231 |     await page.waitForTimeout(500)
-  232 |     const dialog = page.locator('[role="dialog"]')
-  233 |     await expect(dialog).toBeVisible()
-  234 |     const input = dialog.locator('input')
-  235 |     await input.fill('chuño')
-  236 |     await page.waitForTimeout(500)
-  237 |     await expect(page.getByText(/Chuño/).first()).toBeVisible()
-  238 |     await page.keyboard.press('Escape')
-  239 |     await page.waitForTimeout(300)
-  240 |   })
-  241 | 
-  242 |   test('glossary floating button: opens glossary dialog', async ({ page }) => {
-  243 |     const glossaryBtn = page.locator('button[aria-label="Open glossary"]')
-  244 |     await expect(glossaryBtn).toBeVisible()
-  245 |     await glossaryBtn.click()
-  246 |     await page.waitForTimeout(500)
-  247 |     const dialog = page.locator('[role="dialog"]')
-  248 |     await expect(dialog).toBeVisible()
-  249 |     // Glossary terms should be visible in the dialog
-  250 |     await expect(dialog.getByText('punto cinta').first()).toBeVisible()
-  251 |     await page.keyboard.press('Escape')
-  252 |     await page.waitForTimeout(300)
-  253 |   })
-  254 | 
-  255 |   test('back-to-top button appears after scrolling and works', async ({ page }) => {
-  256 |     await page.evaluate(() => window.scrollTo(0, 3000))
-  257 |     await page.waitForTimeout(800)
-  258 |     const backToTop = page.locator('button[aria-label="Back to top"]')
-  259 |     await expect(backToTop).toBeVisible()
-  260 |     await backToTop.click()
-  261 |     await page.waitForTimeout(1000)
-  262 |     const scrollY = await page.evaluate(() => window.scrollY)
-  263 |     expect(scrollY).toBeLessThan(100)
-  264 |   })
-  265 | 
-  266 |   test('executive summary: quick nav links scroll to sections', async ({ page }) => {
-  267 |     // Find the "Jump to" links within the executive summary section
-  268 |     const execSection = page.locator('section').filter({ hasText: 'Executive Summary' }).first()
-  269 |     const recipeLink = execSection.getByRole('link', { name: 'Recipe' })
-  270 |     await recipeLink.click()
-  271 |     await page.waitForTimeout(1000)
-  272 |     await expect(page.locator('#recipe-lab')).toBeInViewport({ ratio: 0.1 })
-  273 |   })
-  274 | 
-  275 |   test('footer is present at the bottom with 3 columns', async ({ page }) => {
-  276 |     await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight))
-  277 |     await page.waitForTimeout(500)
-  278 |     const footer = page.locator('footer')
-  279 |     await expect(footer.getByText('Chongoyape Bizcochuelos Lab')).toBeVisible()
-  280 |     await expect(footer.getByText('Honesty & limits')).toBeVisible()
-  281 |     await expect(footer.getByText('Sources')).toBeVisible()
-  282 |     await expect(footer.getByText('Back to top')).toBeVisible()
-  283 |   })
-  284 | 
-  285 |   test('section dividers are present between sections', async ({ page }) => {
-  286 |     const dividers = page.locator('[aria-hidden="true"]')
-  287 |     const count = await dividers.count()
-  288 |     expect(count).toBeGreaterThan(5)
-  289 |   })
-  290 | 
-  291 |   test('no runtime errors in console', async ({ page }) => {
-  292 |     const errors: string[] = []
-  293 |     page.on('pageerror', (err) => {
+  189 |     await page.waitForTimeout(500)
+  190 |     await expect(page.getByText("Baker's Quick Reference")).toBeVisible()
+  191 |     await expect(page.getByRole('button', { name: 'Print card' })).toBeVisible()
+  192 |     await expect(page.getByText('Whole eggs (room temp)')).toBeVisible()
+  193 |   })
+  194 | 
+  195 |   test('failure risk matrix: filter buttons work', async ({ page }) => {
+  196 |     await page.locator('#failures').scrollIntoViewIfNeeded()
+  197 |     await page.waitForTimeout(500)
+  198 |     await expect(page.getByText('Failure-Test Risk Matrix')).toBeVisible()
+  199 |     await page.getByRole('button', { name: 'critical' }).click()
+  200 |     await page.waitForTimeout(500)
+  201 |     // "Insufficient rise" appears in both the matrix and the failure cards below; use .first()
+  202 |     await expect(page.getByText('Insufficient rise').first()).toBeVisible()
+  203 |     await expect(page.getByText('Collapse after baking').first()).toBeVisible()
+  204 |   })
+  205 | 
+  206 |   test('validation radar chart renders', async ({ page }) => {
+  207 |     await page.locator('#validation').scrollIntoViewIfNeeded()
+  208 |     await page.waitForTimeout(800)
+  209 |     const radar = page.locator('.recharts-radar-polygon')
+  210 |     await expect(radar).toBeVisible()
+  211 |   })
+  212 | 
+  213 |   test('theme toggle: switches between light and dark mode', async ({ page }) => {
+  214 |     const toggle = page.locator('button[aria-label*="Switch to"]')
+  215 |     await expect(toggle).toBeVisible()
+  216 |     const htmlClass = await page.locator('html').getAttribute('class')
+  217 |     const isDark = htmlClass?.includes('dark') ?? false
+  218 |     await toggle.click()
+  219 |     await page.waitForTimeout(500)
+  220 |     const newHtmlClass = await page.locator('html').getAttribute('class')
+  221 |     const newIsDark = newHtmlClass?.includes('dark') ?? false
+  222 |     expect(newIsDark).toBe(!isDark)
+  223 |   })
+  224 | 
+  225 |   test('command palette (Cmd+K): opens and shows searchable options', async ({ page }) => {
+  226 |     await page.keyboard.press('Control+k')
+  227 |     await page.waitForTimeout(500)
+  228 |     const dialog = page.locator('[role="dialog"]')
+  229 |     await expect(dialog).toBeVisible()
+  230 |     const input = dialog.locator('input')
+  231 |     await input.fill('chuño')
+  232 |     await page.waitForTimeout(500)
+  233 |     await expect(page.getByText(/Chuño/).first()).toBeVisible()
+  234 |     await page.keyboard.press('Escape')
+  235 |     await page.waitForTimeout(300)
+  236 |   })
+  237 | 
+  238 |   test('glossary floating button: opens glossary dialog', async ({ page }) => {
+  239 |     const glossaryBtn = page.locator('button[aria-label="Open glossary"]')
+  240 |     await expect(glossaryBtn).toBeVisible()
+  241 |     // Scroll to top to ensure the button is not covered
+  242 |     await page.evaluate(() => window.scrollTo(0, 0))
+  243 |     await page.waitForTimeout(300)
+  244 |     await glossaryBtn.click({ force: true })
+  245 |     await page.waitForTimeout(500)
+  246 |     const dialog = page.locator('[role="dialog"]')
+  247 |     await expect(dialog).toBeVisible()
+  248 |     await expect(dialog.getByText('punto cinta').first()).toBeVisible()
+  249 |     await page.keyboard.press('Escape')
+  250 |     await page.waitForTimeout(300)
+  251 |   })
+  252 | 
+  253 |   test('back-to-top button appears after scrolling and works', async ({ page }) => {
+  254 |     await page.evaluate(() => window.scrollTo(0, 3000))
+  255 |     await page.waitForTimeout(800)
+  256 |     const backToTop = page.locator('button[aria-label="Back to top"]')
+  257 |     await expect(backToTop).toBeVisible()
+  258 |     await backToTop.click()
+  259 |     await page.waitForTimeout(1000)
+  260 |     const scrollY = await page.evaluate(() => window.scrollY)
+  261 |     expect(scrollY).toBeLessThan(100)
+  262 |   })
+  263 | 
+  264 |   test('executive summary: quick nav links scroll to sections', async ({ page }) => {
+  265 |     const execSection = page.locator('section').filter({ hasText: 'Executive Summary' }).first()
+  266 |     const recipeLink = execSection.getByRole('link', { name: 'Recipe' })
+  267 |     await recipeLink.click()
+  268 |     await page.waitForTimeout(1500)
+  269 |     await expect(page.locator('#recipe-lab').first()).toBeInViewport({ ratio: 0.05 })
+  270 |   })
+  271 | 
+  272 |   test('footer is present at the bottom with 3 columns', async ({ page }) => {
+  273 |     await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight))
+  274 |     await page.waitForTimeout(500)
+  275 |     const footer = page.locator('footer')
+  276 |     await expect(footer.getByText('Chongoyape Bizcochuelos Lab')).toBeVisible()
+  277 |     await expect(footer.getByText('Honesty & limits')).toBeVisible()
+  278 |     await expect(footer.getByText('Sources')).toBeVisible()
+  279 |     await expect(footer.getByText('Back to top')).toBeVisible()
+  280 |   })
+  281 | 
+  282 |   test('section dividers are present between sections', async ({ page }) => {
+  283 |     const dividers = page.locator('[aria-hidden="true"]')
+  284 |     const count = await dividers.count()
+  285 |     expect(count).toBeGreaterThan(5)
+  286 |   })
+  287 | 
+  288 |   test('no runtime errors in console', async ({ page }) => {
 ```

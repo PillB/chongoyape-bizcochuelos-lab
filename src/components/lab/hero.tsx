@@ -5,6 +5,7 @@ import { Microscope, AlertTriangle, ShieldCheck, GitBranch } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'
 import { Progress } from '@/components/ui/progress'
 import { CollapseAllControl } from './collapsible-section'
+import { assetUrl } from '@/lib/asset-url'
 import type { LabData } from './types'
 
 interface HeroProps {
@@ -121,7 +122,7 @@ export function Hero({ data }: HeroProps) {
             <figure className="rounded-xl overflow-hidden border border-border bg-card shadow-sm">
               <div className="relative aspect-[4/3] bg-muted">
                 <img
-                  src="/product/bizcochuelos-valera.jpeg"
+                  src={assetUrl('/product/bizcochuelos-valera.jpeg')}
                   alt="Bizcochuelos Valera product — individual round golden-amber sponge cakes in a clear clamshell tray"
                   className="w-full h-full object-cover"
                 />

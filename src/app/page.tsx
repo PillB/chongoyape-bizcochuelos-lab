@@ -42,7 +42,9 @@ export default function Page() {
 
   useEffect(() => {
     let cancelled = false
-    fetch('/api/lab')
+    // Fetch from static JSON file (works in both dev and GitHub Pages production)
+    const dataUrl = process.env.NODE_ENV === 'production' ? 'chongoyape-bizcochuelos-lab/lab-data.json' : '/lab-data.json'
+    fetch(dataUrl)
       .then(async (r) => {
         if (!r.ok) throw new Error(`HTTP ${r.status}`)
         return r.json() as Promise<LabData>
@@ -195,7 +197,7 @@ export default function Page() {
 
         {/* Recipe lab with scaler + comparison + breakdown + glossary */}
         <SectionReveal>
-          <section id="recipe-lab" className="scroll-mt-20 py-16 sm:py-20 border-b border-border/60">
+          <div className="py-16 sm:py-20 border-b border-border/60">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
               <RecipeLab recipes={data.recipes} />
               <div className="mt-6">
@@ -212,7 +214,7 @@ export default function Page() {
                 <GlossaryCard />
               </div>
             </div>
-          </section>
+          </div>
         </SectionReveal>
 
         <SectionDivider variant="ornament" />
