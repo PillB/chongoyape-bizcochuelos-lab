@@ -1,14 +1,14 @@
-// Utility for building asset URLs that respect the Next.js basePath.
-// In production (GitHub Pages), assets are served from /<repo>/...
-// In development, basePath is empty so paths are root-relative.
+// Utility for building asset URLs that work both on GitHub Pages and in dev.
+// In production (GitHub Pages), assets are served from /<repo>/
+// In development, they're served from /
 
 export function assetUrl(path: string): string {
-  // Ensure path starts with /
   const p = path.startsWith('/') ? path : `/${path}`
-  // In production, basePath is set in next.config.ts
-  // We use process.env.NODE_ENV as a proxy; the actual basePath is configured at build time
-  if (process.env.NODE_ENV === 'production') {
-    return `/chongoyape-bizcochuelos-lab${p}`
+  if (typeof window !== 'undefined') {
+    const isGitHubPages = window.location.hostname.includes('github.io')
+    if (isGitHubPages) {
+      return `/chongoyape-bizcochuelos-lab${p}`
+    }
   }
   return p
 }

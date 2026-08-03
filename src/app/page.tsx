@@ -32,6 +32,7 @@ import { GlossaryCard } from '@/components/lab/glossary'
 import { GlossaryButton } from '@/components/lab/glossary-button'
 import { BakersQuickReference } from '@/components/lab/bakers-quick-reference'
 import { ExecutiveSummary } from '@/components/lab/executive-summary'
+import { BakeSimulator } from '@/components/lab/bake-simulator'
 import { Skeleton } from '@/components/ui/skeleton'
 import { FlaskConical } from 'lucide-react'
 import type { LabData } from '@/components/lab/types'
@@ -42,8 +43,12 @@ export default function Page() {
 
   useEffect(() => {
     let cancelled = false
-    // Fetch from static JSON file (works in both dev and GitHub Pages production)
-    const dataUrl = process.env.NODE_ENV === 'production' ? 'chongoyape-bizcochuelos-lab/lab-data.json' : '/lab-data.json'
+    // Determine the data URL based on whether we're on GitHub Pages or local dev.
+    // In production (GitHub Pages), the site is served from /chongoyape-bizcochuelos-lab/
+    // In dev, it's served from /
+    const isGitHubPages = window.location.hostname.includes('github.io')
+    const basePath = isGitHubPages ? '/chongoyape-bizcochuelos-lab' : ''
+    const dataUrl = `${basePath}/lab-data.json`
     fetch(dataUrl)
       .then(async (r) => {
         if (!r.ok) throw new Error(`HTTP ${r.status}`)
@@ -244,6 +249,17 @@ export default function Page() {
           <section className="py-12 border-b border-border/60">
             <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 bakers-card-wrapper">
               <BakersQuickReference />
+            </div>
+          </section>
+        </SectionReveal>
+
+        <SectionDivider variant="dots" />
+
+        {/* Live Bake Simulator */}
+        <SectionReveal>
+          <section className="py-12 border-b border-border/60">
+            <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+              <BakeSimulator recipes={data.recipes} />
             </div>
           </section>
         </SectionReveal>
