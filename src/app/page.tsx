@@ -33,6 +33,8 @@ import { GlossaryButton } from '@/components/lab/glossary-button'
 import { BakersQuickReference } from '@/components/lab/bakers-quick-reference'
 import { ExecutiveSummary } from '@/components/lab/executive-summary'
 import { BakeSimulator } from '@/components/lab/bake-simulator'
+import { RecipeCorpus } from '@/components/lab/recipe-corpus'
+import { LabProtocols } from '@/components/lab/lab-protocols'
 import { Skeleton } from '@/components/ui/skeleton'
 import { FlaskConical } from 'lucide-react'
 import type { LabData } from '@/components/lab/types'
@@ -158,6 +160,13 @@ export default function Page() {
           <EvidenceConsole />
         </SectionReveal>
 
+        <SectionDivider variant="dots" />
+
+        {/* Historical Recipe Corpus & Genealogy */}
+        <SectionReveal>
+          <RecipeCorpus />
+        </SectionReveal>
+
         {/* Claims ledger with chart sidebar */}
         <SectionReveal>
           <ClaimsLedger
@@ -262,6 +271,13 @@ export default function Page() {
               <BakeSimulator recipes={data.recipes} />
             </div>
           </section>
+        </SectionReveal>
+
+        <SectionDivider variant="dots" />
+
+        {/* Lab Protocols & Annotated Bibliography */}
+        <SectionReveal>
+          <LabProtocols />
         </SectionReveal>
 
         <SectionDivider variant="ornament" />
