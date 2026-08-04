@@ -87,16 +87,16 @@ export function ClaimsChart({ data }: { data: LabData }) {
           </div>
 
           {/* Legend */}
-          <div className="space-y-1.5">
+          <div className="space-y-1.5 min-w-0 overflow-hidden">
             {chartData.map((d) => (
-              <div key={d.key} className="flex items-center gap-2 text-xs">
+              <div key={d.key} className="flex items-center gap-2 text-xs min-w-0">
                 <span
                   className="w-2.5 h-2.5 rounded-sm flex-shrink-0"
                   style={{ backgroundColor: d.color }}
                 />
-                <span className="text-muted-foreground flex-1 truncate">{d.name}</span>
-                <span className="font-mono font-semibold tabular-nums">{d.value}</span>
-                <span className="text-[10px] text-muted-foreground tabular-nums">
+                <span className="text-muted-foreground flex-1 truncate min-w-0">{d.name}</span>
+                <span className="font-mono font-semibold tabular-nums flex-shrink-0">{d.value}</span>
+                <span className="text-[10px] text-muted-foreground tabular-nums flex-shrink-0 w-8 text-right">
                   {Math.round((d.value / Math.max(total, 1)) * 100)}%
                 </span>
               </div>

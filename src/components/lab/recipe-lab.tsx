@@ -114,12 +114,12 @@ export function RecipeLab({ recipes }: { recipes: RecipeVariant[] }) {
           })}
         </div>
 
-        <div className="grid lg:grid-cols-[300px_1fr] gap-4">
+        <div className="grid lg:grid-cols-[300px_1fr] gap-4 overflow-hidden">
           {/* Variant list */}
-          <Card className="bg-card/60 h-fit lg:sticky lg:top-20">
+          <Card className="bg-card/60 h-fit lg:sticky lg:top-20 overflow-hidden">
             <CardContent className="p-3">
-              <ScrollArea className="max-h-[560px]">
-                <div className="space-y-4 pr-1">
+              <ScrollArea className="max-h-[560px] scroll-warm">
+                <div className="space-y-4 pr-2 min-w-0">
                   {[1, 2, 3, 4].map((lvl) => (
                     grouped[lvl].length > 0 && (
                       <div key={lvl}>
@@ -133,17 +133,17 @@ export function RecipeLab({ recipes }: { recipes: RecipeVariant[] }) {
                               key={r.id}
                               onClick={() => setSelectedId(r.id)}
                               className={cn(
-                                'w-full text-left rounded-md p-2.5 text-xs transition-all border relative overflow-hidden',
+                                'w-full text-left rounded-md p-2.5 text-xs transition-all border relative overflow-hidden min-w-0',
                                 selectedId === r.id
                                   ? cn(levelConfig[lvl].bg, levelConfig[lvl].border, 'shadow-sm')
-                                  : 'border-transparent hover:bg-accent/40 hover:border-border hover:translate-x-0.5',
+                                  : 'border-transparent hover:bg-accent/40 hover:border-border',
                               )}
                             >
                               {selectedId === r.id && (
                                 <span className={cn('absolute left-0 top-0 bottom-0 w-1', levelConfig[lvl].color.replace('text-', 'bg-'))} />
                               )}
-                              <div className="font-medium leading-snug">{r.name}</div>
-                              <div className="text-[10px] text-muted-foreground mt-0.5 line-clamp-2">{r.summary}</div>
+                              <div className="font-medium leading-snug truncate pr-1">{r.name}</div>
+                              <div className="text-[10px] text-muted-foreground mt-0.5 line-clamp-2 pr-1">{r.summary}</div>
                             </button>
                           ))}
                         </div>
@@ -163,6 +163,7 @@ export function RecipeLab({ recipes }: { recipes: RecipeVariant[] }) {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -8 }}
               transition={{ duration: 0.2 }}
+              className="min-w-0 overflow-hidden"
             >
               <Card className={cn('bg-card/60 border', cfg.border)}>
                 <CardContent className="p-5 sm:p-6">
@@ -248,11 +249,11 @@ export function RecipeLab({ recipes }: { recipes: RecipeVariant[] }) {
                         {/* vertical timeline line */}
                         <span className="absolute left-[9px] top-2 bottom-2 w-px bg-border" aria-hidden />
                         {selected.steps.map((step, idx) => (
-                          <li key={idx} className="flex gap-3 text-xs relative">
+                          <li key={idx} className="flex gap-3 text-xs relative min-w-0">
                             <span className="flex-shrink-0 w-[18px] h-[18px] rounded-full bg-primary text-primary-foreground font-mono text-[9px] font-bold flex items-center justify-center mt-0.5 z-10 ring-2 ring-background shadow-sm">
                               {idx + 1}
                             </span>
-                            <span className="leading-relaxed text-foreground/90 pt-0.5">{step}</span>
+                            <span className="leading-relaxed text-foreground/90 pt-0.5 min-w-0 break-words">{step}</span>
                           </li>
                         ))}
                       </ol>

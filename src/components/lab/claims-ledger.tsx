@@ -105,7 +105,7 @@ export function ClaimsLedger({ claims, sidebar }: { claims: Claim[]; sidebar?: R
           </div>
 
           {sidebar && (
-            <div className="space-y-4 lg:sticky lg:top-20">
+            <div className="space-y-4 lg:sticky lg:top-20 min-w-0 overflow-hidden">
               {sidebar}
             </div>
           )}
