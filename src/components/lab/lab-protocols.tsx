@@ -11,6 +11,7 @@ import {
   BookMarked,
   Flame,
   Beaker,
+  AlertTriangle,
 } from 'lucide-react'
 
 export function LabProtocols() {
@@ -274,6 +275,21 @@ export function LabProtocols() {
               </div>
             </CardContent>
           </Card>
+        </div>
+
+        {/* Defect 25: Copilot acknowledgment */}
+        <div className="mt-4 rounded-lg border border-amber-200 bg-amber-50/50 dark:bg-amber-950/15 dark:border-amber-900 p-4">
+          <div className="flex items-center gap-1.5 mb-2">
+            <AlertTriangle className="h-3.5 w-3.5 text-amber-600 dark:text-amber-400" />
+            <span className="text-[10px] font-semibold uppercase tracking-wider text-amber-700 dark:text-amber-400">
+              Experimental Design Copilot — NOT IMPLEMENTED
+            </span>
+          </div>
+          <div className="space-y-1.5 text-xs text-muted-foreground leading-relaxed">
+            <p>The protocol describes a bounded Experimental Design Copilot with a question → evidence → design → approval → execution → analysis → recommendation pipeline. <strong className="text-foreground">This copilot is NOT implemented in the current system.</strong></p>
+            <p>The current system provides: (1) a Mechanism Explorer for qualitative direction, (2) a Real Batch Log for actual observations, (3) batch-record templates, and (4) sensory-testing protocols. It does <strong className="text-foreground">not</strong> provide: automated experiment recommendations, blind code generation, confounding detection, cost estimation, run-order randomization, or a durable state machine with approvals.</p>
+            <p>The copilot design is documented as a target architecture. Implementing it requires: a persistent backend (not static export), an approval workflow with human-in-the-loop, evidence-grounded learning from real batch data, and explicit data-upload controls. None of these exist in the current static-site deployment.</p>
+          </div>
         </div>
       </div>
     </section>

@@ -30,6 +30,7 @@ export function IngredientLedger({ ingredients }: { ingredients: Ingredient[] })
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeader
           index="04"
+          phase="Phase 0 · Ingredients"
           title="Ingredient Decision Ledger"
           subtitle="Every candidate ingredient with its function, evidence, Lima availability, substitution, expected effect, risk, and the predicted result of omission. An ingredient enters the core only with direct evidence or structural necessity."
           icon={<Beaker className="h-5 w-5 text-primary" />}

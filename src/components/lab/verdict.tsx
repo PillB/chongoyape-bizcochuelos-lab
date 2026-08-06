@@ -82,6 +82,7 @@ export function Verdict({ data }: { data: LabData }) {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeader
           index="11"
+          phase="Phase 3 · Final Verdict"
           title="Final Challenge & Parsimony Verdict"
           subtitle="The whole-project adversarial review. Each major section was challenged, simplified, corrected, and re-checked. Convergence requires two consecutive quiet rounds."
           icon={<ShieldCheck className="h-5 w-5 text-primary" />}

@@ -99,6 +99,7 @@ export function EvidenceConsole() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeader
           index="02"
+          phase="Phase 0 · Evidence"
           title="Evidence Console"
           subtitle="Forensic visual analysis of the supplied image (VLM) and the multi-source web research that corroborated or contradicted it. Observations are separated from inferences."
           icon={<Eye className="h-5 w-5 text-primary" />}

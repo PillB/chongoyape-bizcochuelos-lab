@@ -45,6 +45,7 @@ export function ValidationDashboard({
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeader
             index="08"
+          phase="Phase 2 · Validation"
             title="Validation Dashboard"
             subtitle="Six adversarial lenses applied to the leading formula. Each check is labelled pass, predicted, revise, or reopen. Predicted checks are explicitly flagged — they have not been executed in a kitchen."
             icon={<ClipboardCheck className="h-5 w-5 text-primary" />}
@@ -128,6 +129,7 @@ export function ValidationDashboard({
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeader
             index="09"
+          phase="Phase 2 · Failure Tests"
             title="Failure-Test Specification"
             subtitle="Defined before formulation. Each failure mode has a measurable threshold, a detection method, and a severity. Most are currently predicted — kitchen execution will convert them to tested or mitigated."
             icon={<AlertOctagon className="h-5 w-5 text-primary" />}

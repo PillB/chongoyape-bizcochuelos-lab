@@ -80,6 +80,7 @@ export function TechniqueLedger({ techniques }: { techniques: Technique[] }) {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeader
           index="05"
+          phase="Phase 0 · Techniques"
           title="Technique Decision Ledger"
           subtitle="Every technique audited for its intended function, target evidence, simpler alternative, failure mode, and observable measurement. Ceremonial, redundant, or inherited steps are rejected."
           icon={<Wrench className="h-5 w-5 text-primary" />}

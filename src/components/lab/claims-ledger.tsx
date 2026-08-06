@@ -20,6 +20,7 @@ export function ClaimsLedger({ claims, sidebar }: { claims: Claim[]; sidebar?: R
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeader
           index="03"
+          phase="Phase 0 · Claims"
           title="Claims Ledger"
           subtitle="Every major claim classified by confidence. Wording is downgraded whenever the evidence cannot support precision — historical plausibility is never presented as proof."
           icon={<ScrollText className="h-5 w-5 text-primary" />}

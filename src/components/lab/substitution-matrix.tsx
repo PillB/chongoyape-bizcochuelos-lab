@@ -13,6 +13,7 @@ export function SubstitutionMatrix({ substitutions }: { substitutions: Substitut
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeader
           index="06"
+          phase="Phase 0 · Substitutions"
           title="Substitution Matrix"
           subtitle="No two ingredients are called interchangeable without describing their functional differences. Each substitution states the property replaced, the property lost, the quantity adjustment, and the technique adjustment."
           icon={<ArrowLeftRight className="h-5 w-5 text-primary" />}

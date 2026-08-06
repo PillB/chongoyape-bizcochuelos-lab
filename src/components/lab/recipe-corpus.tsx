@@ -215,7 +215,20 @@ export function RecipeCorpus() {
             <p>• The Bizcochuelo de Todos Santos is <strong className="text-foreground">independent</strong> — different proportions and context (religious festival recipe).</p>
             <p>• Pan di Spagna and Genoise are <strong className="text-foreground">independent root sources</strong> — developed separately, same technique family.</p>
             <p>• The Valera thesis is <strong className="text-foreground">primary and independent</strong> — direct grandson interview. No proportions given.</p>
-            <p>• The 1902 and 1910 Peruvian manuals are <strong className="text-foreground">NOT VERIFIED</strong> — original texts not accessed. Listed as potential root sources but evidence is inferred from existence, not content review.</p>
+            <p>• The 1902 and 1910 Peruvian manuals are <strong className="text-foreground">NOT VERIFIED — original texts not accessed</strong>. Listed as potential root sources but evidence is inferred from existence, not content review. Do not cite these as supporting evidence for any recipe claim until the relevant pages have been inspected.</p>
+          </div>
+        </div>
+
+        {/* Defect 6: Migration disclaimer */}
+        <div className="mt-4 rounded-lg border border-amber-200 bg-amber-50/50 dark:bg-amber-950/15 dark:border-amber-900 p-4">
+          <div className="text-[10px] font-semibold uppercase tracking-wider text-amber-700 dark:text-amber-400 mb-2">
+            Migration presence ≠ recipe transmission
+          </div>
+          <div className="space-y-1.5 text-xs text-muted-foreground leading-relaxed">
+            <p>• The presence of Italian, Spanish, German, Chinese, Japanese, or other migrant populations in Lambayeque is <strong className="text-foreground">demographic context, not evidence of culinary transmission</strong>.</p>
+            <p>• A technique being <em>available</em> in a migrant tradition does not mean it was <em>transmitted</em> to Chongoyape or the Valera family.</p>
+            <p>• Similar ingredient ratios between recipes may reflect convergent optimization of the same egg-foam system, not direct copying. Do not infer copying from ratio similarity alone without textual genealogy evidence.</p>
+            <p>• The whole-egg foam technique was <strong className="text-foreground">widespread in Peruvian and Spanish colonial baking</strong> before any documented migrant influence. A simpler explanation (Spanish colonial convent tradition) is at least as plausible as any migrant-specific transmission.</p>
           </div>
         </div>
       </div>

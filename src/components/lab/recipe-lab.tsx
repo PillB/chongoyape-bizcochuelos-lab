@@ -79,6 +79,7 @@ export function RecipeLab({ recipes }: { recipes: RecipeVariant[] }) {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeader
           index="07"
+          phase="Phase 1 · Recipe Reconstruction"
           title="Recipe Lab — Four-Level Hierarchy"
           subtitle="The core formula is a minimal egg–sugar–flour–salt foam. Every other ingredient is held in a separate diagnostic or speculative branch until a controlled test justifies its promotion. Uncertain authenticity cues never blend silently into the core."
           icon={<FlaskConical className="h-5 w-5 text-primary" />}

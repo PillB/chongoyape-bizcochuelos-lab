@@ -34,6 +34,7 @@ export function ResearchRounds({ rounds }: { rounds: ResearchRound[] }) {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeader
           index="01"
+          phase="Phase 0 · Pre-Research"
           title="Pre-Research Protocol — Memory & Multi-Round Audit"
           subtitle="Six bounded research rounds executed before any recipe decision. Each round states findings, what strengthened or weakened the hypothesis, contradictions, decisions changed, and whether another round is justified."
           icon={<BookOpen className="h-5 w-5 text-primary" />}

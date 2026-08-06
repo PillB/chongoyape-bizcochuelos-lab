@@ -13,6 +13,7 @@ export function ComplexityLog({ entries }: { entries: ComplexityLogType[] }) {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeader
           index="10"
+          phase="Phase 2 · Complexity Log"
           title="Complexity-Removal Log"
           subtitle="Concrete changes applied during the parsimony review. No complexity is retained without a documented benefit — novelty, sophistication, and perceived thoroughness are not benefits."
           icon={<Scissors className="h-5 w-5 text-primary" />}
