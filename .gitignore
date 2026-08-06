@@ -8,6 +8,8 @@
 # database
 /db/*.db
 /db/*.db-journal
+/prisma/db/
+
 
 # misc
 .DS_Store
