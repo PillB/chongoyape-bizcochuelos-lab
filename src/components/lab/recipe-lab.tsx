@@ -98,43 +98,45 @@ export function RecipeLab({ recipes }: { recipes: RecipeVariant[] }) {
                   if (first) setSelectedId(first.id)
                 }}
                 className={cn(
-                  'rounded-lg border p-3 text-left transition-all',
+                  'rounded-lg border p-3 text-left transition-all min-w-0 overflow-hidden',
                   isActive
                     ? cn(lcfg.bg, lcfg.border, 'shadow-sm')
                     : 'border-border bg-card/40 hover:bg-accent/40',
                 )}
               >
-                <div className={cn('flex items-center gap-1.5 mb-1', lcfg.color)}>
-                  {lcfg.icon}
-                  <span className="text-[10px] font-mono uppercase tracking-wider">L{lvl}</span>
+                <div className={cn('flex items-center gap-1.5 mb-1 min-w-0', lcfg.color)}>
+                  <span className="flex-shrink-0">{lcfg.icon}</span>
+                  <span className="text-[10px] font-mono uppercase tracking-wider truncate">L{lvl}</span>
                 </div>
-                <div className="text-xs font-semibold leading-tight">{levelLabels[lvl].label}</div>
-                <div className="text-[10px] text-muted-foreground mt-0.5">{grouped[lvl].length} variant{grouped[lvl].length !== 1 ? 's' : ''}</div>
+                <div className="text-xs font-semibold leading-tight break-words min-w-0">{levelLabels[lvl].label}</div>
+                <div className="text-[10px] text-muted-foreground mt-0.5 truncate">
+                  {grouped[lvl].length} variant{grouped[lvl].length !== 1 ? 's' : ''}
+                </div>
               </button>
             )
           })}
         </div>
 
-        <div className="grid lg:grid-cols-[300px_1fr] gap-4 overflow-hidden">
+        <div className="grid grid-cols-1 lg:grid-cols-[300px_1fr] gap-4 overflow-hidden">
           {/* Variant list */}
-          <Card className="bg-card/60 h-fit lg:sticky lg:top-20 overflow-hidden">
-            <CardContent className="p-3">
+          <Card className="bg-card/60 h-fit lg:sticky lg:top-20 overflow-hidden min-w-0">
+            <CardContent className="p-3 min-w-0">
               <ScrollArea className="max-h-[560px] scroll-warm">
                 <div className="space-y-4 pr-2 min-w-0">
                   {[1, 2, 3, 4].map((lvl) => (
                     grouped[lvl].length > 0 && (
-                      <div key={lvl}>
-                        <div className={cn('flex items-center gap-1.5 text-[10px] font-mono uppercase tracking-wider mb-1.5 px-1', levelConfig[lvl].color)}>
-                          {levelConfig[lvl].icon}
-                          L{lvl} · {levelLabels[lvl].short}
+                      <div key={lvl} className="min-w-0">
+                        <div className={cn('flex items-center gap-1.5 text-[10px] font-mono uppercase tracking-wider mb-1.5 px-1 min-w-0', levelConfig[lvl].color)}>
+                          <span className="flex-shrink-0">{levelConfig[lvl].icon}</span>
+                          <span className="truncate">L{lvl} · {levelLabels[lvl].short}</span>
                         </div>
-                        <div className="space-y-1">
+                        <div className="space-y-1 min-w-0">
                           {grouped[lvl].map((r) => (
                             <button
                               key={r.id}
                               onClick={() => setSelectedId(r.id)}
                               className={cn(
-                                'w-full text-left rounded-md p-2.5 text-xs transition-all border relative overflow-hidden min-w-0',
+                                'w-full text-left rounded-md p-2.5 pl-3.5 text-xs transition-all border relative overflow-hidden min-w-0',
                                 selectedId === r.id
                                   ? cn(levelConfig[lvl].bg, levelConfig[lvl].border, 'shadow-sm')
                                   : 'border-transparent hover:bg-accent/40 hover:border-border',
@@ -143,8 +145,8 @@ export function RecipeLab({ recipes }: { recipes: RecipeVariant[] }) {
                               {selectedId === r.id && (
                                 <span className={cn('absolute left-0 top-0 bottom-0 w-1', levelConfig[lvl].color.replace('text-', 'bg-'))} />
                               )}
-                              <div className="font-medium leading-snug truncate pr-1">{r.name}</div>
-                              <div className="text-[10px] text-muted-foreground mt-0.5 line-clamp-2 pr-1">{r.summary}</div>
+                              <div className="font-medium leading-snug truncate min-w-0">{r.name}</div>
+                              <div className="text-[10px] text-muted-foreground mt-0.5 line-clamp-2 min-w-0">{r.summary}</div>
                             </button>
                           ))}
                         </div>

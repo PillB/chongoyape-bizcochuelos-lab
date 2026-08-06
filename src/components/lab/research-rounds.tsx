@@ -40,8 +40,8 @@ export function ResearchRounds({ rounds }: { rounds: ResearchRound[] }) {
           icon={<BookOpen className="h-5 w-5 text-primary" />}
         />
 
-        <div className="grid lg:grid-cols-[1fr_320px] gap-6">
-          <div>
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-6">
+          <div className="min-w-0">
             <Accordion type="single" collapsible defaultValue={`round-${rounds[0]?.id}`} className="space-y-3">
               {rounds.map((r, idx) => (
                 <AccordionItem
@@ -51,7 +51,7 @@ export function ResearchRounds({ rounds }: { rounds: ResearchRound[] }) {
                 >
                   {/* Left accent bar — color by kind */}
                   <div className={cn('absolute left-0 top-0 bottom-0 w-1', kindAccent[r.kind] ?? 'bg-primary/40')} />
-                  <AccordionTrigger className="px-4 py-3.5 pl-5 hover:bg-accent/40 hover:no-underline group">
+                  <AccordionTrigger className="px-4 py-3.5 pl-5 hover:bg-accent/40 hover:no-underline group min-w-0 overflow-hidden">
                     <div className="flex items-center gap-3 text-left flex-1 min-w-0">
                       {/* Round number badge */}
                       <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center text-primary font-mono font-bold text-sm tabular-nums">
@@ -81,7 +81,7 @@ export function ResearchRounds({ rounds }: { rounds: ResearchRound[] }) {
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
                       transition={{ duration: 0.25 }}
-                      className="grid sm:grid-cols-2 gap-3 text-sm"
+                      className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm"
                     >
                       <Field label="Findings" value={r.findings} />
                       <Field label="Strengthened" value={r.strengthened} tone="emerald" />
@@ -97,7 +97,7 @@ export function ResearchRounds({ rounds }: { rounds: ResearchRound[] }) {
           </div>
 
           {/* Side: stopping rule */}
-          <div className="lg:sticky lg:top-20 lg:self-start space-y-4">
+          <div className="lg:sticky lg:top-20 lg:self-start space-y-4 min-w-0">
             <Card className="bg-card/60">
               <CardHeader className="pb-3">
                 <CardTitle className="text-base flex items-center gap-2">

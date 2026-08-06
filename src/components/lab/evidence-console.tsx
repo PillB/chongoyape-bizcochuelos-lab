@@ -123,7 +123,7 @@ export function EvidenceConsole() {
 
           {/* Visual analysis */}
           <TabsContent value="visual" className="mt-6">
-            <div className="grid lg:grid-cols-[420px_1fr] gap-6">
+            <div className="grid grid-cols-1 lg:grid-cols-[420px_1fr] gap-6">
               <Card className="overflow-hidden bg-card">
                 <div className="relative aspect-[4/3] bg-muted">
                   <img

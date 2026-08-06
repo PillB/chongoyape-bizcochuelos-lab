@@ -839,3 +839,57 @@ Stage Summary:
 - 2 previously-open gates resolved (smoke, DIGESA regulatory).
 - Convergence achieved (2/2 quiet rounds).
 - The lab is now the most evidence-complete and validated version possible without kitchen testing.
+
+---
+Task ID: 14
+Agent: main (Z.ai Code)
+Task: Fix widespread vertical/horizontal overflow across 9+ lab sections (What-If Recipe Sandbox modifications, Recipe Lab variant "v" text x-axis, Substitution Explorer list, Substitution Matrix rows, Recipe Corpus genealogy, Glossary, Parsimony/R1-Rn checklists, Complexity-Removal Log, Lab Protocols Batch-Record Template & Bibliography). Diagnose root cause, apply generalizable fix, preempt recurrence.
+
+Work Log:
+- Read all 9 affected components + the shared shadcn ScrollArea component + globals.css scroll-warm styling + page.tsx layout.
+- Root-cause analysis (SINGLE point of failure):
+  * shadcn `ScrollArea` (src/components/ui/scroll-area.tsx) wraps children in `ScrollAreaPrimitive.Viewport` with `className="... size-full ..."`.
+  * `size-full` = `width:100%; height:100%`. Per CSS spec, `height:100%` only resolves against a parent's EXPLICIT `height`, NOT its `max-height`.
+  * Consumers apply `max-h-[Npx]` to the `<ScrollArea>` Root. Because the Root has only `max-height` (no `height`), the Viewport's `height:100%` resolves to `auto` → viewport grows to fit ALL content → `max-h` is silently ignored → content overflows past the intended boundary into the next section.
+  * This single bug affects every `<ScrollArea className="max-h-[...]">` usage: recipe-sandbox (380), substitution-explorer (400), substitution-matrix (560), recipe-corpus (600), glossary (340), complexity-log (640), lab-protocols batch-record (300) + bibliography (300), recipe-lab variant list (560), validation-dashboard R-cards (280), technique-ledger (440/300), recipe-comparison (200), glossary-button dialog (400).
+  * The 3 usages with explicit `h-[Npx]` (ingredient-ledger 640, claims-ledger 560, evidence-console 440) already work because `height:100%` resolves against the explicit height.
+- Secondary issue — Recipe Lab "v" x-axis overflow: the variant-list Card uses `overflow-hidden` + `lg:sticky`; long level-tab labels ("Core Best-Evidence Recipe") and variant names need a complete `min-w-0` + `truncate`/`break-words` chain on every flex/grid ancestor so text clips gracefully instead of spilling horizontally and getting cut by `overflow-hidden`.
+- Generalizable fix (single component change): add `max-h-[inherit]` to the Viewport className so it inherits the Root's computed `max-height` (enabling internal scroll), AND add `overflow-hidden` to the Root so content can never visually leak even in edge cases. This fixes ALL 13 broken `max-h` usages at once without touching any consumer component, and is a no-op for the 3 working `h-[Npx]` usages (parent max-height = none → inherits none).
+- Targeted defensive fix: Recipe Lab level-tab text containers + variant buttons get explicit `min-w-0` + `overflow-hidden` + `break-words`/`truncate` chain.
+
+Stage Summary:
+- Root cause = shadcn ScrollArea Viewport `size-full` ignores parent `max-h-*` (CSS `height:100%` vs `max-height` gotcha).
+- Generalizable fix applied at the component source (scroll-area.tsx) — fixes 13 broken lists with one change.
+- Recipe Lab x-axis text overflow fixed with min-w-0/truncate chain.
+- To be verified via agent-browser after fixes applied.
+
+Verification Results (agent-browser + VLM):
+- ScrollArea audit: 24/24 viewports constrained (`allConstrained: true`), 0/24 leak into next section (`anyLeak: false`), 20 actively scrollable (4 short validation cards fit without scroll — correct).
+  * Recipe Corpus genealogy: max-h-600, scroll 1309 ✓
+  * Substitution Matrix: max-h-560, scroll 664 ✓
+  * Substitution Explorer: max-h-400, scroll 486 ✓
+  * Recipe Lab variants: max-h-560, scroll 734 ✓
+  * Recipe Sandbox modifications: max-h-380, scroll 543 ✓
+  * Glossary: max-h-340, scroll 911 ✓
+  * Validation Dashboard R1-R7 cards: max-h-280, all constrained ✓
+  * Complexity Log: max-h-640, scroll 1863 ✓
+  * Lab Protocols batch-record: max-h-300, scroll 698 ✓ + bibliography: max-h-300, scroll 1245 ✓
+  * Technique ledger: max-h-440/300 ✓
+- Recipe Lab x-axis: 0 buttons overflow horizontally; VLM confirms level tabs show full text without cutoff.
+- Desktop (1280px): no horizontal overflow, sticky nav works (navStuckAtTop: true).
+- Mobile (375px): no visible horizontal scrollbar (innerW === clientW === 375); table in overflow-x-auto div scrolls horizontally as designed (scrollable: true).
+- VLM visual confirmation: Recipe Lab "left variant list contained within its card with scrollbar, no overflow; level tabs full text without cutoff; layout clean." Complexity Log "table contained within scrollable card, no overflow into next section, scrollbar visible."
+- ESLint: 0 errors, 0 warnings. Dev server: HTTP 200, clean compiles.
+
+Additional fixes (preemptive, discovered during verification):
+- NavBar (nav-bar.tsx): 11 desktop nav buttons overflowed at 1280px causing page-wide horizontal scroll. Fixed: nav now `flex-1 min-w-0 overflow-x-auto scroll-warm` with `whitespace-nowrap flex-shrink-0` buttons; outer container `overflow-x-hidden`; logo/right-cluster/toggle `flex-shrink-0`.
+- Hero (hero.tsx): `items-start` (unqualified) prevented children from stretching to full width on mobile → text block took intrinsic 435px on 375px viewport, clipped by header overflow-hidden. Fixed: `lg:items-start` (mobile defaults to stretch); text block `w-full lg:w-auto`; badge row `flex-wrap`.
+- Research Rounds (research-rounds.tsx): grid `lg:grid-cols-[1fr_320px]` had no mobile columns → implicit `auto` column sized to accordion max-content (428px) overflowing 343px container. AccordionTrigger button also lacked `min-w-0`/`overflow-hidden`. Fixed: `grid-cols-1 lg:grid-cols-[1fr_320px]`, grid children `min-w-0`, trigger `min-w-0 overflow-hidden`, inner content grid `grid-cols-1 sm:grid-cols-2`.
+- All 9 `grid lg:grid-cols-*` patterns across 8 files (lab-protocols, validation-dashboard, technique-ledger, recipe-sandbox, substitution-explorer, claims-ledger, evidence-console, recipe-lab) fixed with `grid-cols-1` mobile base to prevent implicit `auto` column overflow.
+- globals.css: `html { overflow-x: hidden }` as defence-in-depth safety net (vertical sticky unaffected — only x-axis clipped, html remains document y-scroller).
+
+Stage Summary:
+- PRIMARY (user-reported): all 10 vertical/horizontal overflow issues FIXED via single generalizable ScrollArea component fix + targeted Recipe Lab x-axis defenses.
+- SECONDARY (preemptive): NavBar desktop overflow, Hero mobile overflow, Research Rounds accordion overflow, all responsive grid patterns, and global overflow-x-hidden safety net — all FIXED.
+- Verified on desktop (1280px) and mobile (375px) via agent-browser DOM audit + VLM visual confirmation.
+- No regressions: sticky nav works, all ScrollAreas scroll, no horizontal scrollbar on either viewport.

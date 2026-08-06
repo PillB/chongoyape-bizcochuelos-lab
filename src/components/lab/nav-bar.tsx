@@ -63,7 +63,7 @@ export function NavBar({ recipes, ingredients }: NavBarProps) {
   return (
     <div
       className={cn(
-        'sticky top-0 z-50 w-full border-b transition-colors',
+        'sticky top-0 z-50 w-full border-b transition-colors overflow-x-hidden',
         scrolled
           ? 'bg-background/85 backdrop-blur-md border-border'
           : 'bg-background/40 backdrop-blur-sm border-transparent',
@@ -73,7 +73,7 @@ export function NavBar({ recipes, ingredients }: NavBarProps) {
         <div className="flex h-14 items-center justify-between gap-4">
           <button
             onClick={() => handleClick('memory')}
-            className="flex items-center gap-2 font-semibold text-sm tracking-tight"
+            className="flex items-center gap-2 font-semibold text-sm tracking-tight flex-shrink-0"
           >
             <FlaskConical className="h-4 w-4 text-primary" />
             <span className="hidden sm:inline">Bizcochuelos Lab</span>
@@ -83,14 +83,14 @@ export function NavBar({ recipes, ingredients }: NavBarProps) {
             </span>
           </button>
 
-          {/* Desktop nav */}
-          <nav className="hidden lg:flex items-center gap-1 text-xs">
+          {/* Desktop nav — scrolls internally if buttons overflow available width */}
+          <nav className="hidden lg:flex items-center gap-1 text-xs min-w-0 flex-1 justify-center overflow-x-auto scroll-warm py-1">
             {sections.map((s) => (
               <button
                 key={s.id}
                 onClick={() => handleClick(s.id)}
                 className={cn(
-                  'px-2.5 py-1.5 rounded-md font-mono transition-colors',
+                  'px-2.5 py-1.5 rounded-md font-mono transition-colors whitespace-nowrap flex-shrink-0',
                   active === s.id
                     ? 'bg-primary/10 text-primary'
                     : 'text-muted-foreground hover:text-foreground hover:bg-accent/60',
@@ -102,7 +102,7 @@ export function NavBar({ recipes, ingredients }: NavBarProps) {
           </nav>
 
           {/* Command palette trigger + theme toggle */}
-          <div className="flex items-center gap-1.5">
+          <div className="flex items-center gap-1.5 flex-shrink-0">
             <CommandPalette recipes={recipes} ingredients={ingredients} />
             <ThemeToggle />
           </div>
@@ -110,7 +110,7 @@ export function NavBar({ recipes, ingredients }: NavBarProps) {
           {/* Mobile toggle */}
           <button
             onClick={() => setOpen((o) => !o)}
-            className="lg:hidden inline-flex items-center justify-center h-9 w-9 rounded-md border border-border"
+            className="lg:hidden inline-flex items-center justify-center h-9 w-9 rounded-md border border-border flex-shrink-0"
             aria-label="Toggle navigation"
           >
             {open ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}

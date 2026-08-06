@@ -86,7 +86,7 @@ export function TechniqueLedger({ techniques }: { techniques: Technique[] }) {
           icon={<Wrench className="h-5 w-5 text-primary" />}
         />
 
-        <div className="grid lg:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
           {(['core', 'optional', 'reject'] as const).map((tierKey) => {
             const cfg = tierConfig[tierKey]
             return (

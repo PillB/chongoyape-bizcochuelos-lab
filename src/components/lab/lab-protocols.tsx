@@ -25,7 +25,7 @@ export function LabProtocols() {
           icon={<ClipboardList className="h-5 w-5 text-primary" />}
         />
 
-        <div className="grid lg:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
           {/* Batch Record Template */}
           <Card className="bg-card/60">
             <CardHeader className="pb-3">
@@ -203,7 +203,7 @@ export function LabProtocols() {
         </div>
 
         {/* Causal Dossier & Direct Evidence vs Analogy */}
-        <div className="mt-4 grid lg:grid-cols-2 gap-4">
+        <div className="mt-4 grid grid-cols-1 lg:grid-cols-2 gap-4">
           <Card className="bg-card/60">
             <CardHeader className="pb-3">
               <CardTitle className="text-sm">Causal Dossier — Proposed Cultural Influences</CardTitle>

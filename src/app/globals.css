@@ -126,6 +126,13 @@
   .dark {
     color-scheme: dark;
   }
+  /* Prevent horizontal page-scroll from any element wider than the viewport.
+     Vertical sticky (nav, sidebars) still works because only the x-axis is
+     clipped and `html` remains the document scroller for y. This is a
+     defence-in-depth net on top of the per-component min-w-0/overflow fixes. */
+  html {
+    overflow-x: hidden;
+  }
   body {
     @apply bg-background text-foreground;
     font-feature-settings: "ss01", "cv01";

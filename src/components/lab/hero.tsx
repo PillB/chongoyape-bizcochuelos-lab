@@ -35,15 +35,15 @@ export function Hero({ data }: HeroProps) {
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="flex flex-col lg:flex-row gap-10 lg:gap-14 items-start"
+          className="flex flex-col lg:flex-row gap-10 lg:gap-14 lg:items-start"
         >
           {/* Left: title block */}
-          <div className="flex-1 min-w-0">
+          <div className="flex-1 min-w-0 w-full lg:w-auto">
             <motion.div
               initial={{ opacity: 0, x: -12 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.4, delay: 0.05 }}
-              className="flex items-center gap-2 mb-4"
+              className="flex items-center gap-2 mb-4 flex-wrap"
             >
               <Badge variant="outline" className="bg-primary/10 text-primary border-primary/30 font-mono text-xs">
                 Phase 0 · Memory Audit Complete

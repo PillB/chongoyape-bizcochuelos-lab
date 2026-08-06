@@ -285,7 +285,7 @@ export function RecipeSandbox() {
         </p>
       </CardHeader>
       <CardContent className="space-y-4">
-        <div className="grid lg:grid-cols-[280px_1fr] gap-4">
+        <div className="grid grid-cols-1 lg:grid-cols-[280px_1fr] gap-4">
           {/* Toggle panel */}
           <div>
             <div className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground mb-2">

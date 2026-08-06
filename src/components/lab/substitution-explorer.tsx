@@ -96,7 +96,7 @@ export function SubstitutionExplorer({ substitutions }: { substitutions: Substit
         </p>
       </CardHeader>
       <CardContent>
-        <div className="grid lg:grid-cols-[300px_1fr] gap-4">
+        <div className="grid grid-cols-1 lg:grid-cols-[300px_1fr] gap-4">
           {/* Substitution list */}
           <div>
             <div className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground mb-2">

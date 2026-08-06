@@ -26,7 +26,7 @@ export function ClaimsLedger({ claims, sidebar }: { claims: Claim[]; sidebar?: R
           icon={<ScrollText className="h-5 w-5 text-primary" />}
         />
 
-        <div className="grid lg:grid-cols-[1fr_340px] gap-6 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_340px] gap-6 items-start">
           <div className="min-w-0">
             {/* Filter chips */}
             <div className="flex items-center gap-2 mb-5 flex-wrap">

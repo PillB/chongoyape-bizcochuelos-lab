@@ -71,12 +71,12 @@ export function ValidationDashboard({
 
           {/* Overview: radar chart + convergence */}
           {overview && (
-            <div className="grid lg:grid-cols-[1fr_360px] gap-4 items-start mb-6">
+            <div className="grid grid-cols-1 lg:grid-cols-[1fr_360px] gap-4 items-start mb-6">
               {overview}
             </div>
           )}
 
-          <div className="grid lg:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
             {validations.map((v) => (
               <Card key={v.id} className="bg-card/60">
                 <CardHeader className="pb-3">
