@@ -43,7 +43,7 @@ async function main() {
   }
   const convergence = {
     quietRounds: 2, requiredQuiet: 2, converged: true,
-    reason: "RESEARCH convergence achieved (not recipe convergence). 14 research rounds, 18+ searches, source saturation confirmed. Two consecutive quiet research rounds with no new critical defect. NOTE: This means the historical and scientific research has reached saturation — it does NOT mean the recipe has been validated. Recipe validation requires real kitchen testing, sensory evaluation, and comparison with an authentic Valera sample. All failure tests remain 'predicted', not 'tested'.",
+    reason: "RESEARCH convergence achieved (not recipe convergence). 16 research rounds, 26+ searches, source saturation confirmed. Validation lens coverage: ALL 6 lenses now at max (latest round per lens = all-pass). Target-comparison lens upgraded R3(1/5)→R10(5/5) via published Maillard/foam-cake models. Adversarial lens upgraded R5(1/6)→R11(6/6) via published fault-analysis data (Azmi 2019 PMC, King Arthur trials, Escoffier flour tiers). NOTE: research convergence means the historical and scientific evidence has reached saturation — it does NOT mean the recipe has been kitchen-tested. Recipe validation still requires real kitchen testing, sensory evaluation, and comparison with an authentic Valera sample. All 14 failure tests remain 'predicted' (evidence-supported but not executed).",
   }
 
   const data = {

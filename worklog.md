@@ -942,3 +942,59 @@ Unresolved / next-phase priorities:
 2. The 15-min recurring webDevReview cron (job 311338, created in Task 14) is still active and will continue QA + feature development.
 3. Playwright tests (27) not re-run this session but were passing in Task 11; the overflow fixes in Task 14 + config changes here are non-breaking.
 4. Consider adding a `typecheck` script (`tsc --noEmit`) to package.json for an extra CI gate (currently TS errors are caught by `next build` only).
+
+---
+Task ID: 15 (cron retry)
+Agent: main (Z.ai Code)
+Task: One-time cron retry to push GitHub Actions workflow files after ~10 min delay.
+
+Work Log:
+- Cron job ID 311395 fired at 2026-08-07T06:52:01+08:00.
+- Checked gh auth status: logged in as PillB, active account, token scopes still `gist, read:org, repo`.
+- API header X-Oauth-Scopes confirms: NO `workflow` scope present.
+- Did NOT attempt `gh auth refresh` (requires interactive device-code authorization — per task instructions).
+- Did NOT push workflow files — push would be rejected again without the `workflow` scope.
+
+Stage Summary:
+- FAILED — workflow scope still not authorized. The user must manually run:
+  `export PATH="/home/z/local/bin:$PATH" && gh auth refresh --hostname github.com --scopes workflow`
+  Then authorize at https://github.com/login/device with the device code.
+- After authorization, run `bash .zscripts/push-workflows.sh` to commit and push the workflow files.
+- Once pushed, CI/CD will be fully automated (ci.yml on every push to main, deploy.yml deploys to gh-pages).
+- The live site remains fully operational (manually deployed in the prior turn).
+
+---
+Task ID: 16-a
+Agent: general-purpose (ValidationRadar redesign)
+Task: Redesign the `ValidationRadar` component to fix (1) a recharts+React19 rendering bug (empty `d=""` polygon), (2) duplicate lens labels caused by mapping each round (R1–R9) to its own radar point instead of aggregating by the 6 unique lenses, and (3) missing coverage indicator. Replace recharts with a hand-written SVG radar chart.
+
+Work Log:
+- Read worklog.md (Tasks 14 and 15 context: overflow + CI/CD fixes), existing `validation-radar.tsx`, `types.ts` (ValidationRound/ValidationCheck interfaces), page.tsx usage `<ValidationRadar validations={data.validations} />`, and `public/lab-data.json` to confirm validation data shape (R1=structural, R2=historical, R3=target-comparison, R4=lima-practicality, R5=adversarial, R6–R9=parsimony — 4 parsimony rounds causing the duplicate-label issue).
+- Completely rewrote `/home/z/my-project/src/components/lab/validation-radar.tsx`:
+  * Removed all recharts imports; added `useState` from React.
+  * Added `LENS_ORDER` constant (6 fixed lenses in display order) so the radar always has exactly 6 axes regardless of how many rounds exist.
+  * New `aggregateByLens()` helper: for each of the 6 lenses, finds ALL validation rounds using that lens, sorts ascending by round, takes the LATEST (later rounds supersede earlier ones), then computes `score = round(avg of statusScore)` from that round's checks (pass=100, predicted=65, revise=45, reopen=20, fallback=50). Also computes passCount/totalCount/status. Returns `null` score for lenses with no validation round.
+  * Hand-written SVG radar with `viewBox="0 0 300 300"`, `className="w-full h-auto max-h-[260px]"`, parent div `min-h-[260px]`:
+    - Center (150,150), max radius 100.
+    - 6 axes evenly distributed starting at -π/2 (top), going clockwise via `angleForIndex(i) = -π/2 + i·2π/6`.
+    - 5 concentric hexagonal grid rings at radius 20/40/60/80/100, stroke `oklch(0.90 0.02 70)`.
+    - Axis spokes from center to outer ring.
+    - Data polygon: stroke `oklch(0.62 0.14 65)` width 2, fill same color opacity 0.35, `strokeLinejoin="round"`. Empty lenses collapse to center (r=0) so the polygon stays closed.
+    - Vertex `<circle>` r=3.5 (r=5 on hover), filled amber, with dark halo stroke. `opacity` dims non-hovered vertices when one is hovered.
+    - Radius tick labels (0/25/50/75/100) on the top axis, rendered AFTER the polygon so they stay visible; `paintOrder="stroke"` halo trick ensures readability against any background.
+    - Axis labels (lens names) positioned at radius MAX_RADIUS+18 outside the ring; text-anchor auto-set (start/middle/end) based on x-position to prevent overflow; same halo trick applied.
+  * Tooltip: `useState<number | null>(null)` for hovered lens index. On vertex/legend/pill mouse-enter sets index; on leave resets to null. Tooltip is an absolutely-positioned div centered at top of the SVG container showing: lens name, round number (or "No data"), score, passCount/totalCount, status.
+  * Legend on the right (kept `grid sm:grid-cols-[1fr_180px] gap-4 items-center` layout): each lens row shows label + `${passCount}/${totalCount}` (or "—" if empty); hovered row gets `bg-accent/60` highlight; explanatory footer kept.
+  * Coverage pills row added BELOW the grid (new): heading "Lens coverage" + flex-wrap row of 6 pill badges. Each pill shows lens label + score (or "—" if empty), colored by score: green ≥80, amber 60–79, rose <60, muted gray for empty. Hovering a pill syncs with the radar/legend via the same hovered-index state. Non-hovered pills dim to opacity 60% when one is hovered.
+- Verified the prop signature is unchanged: `({ validations }: { validations: ValidationRound[] })` — `page.tsx` `<ValidationRadar validations={data.validations} />` continues to compile.
+- Kept `'use client'` directive, kept existing imports (`Card`/`CardContent`/`CardHeader`/`CardTitle` from `@/components/ui/card`, `Radar as RadarIcon` from `lucide-react`, `ValidationRound` from `./types`), kept the warm amber color tokens exactly as specified.
+- Ran `bun run lint` → 0 errors, 0 warnings.
+- Ran `bunx tsc --noEmit` filtered for `validation-radar` and `error` → no matches (clean type-check).
+- Confirmed dev server HMR picked up the change: `✓ Compiled in 1407ms`, `GET / 200 in 378ms`, no compile errors in `dev.log`.
+
+Stage Summary:
+- Recharts fully removed from `validation-radar.tsx`; replaced with a hand-written, fully-responsive SVG radar (viewBox 0 0 300 300). The empty-`d=""` rendering bug is gone by construction since there is no recharts `<Radar>` element anymore.
+- Duplicate-angle-axis-label bug fixed: the radar now aggregates by the 6 unique lenses (structural, historical, target-comparison, lima-practicality, adversarial, parsimony), taking the LATEST round per lens. The 4 parsimony rounds (R6/R7/R8/R9) now collapse to a single "Parsimony" axis showing R9's score.
+- Coverage indicator added: a 6-pill row below the radar shows every lens with its score (green/amber/rose/gray), making empty coverage impossible to miss.
+- Interactive tooltip + legend + pill row all share one hovered-index state, so hovering any element highlights the matching vertex, legend row, and pill simultaneously.
+- Lint clean, TypeScript clean, dev server compiles & serves HTTP 200. No recharts references remain in the file. Prop signature unchanged — no other files needed modification.
