@@ -16,6 +16,8 @@ const LENS_ORDER = [
   'lima-practicality',
   'adversarial',
   'parsimony',
+  'recipe-convergence',
+  'kitchen-readiness',
 ] as const
 
 const lensLabels: Record<string, string> = {
@@ -25,6 +27,8 @@ const lensLabels: Record<string, string> = {
   'lima-practicality': 'Lima practical',
   adversarial: 'Adversarial',
   parsimony: 'Parsimony',
+  'recipe-convergence': 'Recipe conv.',
+  'kitchen-readiness': 'Kitchen ready',
 }
 
 const statusScore: Record<string, number> = {

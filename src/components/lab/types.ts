@@ -150,6 +150,16 @@ export interface LabData {
       requiredQuiet: number
       converged: boolean
       reason: string
+      // Recipe convergence (Phase 4: simulated-kitchen-test methodology).
+      // Optional so old data without `recipe` still type-checks; the Verdict
+      // UI handles undefined gracefully with an "not yet assessed" banner.
+      recipe?: {
+        converged: boolean
+        failureTestsResolved: string // e.g. "13/14"
+        formulaLocked: boolean
+        selectedVariant: string // e.g. "L1 Foam-Only Control"
+        reason: string
+      }
     }
   }
 }
