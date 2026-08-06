@@ -43,7 +43,7 @@ async function main() {
   }
   const convergence = {
     quietRounds: 2, requiredQuiet: 2, converged: true,
-    reason: "Final validation complete (13 research rounds, 18+ searches, 15+ source classes). All outstanding claims investigated: shop address CONFIRMED (Alfredo Lapoint #999, Fernando Valera Abanto). Vanilla claim CONTRADICTED (thesis omits it). Founder name source conflict documented (Eutemio/1913 in monograph vs Eufemio/1920 in primary sources — primary weighted higher). Chuño upgraded (thesis confirms). Foam-only core labeled as parsimony CONTROL. Citation-dependency of wood claim documented. Source saturation achieved. Two consecutive quiet rounds = convergence.",
+    reason: "RESEARCH convergence achieved (not recipe convergence). 14 research rounds, 18+ searches, source saturation confirmed. Two consecutive quiet research rounds with no new critical defect. NOTE: This means the historical and scientific research has reached saturation — it does NOT mean the recipe has been validated. Recipe validation requires real kitchen testing, sensory evaluation, and comparison with an authentic Valera sample. All failure tests remain 'predicted', not 'tested'.",
   }
 
   const data = {

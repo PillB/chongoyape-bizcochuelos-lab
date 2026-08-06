@@ -185,9 +185,13 @@ export function RecipeScaler() {
         </div>
 
         <p className="text-[11px] text-muted-foreground leading-relaxed">
-          Scaling is linear. Baker&rsquo;s percentages are relative to the egg weight (100%).
+          Scaling is linear by ratio. <strong>Baker&rsquo;s percentages are relative to flour weight (100%)</strong>, not eggs.
           For batches larger than 12 cakes, whip in two bowls to avoid overloading the mixer
-          and fold in batches to preserve aeration.
+          and fold in batches to preserve aeration. <strong>Scaling caveats:</strong> (1) always weigh shelled eggs —
+          counting eggs introduces ±10% error; (2) mixer capacity limits foam volume at scale;
+          (3) foam loss during folding increases with batch size; (4) mold loading depth affects
+          heat transfer — deeper molds need longer bake time; (5) oven loading (multiple racks)
+          changes airflow and may require rotation.
         </p>
       </CardContent>
     </Card>

@@ -35,6 +35,7 @@ import { ExecutiveSummary } from '@/components/lab/executive-summary'
 import { BakeSimulator } from '@/components/lab/bake-simulator'
 import { RecipeCorpus } from '@/components/lab/recipe-corpus'
 import { LabProtocols } from '@/components/lab/lab-protocols'
+import { dataUrl } from '@/lib/asset-url'
 import { Skeleton } from '@/components/ui/skeleton'
 import { FlaskConical } from 'lucide-react'
 import type { LabData } from '@/components/lab/types'
@@ -45,13 +46,8 @@ export default function Page() {
 
   useEffect(() => {
     let cancelled = false
-    // Determine the data URL based on whether we're on GitHub Pages or local dev.
-    // In production (GitHub Pages), the site is served from /chongoyape-bizcochuelos-lab/
-    // In dev, it's served from /
-    const isGitHubPages = window.location.hostname.includes('github.io')
-    const basePath = isGitHubPages ? '/chongoyape-bizcochuelos-lab' : ''
-    const dataUrl = `${basePath}/lab-data.json`
-    fetch(dataUrl)
+    // Use unified dataUrl() — single source of truth for basePath
+    fetch(dataUrl())
       .then(async (r) => {
         if (!r.ok) throw new Error(`HTTP ${r.status}`)
         return r.json() as Promise<LabData>

@@ -91,7 +91,8 @@ export function LabProtocols() {
             </CardHeader>
             <CardContent className="space-y-3 text-xs">
               <div>
-                <div className="text-[10px] font-semibold uppercase tracking-wider text-primary mb-1">Triangle Test (for perceptible differences)</div>
+                <div className="text-[10px] font-semibold uppercase tracking-wider text-primary mb-1">Triangle Test — Difference Test (for detecting whether a perceptible difference exists)</div>
+                <p className="text-[10px] text-muted-foreground mb-2">NOTE: This is a DIFFERENCE test, not a SIMILARITY test. A non-significant result does NOT prove the samples are the same — it only fails to prove they are different. For similarity testing, use a different design (e.g., same-different test with increased sample size).</p>
                 <ol className="space-y-1 text-muted-foreground">
                   <li>1. Prepare 3 samples: 2 identical (control), 1 different (variable)</li>
                   <li>2. Code samples with random 3-digit numbers</li>
