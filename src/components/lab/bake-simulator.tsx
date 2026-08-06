@@ -5,472 +5,491 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
+import { Input } from '@/components/ui/input'
+import { ScrollArea } from '@/components/ui/scroll-area'
 import {
-  Flame,
-  Play,
-  Square,
-  RotateCcw,
-  Thermometer,
-  Clock,
-  Egg,
+  FlaskRound,
   TrendingUp,
   TrendingDown,
-  CheckCircle2,
-  XCircle,
-  AlertTriangle,
+  Minus,
   Trash2,
   Download,
-  FlaskRound,
+  Plus,
+  Beaker,
+  AlertTriangle,
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
-interface BakeLogEntry {
+// ============================================================
+// MECHANISM EXPLORER
+// Qualitative direction only — NO exact percentages, NO pass/fail,
+// NO simulated outcomes. Each mechanism has a direction, a
+// food-science basis, and a validating experiment.
+// ============================================================
+
+interface Mechanism {
+  id: string
+  toggle: string
+  description: string
+  effects: Array<{
+    metric: string
+    direction: 'up' | 'down' | 'neutral'
+    mechanism: string
+    evidence: string
+    uncertainty: 'low' | 'medium' | 'high'
+    validatingExperiment: string
+  }>
+}
+
+const mechanisms: Mechanism[] = [
+  {
+    id: 'chuño',
+    toggle: 'Add chuño (potato starch)',
+    description: 'Replace ~10% of flour weight with potato starch',
+    effects: [
+      { metric: 'Crumb tenderness', direction: 'up', mechanism: 'Starch dilutes gluten-forming proteins, reducing gluten development during folding', evidence: 'Food science: starch interference with gluten network is well-established', uncertainty: 'low', validatingExperiment: 'Diagnostic A — chuño vs cornstarch controlled comparison' },
+      { metric: 'Staling rate', direction: 'down', mechanism: 'Potato starch retrogrades more slowly than wheat starch', evidence: 'Starch retrogradation literature', uncertainty: 'medium', validatingExperiment: 'Day-2 and day-3 texture comparison' },
+      { metric: 'Crumb strength', direction: 'down', mechanism: 'Reduced gluten network is more fragile', evidence: 'Gluten-starch interaction studies', uncertainty: 'medium', validatingExperiment: 'Compression test on controlled batches' },
+    ],
+  },
+  {
+    id: 'leavener',
+    toggle: 'Add baking powder (low dose)',
+    description: 'Add ~1-2% baker\'s weight baking powder',
+    effects: [
+      { metric: 'Oven spring', direction: 'up', mechanism: 'CO₂ release provides supplemental lift beyond foam aeration', evidence: 'Chemical leavening mechanics are well-established', uncertainty: 'low', validatingExperiment: 'Diagnostic C — foam-only vs low-dose controlled comparison' },
+      { metric: 'Crumb cell size', direction: 'up', mechanism: 'Additional gas bubbles create larger cells', evidence: 'Bubble nucleation and growth literature', uncertainty: 'medium', validatingExperiment: 'Crumb cross-section image analysis' },
+      { metric: 'Flavor purity', direction: 'down', mechanism: 'Residual chemical taste possible if dose is high or acid-base balance is off', evidence: 'Baking powder flavor threshold studies', uncertainty: 'high', validatingExperiment: 'Triangle test: foam-only vs leavened (blind)' },
+    ],
+  },
+  {
+    id: 'oil',
+    toggle: 'Add trace oil',
+    description: 'Add ~5-6% baker\'s weight neutral oil',
+    effects: [
+      { metric: 'Day-2 moisture', direction: 'up', mechanism: 'Fat coats starch granules, slowing water migration and retrogradation', evidence: 'Fat-starch interaction in baking science', uncertainty: 'low', validatingExperiment: 'Day-2 and day-3 gravimetric moisture test' },
+      { metric: 'Foam volume', direction: 'down', mechanism: 'Fat interferes with egg foam protein network during folding', evidence: 'Egg foam stability studies with fat contamination', uncertainty: 'low', validatingExperiment: 'Measure batter density before and after oil addition' },
+      { metric: 'Mouthfeel', direction: 'up', mechanism: 'Fat improves lubricity and tenderness perception', evidence: 'Sensory science of fat in baked goods', uncertainty: 'medium', validatingExperiment: 'Descriptive profiling panel' },
+    ],
+  },
+  {
+    id: 'separated',
+    toggle: 'Use separated-egg method',
+    description: 'Whip yolks and whites separately, then fold',
+    effects: [
+      { metric: 'Total volume', direction: 'up', mechanism: 'Whites-only foam reaches higher volume than whole-egg foam', evidence: 'Egg foam science: whites achieve greater overrun', uncertainty: 'low', validatingExperiment: 'Diagnostic B — whole-egg vs separated controlled comparison' },
+      { metric: 'Crumb uniformity', direction: 'down', mechanism: 'Multiple folding stages increase risk of uneven distribution', evidence: 'Folding mechanics in sponge production', uncertainty: 'medium', validatingExperiment: 'Crumb cross-section comparison' },
+      { metric: 'Workflow complexity', direction: 'up', mechanism: 'Additional bowl, separate whipping, 3-stage fold', evidence: 'Procedural analysis', uncertainty: 'low', validatingExperiment: 'Time-and-motion study' },
+    ],
+  },
+  {
+    id: 'stone',
+    toggle: 'Bake on preheated stone',
+    description: 'Simulate wood-oven deck heat with baking stone',
+    effects: [
+      { metric: 'Base color', direction: 'up', mechanism: 'Stronger conductive heat from stone darkens base', evidence: 'Heat transfer in deck ovens', uncertainty: 'low', validatingExperiment: 'Diagnostic E — thermal comparison with/without stone' },
+      { metric: 'Rise speed', direction: 'up', mechanism: 'Faster initial heat set promotes earlier structure formation', evidence: 'Oven spring mechanics', uncertainty: 'medium', validatingExperiment: 'Height measurement at 5-min intervals' },
+      { metric: 'Burn risk', direction: 'up', mechanism: 'Excessive bottom heat can scorch before crumb sets', evidence: 'Baking thermodynamics', uncertainty: 'medium', validatingExperiment: 'Monitor base temperature with IR thermometer' },
+    ],
+  },
+]
+
+// ============================================================
+// REAL BATCH LOG
+// Only actual entered observations — NO simulation, NO pass/fail
+// from heuristics. Users enter what they actually observed.
+// ============================================================
+
+interface RealBatchEntry {
   id: string
   timestamp: string
+  date: string
   variant: string
   temperature: number
   duration: number
-  outcome: {
-    rise: 'sufficient' | 'insufficient' | 'excessive'
-    color: 'pale' | 'golden-amber' | 'dark'
-    crumb: 'fine' | 'coarse' | 'gummy'
-    collapse: boolean
-    eggAroma: 'clean' | 'excessive' | 'sulfur'
-  }
-  overallPass: boolean
+  modifications: string
+  // Actual observations (user-entered, not simulated)
+  observedRise: string
+  observedColor: string
+  observedCrumb: string
+  observedCollapse: string
+  observedAroma: string
+  bakedWeight: string
+  height: string
   notes: string
+  photoUrl: string
 }
 
-interface BakeSimulatorProps {
-  recipes: Array<{ id: string; name: string; level: number }>
-}
+const BATCH_STORAGE_KEY = 'real-batch-entries'
 
-// Simulated bake outcomes based on parameters
-function simulateBake(
-  variant: string,
-  temperature: number,
-  duration: number,
-  modifications: { chuño: boolean; leavener: boolean; oil: boolean; separated: boolean; stone: boolean },
-): BakeLogEntry['outcome'] {
-  const isCore = !modifications.chuño && !modifications.leavener && !modifications.oil
-  const tempFactor = temperature / 180
-  const timeFactor = duration / 24
+export function BakeSimulator({ recipes }: { recipes: Array<{ id: string; name: string; level: number }> }) {
+  const [activeMechanisms, setActiveMechanisms] = useState<Set<string>>(new Set())
+  const [batches, setBatches] = useState<RealBatchEntry[]>([])
+  const [showBatchForm, setShowBatchForm] = useState(false)
+  const [newBatch, setNewBatch] = useState<Partial<RealBatchEntry>>({
+    variant: recipes[0]?.name ?? '',
+    temperature: 180,
+    duration: 24,
+    modifications: '',
+    observedRise: '',
+    observedColor: '',
+    observedCrumb: '',
+    observedCollapse: 'no',
+    observedAroma: '',
+    bakedWeight: '',
+    height: '',
+    notes: '',
+    photoUrl: '',
+  })
 
-  // Rise depends on foam stability + leavener
-  let rise: 'sufficient' | 'insufficient' | 'excessive' = 'sufficient'
-  if (modifications.leavener && tempFactor > 1.05) rise = 'excessive'
-  else if (tempFactor < 0.9 || duration < 20) rise = 'insufficient'
-  else if (modifications.oil && !modifications.separated) rise = 'insufficient'
-
-  // Color depends on temp + time + sugar
-  let color: 'pale' | 'golden-amber' | 'dark' = 'golden-amber'
-  const browning = tempFactor * timeFactor
-  if (browning < 0.85) color = 'pale'
-  else if (browning > 1.25 || (modifications.stone && tempFactor > 1)) color = 'dark'
-
-  // Crumb depends on method + leavener
-  let crumb: 'fine' | 'coarse' | 'gummy' = 'fine'
-  if (modifications.leavener) crumb = 'coarse'
-  else if (duration < 20 && tempFactor < 0.95) crumb = 'gummy'
-  else if (modifications.chuño) crumb = 'fine'
-
-  // Collapse risk
-  const collapse = (modifications.oil && !modifications.separated && timeFactor > 1.1) ||
-    (modifications.leavener && tempFactor > 1.1 && duration > 28) ||
-    (duration < 18)
-
-  // Egg aroma
-  let eggAroma: 'clean' | 'excessive' | 'sulfur' = 'clean'
-  if (duration > 30 && tempFactor > 1.1) eggAroma = 'sulfur'
-  else if (tempFactor > 1.15) eggAroma = 'excessive'
-
-  return { rise, color, crumb, collapse, eggAroma }
-}
-
-function isPass(outcome: BakeLogEntry['outcome']): boolean {
-  return (
-    outcome.rise === 'sufficient' &&
-    outcome.color === 'golden-amber' &&
-    (outcome.crumb === 'fine' || outcome.crumb === 'coarse') &&
-    !outcome.collapse &&
-    outcome.eggAroma !== 'sulfur'
-  )
-}
-
-const STORAGE_KEY = 'bake-log-entries'
-
-export function BakeSimulator({ recipes }: BakeSimulatorProps) {
-  const [variant, setVariant] = useState(recipes[0]?.id ?? '')
-  const [temperature, setTemperature] = useState(180)
-  const [duration, setDuration] = useState(24)
-  const [mods, setMods] = useState({ chuño: false, leavener: false, oil: false, separated: false, stone: false })
-  const [logs, setLogs] = useState<BakeLogEntry[]>([])
-  const [baking, setBaking] = useState(false)
-  const [lastResult, setLastResult] = useState<BakeLogEntry | null>(null)
-
-  // Load logs from localStorage
+  // Load batches from localStorage
   useEffect(() => {
     try {
-      const stored = localStorage.getItem(STORAGE_KEY)
+      const stored = localStorage.getItem(BATCH_STORAGE_KEY)
       if (stored) {
-        const parsed = JSON.parse(stored)
-        // Use a microtask to avoid setState-in-effect lint
-        Promise.resolve().then(() => setLogs(parsed))
+        Promise.resolve().then(() => setBatches(JSON.parse(stored)))
       }
     } catch {}
   }, [])
 
-  // Save logs to localStorage
+  // Save batches
   useEffect(() => {
     try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(logs))
+      localStorage.setItem(BATCH_STORAGE_KEY, JSON.stringify(batches))
     } catch {}
-  }, [logs])
+  }, [batches])
 
-  const selectedRecipe = recipes.find((r) => r.id === variant)
-
-  const runBake = () => {
-    setBaking(true)
-    setLastResult(null)
-    // Simulate baking time (2s animation)
-    setTimeout(() => {
-      const outcome = simulateBake(variant, temperature, duration, mods)
-      const pass = isPass(outcome)
-      const entry: BakeLogEntry = {
-        id: `bake-${Date.now()}`,
-        timestamp: new Date().toISOString(),
-        variant: selectedRecipe?.name ?? variant,
-        temperature,
-        duration,
-        outcome,
-        overallPass: pass,
-        notes: '',
-      }
-      setLogs((prev) => [entry, ...prev].slice(0, 50))
-      setLastResult(entry)
-      setBaking(false)
-    }, 2000)
+  const toggleMechanism = (id: string) => {
+    setActiveMechanisms((prev) => {
+      const next = new Set(prev)
+      if (next.has(id)) next.delete(id)
+      else next.add(id)
+      return next
+    })
   }
 
-  const clearLogs = () => {
-    if (confirm('Clear all bake logs?')) {
-      setLogs([])
-      setLastResult(null)
+  const addBatch = () => {
+    const entry: RealBatchEntry = {
+      id: `batch-${Date.now()}`,
+      timestamp: new Date().toISOString(),
+      date: newBatch.date || new Date().toISOString().split('T')[0],
+      variant: newBatch.variant || '',
+      temperature: newBatch.temperature || 180,
+      duration: newBatch.duration || 24,
+      modifications: newBatch.modifications || 'none',
+      observedRise: newBatch.observedRise || '',
+      observedColor: newBatch.observedColor || '',
+      observedCrumb: newBatch.observedCrumb || '',
+      observedCollapse: newBatch.observedCollapse || 'no',
+      observedAroma: newBatch.observedAroma || '',
+      bakedWeight: newBatch.bakedWeight || '',
+      height: newBatch.height || '',
+      notes: newBatch.notes || '',
+      photoUrl: newBatch.photoUrl || '',
+    }
+    setBatches((prev) => [entry, ...prev].slice(0, 100))
+    setShowBatchForm(false)
+    setNewBatch({
+      variant: recipes[0]?.name ?? '',
+      temperature: 180,
+      duration: 24,
+      modifications: '',
+      observedRise: '',
+      observedColor: '',
+      observedCrumb: '',
+      observedCollapse: 'no',
+      observedAroma: '',
+      bakedWeight: '',
+      height: '',
+      notes: '',
+      photoUrl: '',
+    })
+  }
+
+  const clearBatches = () => {
+    if (confirm('Delete all real batch records? This cannot be undone.')) {
+      setBatches([])
     }
   }
 
-  const exportLogs = () => {
-    const data = JSON.stringify(logs, null, 2)
+  const exportBatches = () => {
+    const data = JSON.stringify(batches, null, 2)
     const blob = new Blob([data], { type: 'application/json' })
     const url = URL.createObjectURL(blob)
     const a = document.createElement('a')
     a.href = url
-    a.download = `bake-log-${new Date().toISOString().split('T')[0]}.json`
+    a.download = `real-batch-log-${new Date().toISOString().split('T')[0]}.json`
     a.click()
     URL.revokeObjectURL(url)
   }
 
-  const passCount = logs.filter((l) => l.overallPass).length
-  const failCount = logs.length - passCount
-
   return (
-    <Card className="bg-gradient-to-br from-primary/5 to-card border-primary/30">
+    <Card className="bg-gradient-to-br from-primary/5 to-card border-primary/30 overflow-hidden">
       <CardHeader className="pb-3">
         <div className="flex items-center justify-between gap-2 flex-wrap">
           <CardTitle className="text-base flex items-center gap-2">
             <div className="w-8 h-8 rounded-md bg-primary/10 border border-primary/20 flex items-center justify-center">
-              <Flame className="h-4 w-4 text-primary" />
+              <FlaskRound className="h-4 w-4 text-primary" />
             </div>
-            Live Bake Simulator
+            Mechanism Explorer &amp; Real Batch Log
           </CardTitle>
           <Badge variant="outline" className="text-[10px] font-mono">
-            {logs.length} bakes logged
+            {batches.length} real batches logged
           </Badge>
         </div>
         <p className="text-[11px] text-muted-foreground mt-1">
-          Run a simulated bake with adjustable parameters. Outcomes are predicted from food-science models — not real kitchen tests. Logs persist in your browser.
+          Explore qualitative mechanism directions (no simulated outcomes). Log only real bake observations —
+          no simulation records are generated or stored.
         </p>
       </CardHeader>
       <CardContent className="space-y-4">
-        <div className="grid lg:grid-cols-2 gap-4">
-          {/* Controls */}
-          <div className="space-y-3">
-            {/* Variant selector */}
-            <div>
-              <label className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground mb-1 block">
-                Recipe variant
-              </label>
-              <select
-                value={variant}
-                onChange={(e) => setVariant(e.target.value)}
-                className="w-full h-9 px-3 rounded-md border border-border bg-card text-sm focus:outline-none focus:ring-2 focus:ring-ring"
-              >
-                {recipes.map((r) => (
-                  <option key={r.id} value={r.id}>
-                    L{r.level} · {r.name.split('—')[0].trim().substring(0, 35)}
-                  </option>
-                ))}
-              </select>
-            </div>
-
-            {/* Temperature */}
-            <div>
-              <label className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground mb-1 flex items-center justify-between">
-                <span className="flex items-center gap-1">
-                  <Thermometer className="h-3 w-3" /> Oven temperature
-                </span>
-                <span className="font-mono text-primary">{temperature}°C</span>
-              </label>
-              <input
-                type="range"
-                min={150}
-                max={210}
-                step={5}
-                value={temperature}
-                onChange={(e) => setTemperature(Number(e.target.value))}
-                className="w-full accent-primary"
-              />
-              <div className="flex justify-between text-[9px] text-muted-foreground font-mono mt-0.5">
-                <span>150°C</span>
-                <span className="text-primary">180°C (base)</span>
-                <span>210°C</span>
-              </div>
-            </div>
-
-            {/* Duration */}
-            <div>
-              <label className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground mb-1 flex items-center justify-between">
-                <span className="flex items-center gap-1">
-                  <Clock className="h-3 w-3" /> Bake duration
-                </span>
-                <span className="font-mono text-primary">{duration} min</span>
-              </label>
-              <input
-                type="range"
-                min={15}
-                max={35}
-                step={1}
-                value={duration}
-                onChange={(e) => setDuration(Number(e.target.value))}
-                className="w-full accent-primary"
-              />
-              <div className="flex justify-between text-[9px] text-muted-foreground font-mono mt-0.5">
-                <span>15 min</span>
-                <span className="text-primary">24 min (base)</span>
-                <span>35 min</span>
-              </div>
-            </div>
-
-            {/* Modifications */}
-            <div>
-              <label className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground mb-1.5 block">
-                Modifications
-              </label>
-              <div className="grid grid-cols-2 gap-1.5">
-                {(Object.keys(mods) as Array<keyof typeof mods>).map((key) => (
-                  <label
-                    key={key}
-                    className={cn(
-                      'flex items-center gap-1.5 p-1.5 rounded border cursor-pointer text-[11px] transition-colors',
-                      mods[key]
-                        ? 'border-primary/30 bg-primary/5'
-                        : 'border-border bg-card/40 hover:bg-accent/30',
+        {/* MECHANISM EXPLORER */}
+        <div>
+          <div className="text-[10px] font-semibold uppercase tracking-wider text-primary mb-2">
+            Mechanism Explorer — qualitative direction only
+          </div>
+          <div className="space-y-2">
+            {mechanisms.map((m) => {
+              const isActive = activeMechanisms.has(m.id)
+              return (
+                <div key={m.id} className={cn('rounded-lg border transition-colors overflow-hidden', isActive ? 'border-primary/30 bg-primary/5' : 'border-border bg-card/40')}>
+                  <button
+                    onClick={() => toggleMechanism(m.id)}
+                    className="w-full text-left p-2.5 flex items-center justify-between gap-2"
+                  >
+                    <div>
+                      <div className="text-xs font-medium">{m.toggle}</div>
+                      <div className="text-[10px] text-muted-foreground mt-0.5">{m.description}</div>
+                    </div>
+                    <Badge variant="outline" className={cn('text-[9px] font-mono flex-shrink-0', isActive ? 'bg-primary/10 text-primary border-primary/20' : '')}>
+                      {isActive ? 'Active' : 'Inactive'}
+                    </Badge>
+                  </button>
+                  <AnimatePresence>
+                    {isActive && (
+                      <motion.div
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: 'auto', opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        transition={{ duration: 0.2 }}
+                        className="overflow-hidden"
+                      >
+                        <div className="p-2.5 pt-0 space-y-1.5">
+                          {m.effects.map((eff, idx) => (
+                            <div key={idx} className="rounded-md border border-border/60 bg-card/40 p-2">
+                              <div className="flex items-center justify-between gap-2 mb-0.5">
+                                <span className="text-[11px] font-medium">{eff.metric}</span>
+                                <div className="flex items-center gap-1">
+                                  {eff.direction === 'up' ? (
+                                    <TrendingUp className="h-3 w-3 text-emerald-500" />
+                                  ) : eff.direction === 'down' ? (
+                                    <TrendingDown className="h-3 w-3 text-rose-500" />
+                                  ) : (
+                                    <Minus className="h-3 w-3 text-muted-foreground" />
+                                  )}
+                                  <Badge variant="outline" className={cn(
+                                    'text-[8px] h-3.5 px-1 font-mono',
+                                    eff.uncertainty === 'low' ? 'bg-emerald-50 text-emerald-700 border-emerald-200 dark:bg-emerald-950/30 dark:text-emerald-400' :
+                                    eff.uncertainty === 'medium' ? 'bg-amber-50 text-amber-700 border-amber-200 dark:bg-amber-950/30 dark:text-amber-400' :
+                                    'bg-rose-50 text-rose-700 border-rose-200 dark:bg-rose-950/30 dark:text-rose-400'
+                                  )}>
+                                    {eff.uncertainty} uncertainty
+                                  </Badge>
+                                </div>
+                              </div>
+                              <div className="text-[10px] text-muted-foreground leading-relaxed">
+                                <span className="font-medium">Mechanism:</span> {eff.mechanism}
+                              </div>
+                              <div className="text-[10px] text-muted-foreground leading-relaxed mt-0.5">
+                                <span className="font-medium">Evidence:</span> {eff.evidence}
+                              </div>
+                              <div className="text-[10px] text-primary leading-relaxed mt-0.5">
+                                <span className="font-medium">Validating experiment:</span> {eff.validatingExperiment}
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      </motion.div>
                     )}
-                  >
-                    <input
-                      type="checkbox"
-                      checked={mods[key]}
-                      onChange={(e) => setMods((m) => ({ ...m, [key]: e.target.checked }))}
-                      className="accent-primary h-3 w-3"
-                    />
-                    <span className="capitalize">{key}</span>
-                  </label>
-                ))}
-              </div>
+                  </AnimatePresence>
+                </div>
+              )
+            })}
+          </div>
+          <div className="mt-2 rounded-md border border-amber-200 bg-amber-50/50 dark:bg-amber-950/15 dark:border-amber-900 p-2">
+            <div className="flex items-start gap-1.5 text-[10px] text-muted-foreground">
+              <AlertTriangle className="h-3 w-3 text-amber-500 mt-0.5 flex-shrink-0" />
+              <span>Directions are qualitative expectations from food science, NOT quantitative predictions.
+              No simulated outcomes are generated. Validate with controlled experiments.</span>
             </div>
+          </div>
+        </div>
 
-            {/* Bake button */}
+        {/* REAL BATCH LOG */}
+        <div>
+          <div className="flex items-center justify-between mb-2">
+            <div className="text-[10px] font-semibold uppercase tracking-wider text-primary">
+              Real Batch Log — actual observations only
+            </div>
             <Button
-              onClick={runBake}
-              disabled={baking}
-              className="w-full h-10 gap-2"
-              size="default"
+              variant="outline"
+              size="sm"
+              onClick={() => setShowBatchForm(!showBatchForm)}
+              className="h-7 text-xs gap-1"
             >
-              {baking ? (
-                <>
-                  <motion.div
-                    animate={{ rotate: 360 }}
-                    transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
-                  >
-                    <FlaskRound className="h-4 w-4" />
-                  </motion.div>
-                  Baking…
-                </>
-              ) : (
-                <>
-                  <Play className="h-4 w-4" />
-                  Run bake
-                </>
-              )}
+              <Plus className="h-3 w-3" />
+              Add batch
             </Button>
           </div>
 
-          {/* Results + Logs */}
-          <div className="space-y-3">
-            {/* Last result */}
-            <AnimatePresence mode="wait">
-              {lastResult && (
-                <motion.div
-                  key={lastResult.id}
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -10 }}
-                  className={cn(
-                    'rounded-lg border-2 p-3',
-                    lastResult.overallPass
-                      ? 'border-emerald-300 bg-emerald-50 dark:bg-emerald-950/20 dark:border-emerald-800'
-                      : 'border-rose-300 bg-rose-50 dark:bg-rose-950/20 dark:border-rose-800',
-                  )}
-                >
-                  <div className="flex items-center justify-between mb-2">
-                    <span className="text-xs font-semibold uppercase tracking-wider">
-                      Last bake result
-                    </span>
-                    {lastResult.overallPass ? (
-                      <Badge className="bg-emerald-500 text-white gap-1">
-                        <CheckCircle2 className="h-3 w-3" /> PASS
-                      </Badge>
-                    ) : (
-                      <Badge className="bg-rose-500 text-white gap-1">
-                        <XCircle className="h-3 w-3" /> FAIL
-                      </Badge>
-                    )}
+          {/* Batch entry form */}
+          <AnimatePresence>
+            {showBatchForm && (
+              <motion.div
+                initial={{ height: 0, opacity: 0 }}
+                animate={{ height: 'auto', opacity: 1 }}
+                exit={{ height: 0, opacity: 0 }}
+                className="overflow-hidden"
+              >
+                <div className="rounded-lg border border-border bg-card/60 p-3 space-y-2 mb-3">
+                  <div className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
+                    Enter real observations from an actual bake
                   </div>
-                  <div className="grid grid-cols-2 gap-1.5 text-[11px]">
-                    <ResultRow label="Rise" value={lastResult.outcome.rise} />
-                    <ResultRow label="Color" value={lastResult.outcome.color} />
-                    <ResultRow label="Crumb" value={lastResult.outcome.crumb} />
-                    <ResultRow label="Collapse" value={lastResult.outcome.collapse ? 'yes' : 'no'} />
-                    <ResultRow label="Egg aroma" value={lastResult.outcome.eggAroma} />
-                  </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
-
-            {/* Stats */}
-            {logs.length > 0 && (
-              <div className="grid grid-cols-3 gap-2">
-                <div className="rounded-md border border-border bg-card/40 p-2 text-center">
-                  <div className="font-mono text-lg font-bold tabular-nums">{logs.length}</div>
-                  <div className="text-[9px] text-muted-foreground uppercase">Total</div>
-                </div>
-                <div className="rounded-md border border-emerald-200 bg-emerald-50/50 dark:bg-emerald-950/15 dark:border-emerald-900 p-2 text-center">
-                  <div className="font-mono text-lg font-bold text-emerald-600 dark:text-emerald-400 tabular-nums">{passCount}</div>
-                  <div className="text-[9px] text-muted-foreground uppercase">Pass</div>
-                </div>
-                <div className="rounded-md border border-rose-200 bg-rose-50/50 dark:bg-rose-950/15 dark:border-rose-900 p-2 text-center">
-                  <div className="font-mono text-lg font-bold text-rose-600 dark:text-rose-400 tabular-nums">{failCount}</div>
-                  <div className="text-[9px] text-muted-foreground uppercase">Fail</div>
-                </div>
-              </div>
-            )}
-
-            {/* Log list */}
-            <div className="max-h-[300px] overflow-y-auto scroll-warm rounded-md border border-border">
-              {logs.length === 0 ? (
-                <div className="p-6 text-center text-xs text-muted-foreground">
-                  No bakes logged yet. Run a bake to see results here.
-                </div>
-              ) : (
-                <div className="divide-y divide-border/40">
-                  {logs.map((log) => (
-                    <div key={log.id} className="p-2.5 text-xs hover:bg-accent/20 transition-colors">
-                      <div className="flex items-center justify-between gap-2 mb-1">
-                        <span className="font-medium truncate flex-1">{log.variant.split('—')[0].trim()}</span>
-                        <span className="font-mono text-[10px] text-muted-foreground flex-shrink-0">
-                          {log.temperature}°C · {log.duration}m
-                        </span>
-                        {log.overallPass ? (
-                          <CheckCircle2 className="h-3.5 w-3.5 text-emerald-500 flex-shrink-0" />
-                        ) : (
-                          <XCircle className="h-3.5 w-3.5 text-rose-500 flex-shrink-0" />
-                        )}
-                      </div>
-                      <div className="flex items-center gap-1.5 flex-wrap">
-                        <OutcomeChip label={log.outcome.rise} />
-                        <OutcomeChip label={log.outcome.color} />
-                        <OutcomeChip label={log.outcome.crumb} />
-                        {log.outcome.collapse && (
-                          <span className="text-[9px] font-mono text-rose-600 dark:text-rose-400 bg-rose-100 dark:bg-rose-950/40 px-1.5 py-0.5 rounded">
-                            COLLAPSE
-                          </span>
-                        )}
-                      </div>
+                  <div className="grid grid-cols-2 gap-2">
+                    <div>
+                      <label className="text-[9px] text-muted-foreground">Recipe variant</label>
+                      <select
+                        value={newBatch.variant}
+                        onChange={(e) => setNewBatch({ ...newBatch, variant: e.target.value })}
+                        className="w-full h-7 px-2 rounded border border-border bg-card text-xs"
+                      >
+                        {recipes.map((r) => (
+                          <option key={r.id} value={r.name}>L{r.level} · {r.name.substring(0, 30)}</option>
+                        ))}
+                      </select>
                     </div>
-                  ))}
+                    <div>
+                      <label className="text-[9px] text-muted-foreground">Bake date</label>
+                      <Input
+                        type="date"
+                        value={newBatch.date || ''}
+                        onChange={(e) => setNewBatch({ ...newBatch, date: e.target.value })}
+                        className="h-7 text-xs"
+                      />
+                    </div>
+                    <div>
+                      <label className="text-[9px] text-muted-foreground">Oven temp (°C)</label>
+                      <Input
+                        type="number"
+                        value={newBatch.temperature || ''}
+                        onChange={(e) => setNewBatch({ ...newBatch, temperature: Number(e.target.value) })}
+                        className="h-7 text-xs"
+                      />
+                    </div>
+                    <div>
+                      <label className="text-[9px] text-muted-foreground">Bake time (min)</label>
+                      <Input
+                        type="number"
+                        value={newBatch.duration || ''}
+                        onChange={(e) => setNewBatch({ ...newBatch, duration: Number(e.target.value) })}
+                        className="h-7 text-xs"
+                      />
+                    </div>
+                  </div>
+                  <div className="grid grid-cols-2 gap-2">
+                    <div>
+                      <label className="text-[9px] text-muted-foreground">Observed rise</label>
+                      <Input placeholder="sufficient / insufficient / excessive" value={newBatch.observedRise} onChange={(e) => setNewBatch({ ...newBatch, observedRise: e.target.value })} className="h-7 text-xs" />
+                    </div>
+                    <div>
+                      <label className="text-[9px] text-muted-foreground">Observed color</label>
+                      <Input placeholder="pale / golden-amber / dark" value={newBatch.observedColor} onChange={(e) => setNewBatch({ ...newBatch, observedColor: e.target.value })} className="h-7 text-xs" />
+                    </div>
+                    <div>
+                      <label className="text-[9px] text-muted-foreground">Observed crumb</label>
+                      <Input placeholder="fine / coarse / gummy" value={newBatch.observedCrumb} onChange={(e) => setNewBatch({ ...newBatch, observedCrumb: e.target.value })} className="h-7 text-xs" />
+                    </div>
+                    <div>
+                      <label className="text-[9px] text-muted-foreground">Collapse?</label>
+                      <select value={newBatch.observedCollapse} onChange={(e) => setNewBatch({ ...newBatch, observedCollapse: e.target.value })} className="w-full h-7 px-2 rounded border border-border bg-card text-xs">
+                        <option value="no">No</option>
+                        <option value="yes">Yes</option>
+                      </select>
+                    </div>
+                    <div>
+                      <label className="text-[9px] text-muted-foreground">Baked weight (g)</label>
+                      <Input type="number" placeholder="e.g. 78" value={newBatch.bakedWeight || ''} onChange={(e) => setNewBatch({ ...newBatch, bakedWeight: e.target.value })} className="h-7 text-xs" />
+                    </div>
+                    <div>
+                      <label className="text-[9px] text-muted-foreground">Height (mm)</label>
+                      <Input type="number" placeholder="e.g. 35" value={newBatch.height || ''} onChange={(e) => setNewBatch({ ...newBatch, height: e.target.value })} className="h-7 text-xs" />
+                    </div>
+                  </div>
+                  <div>
+                    <label className="text-[9px] text-muted-foreground">Modifications applied</label>
+                    <Input placeholder="e.g. chuño 15g, baking powder 3g" value={newBatch.modifications || ''} onChange={(e) => setNewBatch({ ...newBatch, modifications: e.target.value })} className="h-7 text-xs" />
+                  </div>
+                  <div>
+                    <label className="text-[9px] text-muted-foreground">Notes</label>
+                    <Input placeholder="Any observations, surprises, learnings" value={newBatch.notes || ''} onChange={(e) => setNewBatch({ ...newBatch, notes: e.target.value })} className="h-7 text-xs" />
+                  </div>
+                  <Button onClick={addBatch} size="sm" className="w-full h-8 text-xs gap-1">
+                    <CheckCircle2 className="h-3 w-3" />
+                    Save real batch observation
+                  </Button>
                 </div>
-              )}
-            </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
 
-            {/* Actions */}
-            {logs.length > 0 && (
-              <div className="flex gap-2">
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={exportLogs}
-                  className="h-8 text-xs gap-1.5 flex-1"
-                >
-                  <Download className="h-3 w-3" />
-                  Export
-                </Button>
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={clearLogs}
-                  className="h-8 text-xs gap-1.5 text-rose-600 hover:text-rose-700"
-                >
-                  <Trash2 className="h-3 w-3" />
-                  Clear
-                </Button>
+          {/* Batch list */}
+          <div className="max-h-[350px] overflow-y-auto scroll-warm rounded-md border border-border">
+            {batches.length === 0 ? (
+              <div className="p-6 text-center text-xs text-muted-foreground">
+                No real batches logged yet. Add an actual bake observation to start building evidence.
+              </div>
+            ) : (
+              <div className="divide-y divide-border/40">
+                {batches.map((b) => (
+                  <div key={b.id} className="p-2.5 text-xs hover:bg-accent/20 transition-colors">
+                    <div className="flex items-center justify-between gap-2 mb-1">
+                      <span className="font-medium truncate">{b.variant.substring(0, 30)}</span>
+                      <span className="font-mono text-[10px] text-muted-foreground flex-shrink-0">{b.date}</span>
+                    </div>
+                    <div className="grid grid-cols-2 gap-1 text-[10px] text-muted-foreground">
+                      <span>🌡 {b.temperature}°C · ⏱ {b.duration}min</span>
+                      <span>Rise: {b.observedRise || '—'}</span>
+                      <span>Color: {b.observedColor || '—'}</span>
+                      <span>Crumb: {b.observedCrumb || '—'}</span>
+                      {b.bakedWeight && <span>Weight: {b.bakedWeight}g</span>}
+                      {b.height && <span>Height: {b.height}mm</span>}
+                      {b.observedCollapse === 'yes' && <span className="text-rose-600 dark:text-rose-400">⚠ Collapse</span>}
+                    </div>
+                    {b.notes && <div className="text-[10px] text-muted-foreground mt-1 italic">{b.notes}</div>}
+                  </div>
+                ))}
               </div>
             )}
           </div>
+
+          {/* Actions */}
+          {batches.length > 0 && (
+            <div className="flex gap-2 mt-2">
+              <Button variant="outline" size="sm" onClick={exportBatches} className="h-7 text-xs gap-1 flex-1">
+                <Download className="h-3 w-3" />
+                Export
+              </Button>
+              <Button variant="outline" size="sm" onClick={clearBatches} className="h-7 text-xs gap-1 text-rose-600 hover:text-rose-700">
+                <Trash2 className="h-3 w-3" />
+                Clear
+              </Button>
+            </div>
+          )}
         </div>
       </CardContent>
     </Card>
   )
 }
 
-function ResultRow({ label, value }: { label: string; value: string }) {
-  const isBad = ['insufficient', 'excessive', 'pale', 'dark', 'gummy', 'sulfur', 'yes'].includes(value)
-  const isGood = ['sufficient', 'golden-amber', 'fine', 'clean', 'no'].includes(value)
-  return (
-    <div className="flex items-center justify-between">
-      <span className="text-muted-foreground">{label}:</span>
-      <span className={cn(
-        'font-mono font-medium',
-        isBad ? 'text-rose-600 dark:text-rose-400' : isGood ? 'text-emerald-600 dark:text-emerald-400' : 'text-foreground',
-      )}>
-        {value}
-      </span>
-    </div>
-  )
-}
-
-function OutcomeChip({ label }: { label: string }) {
-  const isBad = ['insufficient', 'excessive', 'pale', 'dark', 'gummy', 'sulfur'].includes(label)
-  const isGood = ['sufficient', 'golden-amber', 'fine', 'clean'].includes(label)
-  return (
-    <span className={cn(
-      'text-[9px] font-mono px-1.5 py-0.5 rounded border',
-      isBad
-        ? 'text-rose-600 dark:text-rose-400 bg-rose-50 dark:bg-rose-950/40 border-rose-200 dark:border-rose-800'
-        : isGood
-          ? 'text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/40 border-emerald-200 dark:border-emerald-800'
-          : 'text-amber-600 dark:text-amber-400 bg-amber-50 dark:bg-amber-950/40 border-amber-200 dark:border-amber-800',
-    )}>
-      {label}
-    </span>
-  )
-}
+// Keep this import for the CheckCircle2 icon used in the form
+import { CheckCircle2 } from 'lucide-react'

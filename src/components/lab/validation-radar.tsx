@@ -40,6 +40,7 @@ export function ValidationRadar({ validations }: { validations: ValidationRound[
     return {
       lens: lensLabels[v.lens] ?? v.lens,
       fullLabel: `${lensLabels[v.lens] ?? v.lens} (R${v.round})`,
+      round: v.round,
       score: Math.round(avgScore),
       passPct,
       passCount,

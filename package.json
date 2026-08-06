@@ -7,6 +7,8 @@
     "build": "next build",
     "start": "npx serve out",
     "lint": "eslint .",
+    "test": "bunx playwright test",
+    "test:ui": "bunx playwright test --ui",
     "db:push": "prisma db push --accept-data-loss",
     "db:generate": "prisma generate",
     "db:migrate": "prisma migrate dev",

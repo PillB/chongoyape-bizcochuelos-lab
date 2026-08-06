@@ -223,7 +223,7 @@ export function RecipeLab({ recipes }: { recipes: RecipeVariant[] }) {
                                 <td className="py-2.5 px-2 text-right font-mono font-semibold tabular-nums">{ing.grams > 0 ? ing.grams : '—'}</td>
                                 <td className="py-2.5 px-2 text-right font-mono text-muted-foreground tabular-nums">{ing.percent.toFixed(1)}</td>
                                 <td className="py-2.5 px-3 text-right font-mono text-muted-foreground tabular-nums">
-                                  {totalGrams > 0 ? ((ing.grams / selected.ingredients[0].grams) * 100).toFixed(0) : '—'}
+                                  {totalGrams > 0 ? ((ing.grams / Math.max(selected.ingredients.find(i => i.name.toLowerCase().includes('flour'))?.grams || 1, 1)) * 100).toFixed(0) : '—'}
                                 </td>
                               </tr>
                             ))}

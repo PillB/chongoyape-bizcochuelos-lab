@@ -10,9 +10,9 @@ const nextConfig: NextConfig = {
     unoptimized: true,
   },
   typescript: {
-    ignoreBuildErrors: true,
+    ignoreBuildErrors: false,
   },
-  reactStrictMode: false,
+  reactStrictMode: true,
   // GitHub Pages serves at https://<user>.github.io/<repo>/
   // basePath must be set for production builds; empty for dev
   ...(process.env.NODE_ENV === "production" && {

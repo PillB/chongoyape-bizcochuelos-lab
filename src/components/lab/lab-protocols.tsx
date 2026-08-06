@@ -99,7 +99,7 @@ export function LabProtocols() {
                   <li>4. Provide water palate cleanser between samples</li>
                   <li>5. Ask: "Which sample is different?"</li>
                   <li>6. Minimum 12 assessors for statistical power</li>
-                  <li>7. Chance = 33%; significance at p&lt;0.05 requires ≥7/12 correct</li>
+                  <li>7. Chance = 1/3 (33%); significance at p&lt;0.05 requires ≥8/12 correct (one-tailed binomial)</li>
                   <li>8. Randomize serving order across assessors</li>
                   <li>9. Blind: assessors must not know which is the variable</li>
                 </ol>

@@ -35,8 +35,9 @@ interface Toggle {
 interface Effect {
   metric: string
   direction: 'up' | 'down' | 'neutral'
-  magnitude: string
+  magnitude: string // qualitative only — NOT a measured percentage
   detail: string
+  uncertainty: 'low' | 'medium' | 'high'
 }
 
 interface Risk {
@@ -163,43 +164,43 @@ export function RecipeSandbox() {
     const list: Effect[] = []
 
     if (isOn('chuño')) {
-      list.push({ metric: 'Crumb tenderness', direction: 'up', magnitude: '+15%', detail: 'Starch dilutes gluten, finer crumb' })
-      list.push({ metric: 'Shelf life', direction: 'up', magnitude: '+1 day', detail: 'Starch retrogrades slower than gluten' })
-      list.push({ metric: 'Crumb strength', direction: 'down', magnitude: '-10%', detail: 'Slightly more fragile — fold gently' })
+      list.push({ metric: 'Crumb tenderness', direction: 'up', magnitude: 'increases', detail: 'Starch dilutes gluten-forming proteins', uncertainty: 'low' })
+      list.push({ metric: 'Staling rate', direction: 'down', magnitude: 'slows', detail: 'Potato starch retrogrades more slowly than wheat starch', uncertainty: 'medium' })
+      list.push({ metric: 'Crumb strength', direction: 'down', magnitude: 'decreases', detail: 'Reduced gluten network is more fragile', uncertainty: 'medium' })
     }
     if (isOn('leavener')) {
-      list.push({ metric: 'Oven spring', direction: 'up', magnitude: '+8%', detail: 'Extra CO₂ lift beyond foam' })
-      list.push({ metric: 'Crumb cell size', direction: 'up', magnitude: '+20%', detail: 'Coarser, more open cells' })
-      list.push({ metric: 'Flavor purity', direction: 'down', magnitude: 'risk', detail: 'Possible chemical aftertaste' })
+      list.push({ metric: 'Oven spring', direction: 'up', magnitude: 'increases', detail: 'Supplemental CO₂ lift beyond foam aeration', uncertainty: 'low' })
+      list.push({ metric: 'Crumb cell size', direction: 'up', magnitude: 'coarsens', detail: 'Additional gas bubbles create larger cells', uncertainty: 'medium' })
+      list.push({ metric: 'Flavor purity', direction: 'down', magnitude: 'risk of off-flavor', detail: 'Possible chemical aftertaste if dose is high', uncertainty: 'high' })
     }
     if (isOn('oil')) {
-      list.push({ metric: 'Day-2 moisture', direction: 'up', magnitude: '+25%', detail: 'Fat retains moisture, delays staling' })
-      list.push({ metric: 'Foam volume', direction: 'down', magnitude: '-12%', detail: 'Fat deflates egg foam during folding' })
-      list.push({ metric: 'Mouthfeel', direction: 'up', magnitude: 'softer', detail: 'Richer, more tender bite' })
+      list.push({ metric: 'Day-2 moisture', direction: 'up', magnitude: 'improves', detail: 'Fat coats starch, slows water migration', uncertainty: 'low' })
+      list.push({ metric: 'Foam volume', direction: 'down', magnitude: 'decreases', detail: 'Fat interferes with egg foam protein network', uncertainty: 'low' })
+      list.push({ metric: 'Mouthfeel', direction: 'up', magnitude: 'softer', detail: 'Fat improves lubricity and tenderness', uncertainty: 'medium' })
     }
     if (isOn('vanilla')) {
-      list.push({ metric: 'Aroma complexity', direction: 'up', magnitude: '+1 note', detail: 'Vanillin adds sweet top note' })
-      list.push({ metric: 'Egg aroma purity', direction: 'down', magnitude: 'masked', detail: 'Distracts from clean egg flavor' })
+      list.push({ metric: 'Aroma complexity', direction: 'up', magnitude: 'adds note', detail: 'Vanillin adds sweet top note — NOT evidenced for Valera', uncertainty: 'high' })
+      list.push({ metric: 'Egg aroma purity', direction: 'down', magnitude: 'masks', detail: 'Distracts from clean egg flavor', uncertainty: 'medium' })
     }
     if (isOn('separated')) {
-      list.push({ metric: 'Total volume', direction: 'up', magnitude: '+15%', detail: 'Whipped whites add extra aeration' })
-      list.push({ metric: 'Crumb uniformity', direction: 'down', magnitude: '-10%', detail: 'Risk of larger cells if overfolded' })
-      list.push({ metric: 'Workflow steps', direction: 'up', magnitude: '+3 steps', detail: 'Extra bowl, whipping, 3-stage fold' })
+      list.push({ metric: 'Total volume', direction: 'up', magnitude: 'increases', detail: 'Whites-only foam achieves higher overrun', uncertainty: 'low' })
+      list.push({ metric: 'Crumb uniformity', direction: 'down', magnitude: 'risk of unevenness', detail: 'Multiple folding stages risk uneven distribution', uncertainty: 'medium' })
+      list.push({ metric: 'Workflow steps', direction: 'up', magnitude: 'more complex', detail: 'Extra bowl, separate whipping, 3-stage fold', uncertainty: 'low' })
     }
     if (isOn('smoke')) {
-      list.push({ metric: 'Crust aroma', direction: 'up', magnitude: '+1 note', detail: 'Faint smoke on crust (if perceptible)' })
-      list.push({ metric: 'Color depth', direction: 'up', magnitude: '+5%', detail: 'Slightly darker surface' })
-      list.push({ metric: 'Predictability', direction: 'down', magnitude: 'low', detail: 'Unverified — needs triangle test' })
+      list.push({ metric: 'Crust aroma', direction: 'up', magnitude: 'may add note', detail: 'Algarrobo phenols may adsorb to crust — perceptibility unverified', uncertainty: 'high' })
+      list.push({ metric: 'Color depth', direction: 'up', magnitude: 'may darken', detail: 'Surface darkening from combustion products', uncertainty: 'high' })
+      list.push({ metric: 'Predictability', direction: 'down', magnitude: 'unverified', detail: 'Needs controlled triangle test after unsmoked control', uncertainty: 'high' })
     }
     if (isOn('algarrobina')) {
-      list.push({ metric: 'Crust color', direction: 'up', magnitude: '+20% darker', detail: 'Molasses + Maillard deepens amber' })
-      list.push({ metric: 'Flavor identity', direction: 'down', magnitude: 'changed', detail: 'Carob note contradicts "pure egg" claim' })
-      list.push({ metric: 'Sweetness', direction: 'neutral', magnitude: 'balanced', detail: 'Sugar reduced 8g to compensate' })
+      list.push({ metric: 'Crust color', direction: 'up', magnitude: 'deepens', detail: 'Molasses + Maillard — sugar reduction does NOT fully account for water/soluble solids', uncertainty: 'high' })
+      list.push({ metric: 'Flavor identity', direction: 'down', magnitude: 'changes', detail: 'Carob note contradicts thesis ingredient list (no algarrobina listed)', uncertainty: 'high' })
+      list.push({ metric: 'Sweetness', direction: 'neutral', magnitude: 'unpredictable', detail: 'Sugar reduction does not account for algarrobina water content and soluble solids', uncertainty: 'high' })
     }
     if (isOn('stone')) {
-      list.push({ metric: 'Base color', direction: 'up', magnitude: '+15%', detail: 'Stronger bottom radiant heat' })
-      list.push({ metric: 'Rise speed', direction: 'up', magnitude: '+10%', detail: 'Faster initial set, taller dome' })
-      list.push({ metric: 'Burn risk', direction: 'up', magnitude: 'medium', detail: 'Monitor base — reduce temp 10°C if needed' })
+      list.push({ metric: 'Base color', direction: 'up', magnitude: 'darkens', detail: 'Stronger conductive heat from stone', uncertainty: 'low' })
+      list.push({ metric: 'Rise speed', direction: 'up', magnitude: 'faster', detail: 'Faster initial heat set promotes earlier structure', uncertainty: 'medium' })
+      list.push({ metric: 'Burn risk', direction: 'up', magnitude: 'increases', detail: 'Excessive bottom heat can scorch before crumb sets', uncertainty: 'medium' })
     }
 
     return list
@@ -209,43 +210,42 @@ export function RecipeSandbox() {
   const assessment = useMemo(() => {
     const isOn = (id: string) => toggles.find((t) => t.id === id)?.enabled ?? false
     const risks: Risk[] = []
-    let fidelityScore = 100
+    // NOTE: No arbitrary numerical fidelity score.
+    // Instead, we classify the current configuration qualitatively.
+    let hasHighRisk = false
+    let hasMediumRisk = false
 
     if (isOn('leavener')) {
-      risks.push({ level: 'high', text: 'Chemical leavener taste risk — contradicts foam-only principle' })
-      fidelityScore -= 20
+      risks.push({ level: 'high', text: 'Chemical leavener taste risk — contradicts foam-only principle. Thesis confirms Valera uses baking powder, but dose and effect are unverified.' })
+      hasHighRisk = true
     }
     if (isOn('oil')) {
-      risks.push({ level: 'medium', text: 'Fat deflates foam; chiffon-style departs from traditional bizcochuelo' })
-      fidelityScore -= 10
+      risks.push({ level: 'medium', text: 'Fat deflates foam; chiffon-style departs from traditional bizcochuelo. Thesis does not list oil (lists milk instead).' })
+      hasMediumRisk = true
     }
     if (isOn('algarrobina')) {
-      risks.push({ level: 'high', text: 'Algarrobina changes flavor identity — contradicts "pure egg" claim' })
-      fidelityScore -= 25
+      risks.push({ level: 'high', text: 'Algarrobina changes flavor identity — thesis ingredient list does NOT include algarrobina. Sugar reduction does not account for water/soluble solids.' })
+      hasHighRisk = true
     }
     if (isOn('smoke')) {
-      risks.push({ level: 'medium', text: 'Smoke perceptibility unverified — may add nothing or overpower' })
-      fidelityScore -= 10
+      risks.push({ level: 'medium', text: 'Smoke perceptibility unverified — needs controlled triangle test after unsmoked control succeeds.' })
+      hasMediumRisk = true
     }
     if (isOn('vanilla')) {
-      risks.push({ level: 'low', text: 'Vanilla not advertised on label — adds unverified aroma' })
-      fidelityScore -= 5
+      risks.push({ level: 'low', text: 'Vanilla NOT in thesis ingredient list — contradicted by primary source. Kept as diagnostic only.' })
     }
     if (isOn('chuño')) {
-      risks.push({ level: 'low', text: 'Chuño plausible but unverified — test against cornstarch control' })
-      fidelityScore -= 3
+      risks.push({ level: 'low', text: 'Chuño confirmed by thesis — plausible. Test against cornstarch control.' })
     }
     if (isOn('separated')) {
-      risks.push({ level: 'low', text: 'Adds steps; whole-egg is the simpler canonical method' })
-      fidelityScore -= 5
+      risks.push({ level: 'low', text: 'Adds steps; whole-egg is the simpler canonical method. Thesis does not specify method.' })
     }
     if (isOn('stone')) {
-      risks.push({ level: 'low', text: 'Thermal-only simulation — safe, no flavor impact' })
-      // No fidelity penalty — stone is purely thermal
+      risks.push({ level: 'low', text: 'Thermal-only simulation — safe, no flavor impact. Validated approach for deck-heat approximation.' })
     }
 
-    const tier = fidelityScore >= 90 ? 'core' : fidelityScore >= 70 ? 'diagnostic' : fidelityScore >= 50 ? 'substitution' : 'speculative'
-    return { risks, fidelityScore, tier }
+    const tier = hasHighRisk ? 'speculative' : hasMediumRisk ? 'diagnostic' : 'core'
+    return { risks, tier }
   }, [toggles])
 
   const tierConfig = {
@@ -253,7 +253,9 @@ export function RecipeSandbox() {
     diagnostic: { label: 'Diagnostic tier', color: 'text-violet-600 dark:text-violet-400', bg: 'bg-violet-50 dark:bg-violet-950/30', border: 'border-violet-200 dark:border-violet-800' },
     substitution: { label: 'Substitution tier', color: 'text-teal-600 dark:text-teal-400', bg: 'bg-teal-50 dark:bg-teal-950/30', border: 'border-teal-200 dark:border-teal-800' },
     speculative: { label: 'Speculative tier', color: 'text-rose-600 dark:text-rose-400', bg: 'bg-rose-50 dark:bg-rose-950/30', border: 'border-rose-200 dark:border-rose-800' },
-  }[assessment.tier]
+  }[assessment.tier as 'core' | 'diagnostic' | 'substitution' | 'speculative'] ?? {
+    label: 'Unknown', color: 'text-muted-foreground', bg: 'bg-muted', border: 'border-border',
+  }
 
   return (
     <Card className="bg-gradient-to-br from-primary/5 to-card border-primary/20">
@@ -453,12 +455,11 @@ export function RecipeSandbox() {
                   <div className="flex items-center gap-1.5">
                     <AlertTriangle className={cn('h-3.5 w-3.5', tierConfig.color)} />
                     <span className={cn('text-[10px] font-semibold uppercase tracking-wider', tierConfig.color)}>
-                      Fidelity assessment
+                      Configuration assessment
                     </span>
                   </div>
-                  <span className={cn('font-mono text-lg font-bold tabular-nums', tierConfig.color)}>
-                    {assessment.fidelityScore}
-                    <span className="text-[10px] text-muted-foreground">/100</span>
+                  <span className={cn('text-xs font-semibold', tierConfig.color)}>
+                    {tierConfig.label}
                   </span>
                 </div>
                 <div className="space-y-1.5">
