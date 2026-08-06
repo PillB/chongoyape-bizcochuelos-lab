@@ -53,11 +53,13 @@ export function GlossaryButton() {
         <div className="relative">
           <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-muted-foreground" />
           <Input
+            id="glossary-search"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search terms…"
             className="pl-8"
             autoFocus
+            aria-label="Search glossary terms"
           />
         </div>
         <ScrollArea className="max-h-[400px] -mx-1 px-1">
