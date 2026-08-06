@@ -335,3 +335,47 @@ the page wrapper and the component in a prior bug — ensure ids are unique.
 5. **Never** hardcode the basePath or use `window.location` for asset URLs.
 6. **Always** regenerate `public/lab-data.json` after seed/schema changes.
 7. If you hit a new pitfall, add it to §4 and the checklist in §5.
+
+---
+
+## 10. One-Time Setup: GitHub `workflow` Scope
+
+The GitHub Actions workflow files (`.github/workflows/*.yml`) require the
+token to have the **`workflow` scope**. The default `gh auth` scopes are
+`gist, read:org, repo` — which is enough for code pushes but **rejects**
+workflow file creation with:
+
+```
+refusing to allow an OAuth App to create or update workflow `.github/workflows/ci.yml` without `workflow` scope
+```
+
+### To enable CI/CD (run once):
+
+```bash
+export PATH="/home/z/.local/bin:$PATH"
+gh auth refresh --hostname github.com --scopes workflow
+# → prints a device code, e.g. "ABCD-1234"
+# → open https://github.com/login/device and enter the code
+# → authorize
+```
+
+Then push the workflow files:
+
+```bash
+bash .zscripts/push-workflows.sh
+# or manually:
+git add .github/ && git commit -m "CI/CD: add GitHub Actions workflows" && git push origin main
+```
+
+After this one-time setup, every push to `main` will automatically:
+1. Run **CI** (lint + build) — `.github/workflows/ci.yml`
+2. **Deploy** to gh-pages + smoke-test the live URL — `.github/workflows/deploy.yml`
+
+### Until the workflow scope is granted:
+
+- Code pushes (non-workflow files) work normally.
+- Manual deploy: `NODE_ENV=production bun run build && touch out/.nojekyll`
+  then force-push `out/` to the `gh-pages` branch (see Task ID 11 in
+  `worklog.md` for the exact commands).
+- The workflow files exist locally in `.github/workflows/` but are **not**
+  committed to the remote until the scope is granted.
