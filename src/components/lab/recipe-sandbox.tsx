@@ -394,7 +394,12 @@ export function RecipeSandbox() {
                   transition={{ duration: 0.2 }}
                 >
                   <div className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground mb-2">
-                    Predicted effects ({effects.length})
+                    Qualitative directions ({effects.length})
+                  </div>
+                  <div className="text-[10px] text-muted-foreground mb-2 leading-relaxed">
+                    NOTE: These are qualitative expectations from food science — NOT quantitative predictions.
+                    For full mechanism details, evidence, and validating experiments, see the
+                    <strong className="text-foreground"> Mechanism Explorer</strong> in the Real Batch Log section below.
                   </div>
                   <div className="grid sm:grid-cols-2 gap-2">
                     {effects.map((e, idx) => (
@@ -424,7 +429,14 @@ export function RecipeSandbox() {
                         <div className="flex-1 min-w-0">
                           <div className="flex items-baseline justify-between gap-2">
                             <span className="font-medium">{e.metric}</span>
-                            <span className="font-mono text-[10px] font-semibold tabular-nums">{e.magnitude}</span>
+                            <Badge variant="outline" className={cn(
+                              'text-[8px] h-3.5 px-1 font-mono',
+                              e.uncertainty === 'low' ? 'bg-emerald-50 text-emerald-700 border-emerald-200 dark:bg-emerald-950/30 dark:text-emerald-400' :
+                              e.uncertainty === 'medium' ? 'bg-amber-50 text-amber-700 border-amber-200 dark:bg-amber-950/30 dark:text-amber-400' :
+                              'bg-rose-50 text-rose-700 border-rose-200 dark:bg-rose-950/30 dark:text-rose-400'
+                            )}>
+                              {e.uncertainty}
+                            </Badge>
                           </div>
                           <div className="text-[10px] text-muted-foreground mt-0.5 leading-relaxed">{e.detail}</div>
                         </div>

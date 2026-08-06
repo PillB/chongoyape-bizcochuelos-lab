@@ -548,3 +548,9 @@ Read more: https://nextjs.org/docs/app/api-reference/config/next-config-js/allow
 ✓ Compiled in 234ms
 ⚠ Fast Refresh had to perform a full reload due to a runtime error.
  GET / 200 in 242ms (compile: 32ms, render: 210ms)
+ GET / 200 in 51ms (compile: 4ms, render: 48ms)
+ GET / 200 in 41ms (compile: 3ms, render: 38ms)
+ GET / 200 in 39ms (compile: 3ms, render: 36ms)
+✓ Compiled in 228ms
+error: script "dev" was terminated by signal SIGTERM (Polite quit request)
+[?25h
