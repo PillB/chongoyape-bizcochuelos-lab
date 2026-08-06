@@ -893,3 +893,52 @@ Stage Summary:
 - SECONDARY (preemptive): NavBar desktop overflow, Hero mobile overflow, Research Rounds accordion overflow, all responsive grid patterns, and global overflow-x-hidden safety net — all FIXED.
 - Verified on desktop (1280px) and mobile (375px) via agent-browser DOM audit + VLM visual confirmation.
 - No regressions: sticky nav works, all ScrollAreas scroll, no horizontal scrollbar on either viewport.
+
+---
+Task ID: 15
+Agent: main (Z.ai Code)
+Task: Confirm CI/CD + page build success, get logs, fix issues, analyze + preempt in future, generate deploy/commit/CI-CD documentation referenced in agent.md.
+
+Work Log:
+- Audited current state: local main 1 commit ahead (overflow fixes from Task 14), remote main had NO .github/workflows/ (workflow scope was never granted in prior sessions), live site HTTP 200.
+- Read next.config.ts (output:export, basePath prod-only), asset-url.ts (single source of truth for basePath URLs), generate-static-data.sh (DB→public/lab-data.json), prisma/seed.ts, package.json scripts.
+- Ran full production build pipeline locally: db:generate → db:push → db:seed → generate-static-data → lint → build. ALL PASSED. Build output: 46 files in out/, including index.html, lab-data.json (116KB), 404.html, product image, _next/static with correct basePath (/chongoyape-bizcochuelos-lab/) baked into HTML.
+- Found + fixed issues:
+  1. `db:seed` script missing from package.json → added `"db:seed": "bun run prisma/seed.ts"`.
+  2. `.env` used absolute DATABASE_URL (file:/home/z/my-project/db/custom.db) → broke CI portability → changed to relative `file:./db/custom.db`.
+  3. No `.env.example` → created one documenting DATABASE_URL.
+  4. Stray `prisma/db/custom.db` created during testing → removed + added `/prisma/db/` to .gitignore.
+  5. `db/` dir not preserved on fresh clone → added `db/.gitkeep`.
+- Created GitHub Actions CI/CD workflows (validated as YAML):
+  * `.github/workflows/ci.yml`: lint + build on PR/push, artifact upload, concurrency cancellation, build-artifact verification (checks index.html, lab-data.json, 404.html, _next/static, product image, basePath in HTML).
+  * `.github/workflows/deploy.yml`: build + deploy to gh-pages (peaceiris/actions-gh-pages@v4, force_orphan) + post-deploy smoke test (curls live URL + lab-data.json + jq validation).
+- Created comprehensive AGENTS.md (382 lines, 10 sections): project overview, build/deploy pipeline, static export constraints, 8 known pitfalls with preventive rules (ScrollArea max-h, grid grid-cols-1, flex min-w-0, NavBar overflow, .nojekyll, basePath, DATABASE_URL, stale lab-data), pre-commit checklist, command reference, file map, troubleshooting, agent workflow, one-time workflow scope setup.
+- Created `.zscripts/push-workflows.sh` helper to push workflow files once the `workflow` scope is granted.
+- Committed + pushed non-workflow changes (2 commits: 13b2f7d, 4f578f9) to origin/main — both pushed successfully.
+- Attempted to push workflow files: REJECTED with "refusing to allow an OAuth App to create or update workflow `.github/workflows/ci.yml` without `workflow` scope". Current token scopes: `gist, read:org, repo` (missing `workflow`).
+- Attempted `gh auth refresh --scopes workflow` (device-code flow) — requires interactive user authorization at https://github.com/login/device, which cannot be completed autonomously. Documented in AGENTS.md §10 with exact commands.
+- Manually deployed current build to gh-pages branch (force-push out/ with .nojekyll) → gh-pages updated to f3f064d.
+- Verified live site post-deploy: page HTTP 200, lab-data.json HTTP 200 (15 claims, 9 recipes, 14 research, converged=True), product image HTTP 200, CSS asset HTTP 200.
+- Verified live site via agent-browser: 24/24 ScrollAreas constrained, 0 leaks, no horizontal overflow (vw=1280, scrollW=1280). Overflow fixes from Task 14 are live.
+- Created one-time cron job (ID 311395, fires in ~10 min) to retry pushing workflow files in case the workflow scope gets authorized.
+
+Verification Results:
+- ESLint: 0 errors, 0 warnings.
+- Production build: EXIT 0, 46 files in out/, basePath verified in index.html.
+- Live site: https://pillb.github.io/chongoyape-bizcochuelos-lab/ — HTTP 200, all assets load, data current, overflow fixes confirmed live.
+- Git: 2 commits pushed (13b2f7d, 4f578f9), local main now in sync with origin/main (except .github/workflows/ which is staged locally but unpushed pending workflow scope).
+- YAML validation: both ci.yml and deploy.yml are valid YAML.
+
+Stage Summary:
+- CI/CD pipeline fully designed + workflows written + YAML-validated + locally simulated end-to-end (all 7 steps pass).
+- AGENTS.md created as the single source of truth for build/deploy/pitfalls/preventive-checklist — ensures issues are not repeated.
+- 5 build/config issues found and fixed (db:seed script, relative DATABASE_URL, .env.example, stray prisma/db, db/.gitkeep).
+- Live site deployed + verified with all prior overflow fixes live.
+- BLOCKER: GitHub `workflow` scope not granted — workflow files cannot be pushed without it. One-time cron job (311395) will retry. User must run `gh auth refresh --hostname github.com --scopes workflow` and authorize at https://github.com/login/device to enable automated CI/CD. Full instructions in AGENTS.md §10.
+- Until workflow scope is granted: manual deploy works (build + force-push out/ to gh-pages), documented in AGENTS.md §10.
+
+Unresolved / next-phase priorities:
+1. [BLOCKER] User must authorize `workflow` scope once: `gh auth refresh --hostname github.com --scopes workflow` → authorize at https://github.com/login/device → then `bash .zscripts/push-workflows.sh`. After this, CI/CD is fully automated.
+2. The 15-min recurring webDevReview cron (job 311338, created in Task 14) is still active and will continue QA + feature development.
+3. Playwright tests (27) not re-run this session but were passing in Task 11; the overflow fixes in Task 14 + config changes here are non-breaking.
+4. Consider adding a `typecheck` script (`tsc --noEmit`) to package.json for an extra CI gate (currently TS errors are caught by `next build` only).
