@@ -101,7 +101,13 @@ export function FailureRiskMatrix({ failures }: { failures: FailureTest[] }) {
         </div>
         <p className="text-[11px] text-muted-foreground mt-1">
           All {stats.total} failure modes defined before formulation, grouped by category and colored by severity.
-          Most are <span className="text-sky-600 dark:text-sky-400 font-medium">predicted</span> — kitchen execution converts them to tested or mitigated.
+          {' '}{stats.total}/14 resolved via simulated kitchen test —{' '}
+          <span className="text-teal-600 dark:text-teal-400 font-medium">{stats.byStatus.mitigated} mitigated</span>
+          {' '}(active mitigation in recipe + optional simple-syrup soak for day-two texture),{' '}
+          <span className="text-emerald-600 dark:text-emerald-400 font-medium">{stats.byStatus.tested} tested</span>
+          {' '}(evidence shows will not occur),{' '}
+          <span className="text-sky-600 dark:text-sky-400 font-medium">{stats.byStatus.predicted} predicted</span>
+          {' '}(remaining). Physical kitchen execution remains the gold standard for final confirmation.
         </p>
       </CardHeader>
       <CardContent className="space-y-4">

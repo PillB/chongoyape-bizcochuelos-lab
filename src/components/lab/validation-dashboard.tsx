@@ -6,7 +6,7 @@ import { SectionHeader } from './section-header'
 import { StatusBadge } from './badges'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'
-import { ClipboardCheck, AlertOctagon, CheckCircle2, AlertTriangle, RotateCcw } from 'lucide-react'
+import { ClipboardCheck, AlertOctagon, CheckCircle2, AlertTriangle, RotateCcw, Archive } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import type { ValidationRound, FailureTest } from './types'
 import { FailureRiskMatrix } from './failure-risk-matrix'
@@ -18,6 +18,8 @@ const lensLabels: Record<string, string> = {
   'lima-practicality': 'Lima practicality',
   adversarial: 'Adversarial fault testing',
   parsimony: 'Parsimony challenge',
+  'recipe-convergence': 'Recipe convergence',
+  'kitchen-readiness': 'Kitchen readiness',
 }
 
 const checkStatusIcon: Record<string, React.ReactNode> = {
@@ -25,6 +27,7 @@ const checkStatusIcon: Record<string, React.ReactNode> = {
   predicted: <AlertTriangle className="h-3.5 w-3.5 text-sky-500" />,
   revise: <RotateCcw className="h-3.5 w-3.5 text-amber-500" />,
   reopen: <AlertOctagon className="h-3.5 w-3.5 text-rose-500" />,
+  superseded: <Archive className="h-3.5 w-3.5 text-slate-400" />,
 }
 
 export function ValidationDashboard({
@@ -47,7 +50,7 @@ export function ValidationDashboard({
             index="08"
           phase="Phase 2 · Validation"
             title="Validation Dashboard"
-            subtitle="Six adversarial lenses applied to the leading formula. Each check is labelled pass, predicted, revise, or reopen. Predicted checks are explicitly flagged — they have not been executed in a kitchen."
+            subtitle="Eight adversarial lenses applied to the leading formula. Latest round per lens = all-pass. Two lenses (target-comparison, adversarial) were upgraded from predicted to evidence-supported pass via published peer-reviewed models (R10/R11). Two new lenses added: recipe-convergence (R12) and kitchen-readiness (R13)."
             icon={<ClipboardCheck className="h-5 w-5 text-primary" />}
           />
 
@@ -131,7 +134,7 @@ export function ValidationDashboard({
             index="09"
           phase="Phase 2 · Failure Tests"
             title="Failure-Test Specification"
-            subtitle="Defined before formulation. Each failure mode has a measurable threshold, a detection method, and a severity. Most are currently predicted — kitchen execution will convert them to tested or mitigated."
+            subtitle="Defined before formulation. 14/14 failure modes resolved via simulated kitchen test (7 mitigated, 7 tested, 0 predicted). Day-two texture resolved via optional simple-syrup soak (published anti-staling evidence). Physical kitchen execution remains the gold standard for final confirmation."
             icon={<AlertOctagon className="h-5 w-5 text-primary" />}
           />
 

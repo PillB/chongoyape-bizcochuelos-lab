@@ -10,7 +10,7 @@ export type Confidence =
 
 export type Tier = 'core' | 'substitution' | 'diagnostic' | 'speculative' | 'rejected' | 'optional'
 
-export type Status = 'pass' | 'revise' | 'reopen' | 'open' | 'downgraded' | 'removed' | 'predicted' | 'tested' | 'mitigated'
+export type Status = 'pass' | 'revise' | 'reopen' | 'open' | 'downgraded' | 'removed' | 'predicted' | 'tested' | 'mitigated' | 'superseded'
 
 export interface Claim {
   id: string

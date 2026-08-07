@@ -125,6 +125,10 @@ const statusConfig: Record<string, { label: string; className: string }> = {
     label: 'Mitigated',
     className: 'bg-teal-100 text-teal-900 border-teal-300 dark:bg-teal-950/60 dark:text-teal-300 dark:border-teal-800',
   },
+  superseded: {
+    label: 'Superseded',
+    className: 'bg-slate-100 text-slate-600 border-slate-300 dark:bg-slate-900/60 dark:text-slate-400 dark:border-slate-700',
+  },
 }
 
 export function StatusBadge({ value }: { value: string }) {

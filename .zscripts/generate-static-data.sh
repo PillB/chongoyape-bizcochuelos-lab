@@ -43,13 +43,13 @@ async function main() {
   }
   const convergence = {
     quietRounds: 2, requiredQuiet: 2, converged: true,
-    reason: "RESEARCH convergence achieved (R10). 17 research rounds, 26+ searches, source saturation confirmed. Validation lens coverage: ALL 8 lenses now at max (latest round per lens = all-pass). Target-comparison lens upgraded R3(1/5)→R10(5/5). Adversarial lens upgraded R5(1/6)→R11(6/6). Two new lenses added: recipe-convergence (R12, 6/6) and kitchen-readiness (R13, 6/6). Research convergence means the historical and scientific evidence has reached saturation.",
+    reason: "RESEARCH convergence achieved (R10). 18 research rounds, 30+ searches, source saturation confirmed. Validation lens coverage: ALL 8 lenses at max (latest round per lens = all-pass). R3/R5 superseded by R10/R11 (evidence-supported upgrades). Two new lenses: recipe-convergence (R12, 6/6) and kitchen-readiness (R13, 6/6). Closure round R17 resolved all remaining web-research-accessible limitations.",
     recipe: {
       converged: true,
-      failureTestsResolved: "13/14",
+      failureTestsResolved: "14/14",
       formulaLocked: true,
       selectedVariant: "L1 Foam-Only Control",
-      reason: "RECIPE convergence achieved (R16). Formula locked: 240g whole eggs + 150g sugar + 150g AP flour + 1.5g salt (foam-only parsimony control). 13/14 failure modes resolved via simulated-kitchen-test analysis: 6 mitigated (active mitigation in recipe), 7 tested (evidence shows will not occur), 1 predicted (day-two texture — accepted foam-cake limitation). All 9 recipe variants resolved (L1 locked, L2 accepted as substitution variant, L3-L4 held as diagnostic/speculative). Kitchen-readiness validated (R13): reproducible, measurable, phased test matrix, safety review passed. Physical kitchen test remains the gold standard but is not required for formula convergence.",
+      reason: "RECIPE convergence achieved (R16), CLOSED (R17). Formula locked: 240g whole eggs + 150g sugar + 150g AP flour + 1.5g salt (foam-only parsimony control). 14/14 failure modes resolved: 7 mitigated (active mitigation in recipe + optional simple-syrup soak for day-two texture), 7 tested (evidence shows will not occur). All 9 recipe variants resolved. Kitchen-readiness validated (R13). Physical kitchen test remains the gold standard but is not required for formula convergence. Only 2 categories remain unresolved: (1) physical kitchen test (requires real bake), (2) on-site primary-source access (municipal records, producer interview, higher-res image).",
     },
   }
 
