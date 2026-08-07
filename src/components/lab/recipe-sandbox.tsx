@@ -21,8 +21,10 @@ import {
   Minus,
   AlertTriangle,
   CheckCircle2,
+  FileText,
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
+import { GeneratedRecipeCard } from './generated-recipe-card'
 
 interface Toggle {
   id: string
@@ -115,6 +117,7 @@ const defaultToggles: Toggle[] = [
 
 export function RecipeSandbox() {
   const [toggles, setToggles] = useState<Toggle[]>(defaultToggles)
+  const [cardOpen, setCardOpen] = useState(false)
 
   const toggle = (id: string) => {
     setToggles((prev) => prev.map((t) => (t.id === id ? { ...t, enabled: !t.enabled } : t)))
@@ -277,6 +280,13 @@ export function RecipeSandbox() {
             >
               <RotateCcw className="h-3 w-3" />
               Reset
+            </button>
+            <button
+              onClick={() => setCardOpen(true)}
+              className="inline-flex items-center gap-1.5 h-8 px-3 rounded-md bg-primary text-primary-foreground text-xs font-medium hover:opacity-90 transition-opacity"
+            >
+              <FileText className="h-3.5 w-3.5" />
+              Generate recipe card
             </button>
           </div>
         </div>
@@ -490,6 +500,14 @@ export function RecipeSandbox() {
           </div>
         </div>
       </CardContent>
+      <GeneratedRecipeCard
+        open={cardOpen}
+        onOpenChange={setCardOpen}
+        toggles={toggles}
+        formula={formula}
+        tier={assessment.tier}
+        tierLabel={tierConfig.label}
+      />
     </Card>
   )
 }

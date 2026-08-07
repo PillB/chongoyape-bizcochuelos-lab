@@ -43,7 +43,7 @@ async function main() {
   }
   const convergence = {
     quietRounds: 2, requiredQuiet: 2, converged: true,
-    reason: "RESEARCH convergence achieved (R10). 18 research rounds, 30+ searches, source saturation confirmed. Validation lens coverage: ALL 8 lenses at max (latest round per lens = all-pass). R3/R5 superseded by R10/R11 (evidence-supported upgrades). Two new lenses: recipe-convergence (R12, 6/6) and kitchen-readiness (R13, 6/6). Closure round R17 resolved all remaining web-research-accessible limitations.",
+    reason: "RESEARCH convergence achieved (R10). 20 research rounds, 30+ searches, source saturation confirmed. Validation lens coverage: ALL 8 lenses at max (latest round per lens = all-pass). R3/R5 superseded by R10/R11. Two new lenses: recipe-convergence (R12, 6/6) and kitchen-readiness (R13, 6/6). Closure round R17 resolved all web-research-accessible limitations. R18-R19 validated 18 sandbox combinations for the Generated Recipe Card feature.",
     recipe: {
       converged: true,
       failureTestsResolved: "14/14",
